@@ -1,0 +1,54 @@
+PODS:
+  - Alamofire (4.5.1)
+  - Kingfisher (4.1.0)
+  - Moya (9.0.0):
+    - Moya/Core (= 9.0.0)
+  - Moya/Core (9.0.0):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - PromiseKit (4.4.0):
+    - PromiseKit/Foundation (= 4.4.0)
+    - PromiseKit/QuartzCore (= 4.4.0)
+    - PromiseKit/UIKit (= 4.4.0)
+  - PromiseKit/CoreLocation (4.4.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (4.4.0)
+  - PromiseKit/Foundation (4.4.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.4.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.4.0):
+    - PromiseKit/CorePromise
+  - Realm (3.0.0):
+    - Realm/Headers (= 3.0.0)
+  - Realm/Headers (3.0.0)
+  - RealmSwift (3.0.0):
+    - Realm (= 3.0.0)
+  - Result (3.2.4)
+  - RxCocoa (3.6.1):
+    - RxSwift (~> 3.6)
+  - RxSwift (3.6.1)
+
+DEPENDENCIES:
+  - Kingfisher (~> 4.0)
+  - Moya
+  - PromiseKit (~> 4.4)
+  - PromiseKit/CoreLocation
+  - RealmSwift
+  - RxCocoa
+  - RxSwift
+
+SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
+  Moya: cf5e6ee93af526532f92614004b8ad2ea60fd845
+  PromiseKit: ecf5fe92275d57ee77c9ede858af47a162e9b97e
+  Realm: dec0de73be8c57506e39db72694d513c189493b3
+  RealmSwift: 44a7090b16d1b22a406c6bf129bdd602db1bbecc
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
+  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
+
+PODFILE CHECKSUM: 4d66e1adf4bc4c6bcc50037040e89b275030ad14
+
+COCOAPODS: 1.2.1

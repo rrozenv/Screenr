@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Screenr
-//
-//  Created by Robert Rozenvasser on 10/14/17.
-//  Copyright © 2017 GoKid. All rights reserved.
-//
 
 import UIKit
 
@@ -13,9 +6,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        window?.rootViewController = AppController()
+//        if !RealmManager.isUserLoggedIn() {
+//            RealmManager.register(username: "rrozenv@yahoo.com", password: "Master12!").then { (user) in
+//                RealmManager.setDefaultRealmConfiguration(with: user, userName: "rrozenv@yahoo.com")
+//                }.catch { (error) in
+//                    print("ERROR: \(error)")
+//            }
+//        }
         return true
     }
 

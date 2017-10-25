@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Screenr/App Controller/AppController.swift"
+            timestampString = "530637361.506327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "switchViewController(with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Screenr.AppController.switchViewController(with: Foundation.Notification) -&gt; ()"
+                  moduleName = "Screenr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rrozenv/Desktop/Xcode%20Projects/Screenr/Screenr/App%20Controller/AppController.swift"
+                  timestampString = "530637224.433892"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "897">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Screenr.AppController.switchViewController(with: Foundation.Notification) -&gt; ()"
+                  moduleName = "Screenr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rrozenv/Desktop/Xcode%20Projects/Screenr/Screenr/App%20Controller/AppController.swift"
+                  timestampString = "530637224.443539"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "89"
+                  endingLineNumber = "89"
+                  offsetFromSymbolStart = "938">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Screenr/App Controller/AppController.swift"
+            timestampString = "530637361.506862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "switchToViewController(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Screenr/App Controller/AppController.swift"
+            timestampString = "530637361.507174"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "switchToViewController(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Screenr.AppController.(switchToViewController in _C50FB0C370CF6B287834A76217D84B13)(__ObjC.UIViewController) -&gt; ()"
+                  moduleName = "Screenr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rrozenv/Desktop/Xcode%20Projects/Screenr/Screenr/App%20Controller/AppController.swift"
+                  timestampString = "530637261.946596"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "749">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Screenr.AppController.(switchToViewController in _C50FB0C370CF6B287834A76217D84B13)(__ObjC.UIViewController) -&gt; ()"
+                  moduleName = "Screenr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rrozenv/Desktop/Xcode%20Projects/Screenr/Screenr/App%20Controller/AppController.swift"
+                  timestampString = "530637261.949142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

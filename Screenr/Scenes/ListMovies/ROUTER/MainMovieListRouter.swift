@@ -1,0 +1,48 @@
+
+import UIKit
+
+@objc protocol MainMovieListRoutingLogic {
+  func routeToShowMovieShowtimes()
+    func routeToSettings()
+}
+
+protocol MainMovieListDataPassing {
+  var dataStore: MainMovieListDataStore? { get }
+}
+
+class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDataPassing {
+    
+    weak var viewController: MainMovieListViewController?
+    var dataStore: MainMovieListDataStore?
+  
+  // MARK: Routing
+    func routeToShowMovieShowtimes() {
+        let destinationVC = ListShowTimesViewController()
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToShowOrder(source: dataStore!, destination: &destinationDS)
+        navigateToShowOrder(source: viewController!, destination: destinationVC)
+    }
+    
+    func routeToSettings() {
+        let destinationVC = SettingsViewController()
+        navigateToSettings(source: viewController!, destination: destinationVC)
+    }
+  
+  // MARK: Navigation
+  
+  func navigateToShowOrder(source: MainMovieListViewController, destination: ListShowTimesViewController) {
+     source.navigationController?.pushViewController(destination, animated: true)
+  }
+    
+    func navigateToSettings(source: MainMovieListViewController, destination: SettingsViewController) {
+        source.navigationController?.pushViewController(destination, animated: true)
+    }
+  
+  // MARK: Passing data
+  
+  func passDataToShowOrder(source: MainMovieListDataStore, destination: inout ListShowtimesDataStore) {
+    let selectedRow = viewController?.collectionView.indexPathsForSelectedItems?.first
+    destination.movie = source.movies?[(selectedRow?.row)!]
+  }
+    
+}

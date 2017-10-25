@@ -1,0 +1,6 @@
+framework module Pods_Screenr {
+  umbrella header "Pods-Screenr-umbrella.h"
+
+  export *
+  module * { export * }
+}
