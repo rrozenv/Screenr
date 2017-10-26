@@ -22,9 +22,8 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     func loadCachedMovies(request: MainMovieList.Request) {
         let resource = moviesResource(for: request.location)
         if let cachedMovies = moviesWorker.loadCachedMovies(resource) {
-            self.movies = cachedMovies
-            let response = MainMovieList.Response(movies: cachedMovies)
-            self.presenter?.presentCachedMovieList(response: response)
+            self.saveMoviesToDataStore(cachedMovies)
+            self.generateResponseForPresenter(with: cachedMovies)
         }
     }
     
@@ -32,15 +31,27 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         let resource = moviesResource(for: request.location)
         moviesWorker.fetchCurrentlyPlayingMovies(resource).then { [weak self] movies -> Void in
             guard let strongSelf = self else { return }
-            strongSelf.movies = movies
-            let response = MainMovieList.Response(movies: movies)
-            strongSelf.presenter?.presentMovieList(response: response)
+            strongSelf.saveMoviesToDataStore(movies)
+            strongSelf.generateResponseForPresenter(with: movies)
             }.catch { [weak self] (error) -> Void in
                 guard let strongSelf = self else { return }
-                let response = MainMovieList.Response(movies: nil)
-                strongSelf.presenter?.presentMovieList(response: response)
+                strongSelf.generateResponseForPresenter(with: nil)
                 print(error.localizedDescription)
             }
+    }
+    
+    fileprivate func saveMoviesToDataStore(_ movies: [Movie]) {
+        self.movies = movies
+    }
+    
+    fileprivate func generateResponseForPresenter(with movies: [Movie]?) {
+        if let movies = movies {
+            let response = MainMovieList.Response(movies: movies)
+            self.presenter?.presentMovieList(response: response)
+        } else {
+            let response = MainMovieList.Response(movies: nil)
+            self.presenter?.presentMovieList(response: response)
+        }
     }
     
     func saveMovieToDatabase(request: MainMovieList.SaveMovie.Request) {

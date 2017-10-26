@@ -87,6 +87,7 @@ extension AppController {
         case Notification.Name.logout:
             let loginVC = LoginViewController()
             switchToViewController(loginVC)
+            print("USER STATE NOW: \(UserState.currentState)")
         default:
             fatalError("\(#function) - Unable to match notficiation name.")
         }

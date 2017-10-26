@@ -1,10 +1,3 @@
-//
-//  RealmManager.swift
-//  Screenr
-//
-//  Created by Robert Rozenvasser on 10/23/17.
-//  Copyright © 2017 GoKid. All rights reserved.
-//
 
 import Foundation
 import RealmSwift
@@ -13,13 +6,14 @@ import PromiseKit
 class User: Object {
     
     // MARK: - Properties
-    dynamic var id = UUID().uuidString
+    dynamic var id: String = ""
     dynamic var name: String = ""
     dynamic var email: String = ""
     
     // MARK: - Init
-    convenience init(name: String, email: String) {
+    convenience init(syncUser: SyncUser, name: String, email: String) {
         self.init()
+        self.id = syncUser.identity ?? ""
         self.name = name
         self.email = email
     }
@@ -33,10 +27,34 @@ class User: Object {
 
 final class RealmManager {
     
+    enum RealmError: Error {
+        case userNotLoaded
+    }
+    
     static let syncHost = "127.0.0.1"
     static let syncAuthURL = URL(string: "http://\(syncHost):9080")!
     static let syncServerURL = URL(string: "realm://\(syncHost):9080/~/screenr")!
-    static let realm: Realm = try! Realm()
+    
+    class func loadExistingUser(with syncUser: SyncUser) -> Promise<User> {
+        let realm = try! Realm()
+        return Promise { fullfill, reject in
+                if let user = realm.object(ofType: User.self, forPrimaryKey: syncUser.identity) {
+                   fullfill(user)
+                } else {
+                    reject(RealmError.userNotLoaded)
+                }
+        }
+    }
+    
+    class func createNewUser(syncUser: SyncUser, _ name: String, _ email: String) -> User {
+        let realm = try! Realm()
+        let user = User(syncUser: syncUser, name: name, email: email)
+        //UserDefaults.standard.set(syncUser.identity, forKey: "userID")
+        try! realm.write {
+            realm.add(user)
+        }
+        return user
+    }
     
     class func isUserLoggedIn() -> SyncUser? {
         guard let syncUser = SyncUser.current else {
@@ -90,9 +108,10 @@ final class RealmManager {
         }
     }
 
-    class func addObject(_ object: Movie, primaryKey: String)   {
-        if let _ = realm.object(ofType: Movie.self, forPrimaryKey: primaryKey) { return }
-        try! self.realm.write {
+    class func addObject<T: Object>(_ object: T, primaryKey: String) {
+        let realm = try! Realm()
+        if let _ = realm.object(ofType: T.self, forPrimaryKey: primaryKey) { return }
+        try! realm.write {
             realm.add(object)
             print("Added new object")
         }
