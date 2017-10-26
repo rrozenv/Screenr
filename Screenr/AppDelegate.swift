@@ -10,13 +10,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = AppController()
-//        if !RealmManager.isUserLoggedIn() {
-//            RealmManager.register(username: "rrozenv@yahoo.com", password: "Master12!").then { (user) in
-//                RealmManager.setDefaultRealmConfiguration(with: user, userName: "rrozenv@yahoo.com")
-//                }.catch { (error) in
-//                    print("ERROR: \(error)")
-//            }
-//        }
         return true
     }
 

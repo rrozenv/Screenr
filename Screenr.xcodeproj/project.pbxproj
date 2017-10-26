@@ -33,6 +33,7 @@
 		9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */; };
 		9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */; };
 		98713C451FA10FAE003A71C4 /* RealmMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C441FA10FAE003A71C4 /* RealmMovie.swift */; };
+		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
 		98C531571F9E8CBE0063D8A0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531561F9E8CBE0063D8A0 /* RealmManager.swift */; };
 		98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */; };
@@ -80,6 +81,7 @@
 		9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSharedObjects.swift; sourceTree = "<group>"; };
 		98713C441FA10FAE003A71C4 /* RealmMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMovie.swift; sourceTree = "<group>"; };
+		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98C531561F9E8CBE0063D8A0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewControllerManagerProtocol.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		9803463B1F93D76D003F2E48 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				98713C461FA17F24003A71C4 /* Secrets.swift */,
 				981B87501F9298EA002D86C4 /* ServerAPI.swift */,
 				980346371F93CF46003F2E48 /* Webservice.swift */,
 				98D3D81A1F95AFB0000A9F0B /* Resource.swift */,
@@ -513,6 +516,7 @@
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				984988AA1F97F9F1009C55AF /* ListShowTimesPresenter.swift in Sources */,
 				980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */,
+				98713C471FA17F24003A71C4 /* Secrets.swift in Sources */,
 				9831857B1F9BDD0F00BAF81A /* CalendarDayCollectionViewController.swift in Sources */,
 				9826A2541F9A7AC200C81F64 /* CalendarDaysGridLayout.swift in Sources */,
 				98EA3A6C1FA02D800070F459 /* LoginRouter.swift in Sources */,

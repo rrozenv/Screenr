@@ -6,6 +6,7 @@ import PromiseKit
 protocol MainMovieListBusinessLogic {
     func loadMoviesFromNetwork(request: MainMovieList.Request)
     func loadCachedMovies(request: MainMovieList.Request)
+    func saveMovieToDatabase(request: MainMovieList.SaveMovie.Request)
 }
 
 protocol MainMovieListDataStore {
@@ -40,6 +41,14 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
                 strongSelf.presenter?.presentMovieList(response: response)
                 print(error.localizedDescription)
             }
+    }
+    
+    func saveMovieToDatabase(request: MainMovieList.SaveMovie.Request) {
+        guard let movies = movies else { return }
+        let index = movies.index(where: { $0.id == request.movieId })
+        if index != nil {
+            RealmManager.addObject(movies[index!], primaryKey: movies[index!].id)
+        }
     }
     
     private func moviesResource(for location: String) -> Resource<[Movie]> {
