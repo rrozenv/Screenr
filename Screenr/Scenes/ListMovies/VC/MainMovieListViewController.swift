@@ -84,6 +84,11 @@ extension MainMovieListViewController {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
     
+    func saveMovieToDatabase(id: String) {
+        let request = MainMovieList.SaveMovie.Request(movieId: id)
+        interactor?.saveMovieToDatabase(request: request)
+    }
+    
 }
 
 // MARK: - Presenter Input
@@ -143,8 +148,7 @@ extension MainMovieListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedMovie = displayedMovies[indexPath.item]
-        let storedMovie = StoredMovie(id: selectedMovie.id, title: selectedMovie.title)
-        RealmManager.addObject(storedMovie)
+        self.saveMovieToDatabase(id: selectedMovie.id)
         if let router = router {
             router.routeToShowMovieShowtimes()
         }

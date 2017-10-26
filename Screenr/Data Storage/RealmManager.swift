@@ -58,7 +58,7 @@ final class RealmManager {
     class func setDefaultRealmConfiguration(with user: SyncUser) {
         Realm.Configuration.defaultConfiguration = Realm.Configuration(
             syncConfiguration: SyncConfiguration(user: user, realmURL: syncServerURL),
-            objectTypes: [User.self, StoredMovie.self]
+            objectTypes: [User.self, Movie.self, Theatre.self, Showtime.self]
         )
     }
     
@@ -90,8 +90,8 @@ final class RealmManager {
         }
     }
 
-    
-    class func addObject(_ object: StoredMovie)   {
+    class func addObject(_ object: Movie, primaryKey: String)   {
+        if let _ = realm.object(ofType: Movie.self, forPrimaryKey: primaryKey) { return }
         try! self.realm.write {
             realm.add(object)
             print("Added new object")
