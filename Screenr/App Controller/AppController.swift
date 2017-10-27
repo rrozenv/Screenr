@@ -47,8 +47,8 @@ extension AppController {
     
     func loadInitialViewController() {
         switch UserState.currentState {
-        case .loggedIn(let syncUser):
-            RealmManager.setDefaultRealmConfiguration(with: syncUser)
+        case .loggedIn(_):
+            Realm.Configuration.defaultConfiguration = RealmConfig.common.configuration
             self.actingVC = UINavigationController(rootViewController: MainMovieListViewController())
         case .loggedOut:
             self.actingVC = LoginViewController()
@@ -87,7 +87,6 @@ extension AppController {
         case Notification.Name.logout:
             let loginVC = LoginViewController()
             switchToViewController(loginVC)
-            print("USER STATE NOW: \(UserState.currentState)")
         default:
             fatalError("\(#function) - Unable to match notficiation name.")
         }

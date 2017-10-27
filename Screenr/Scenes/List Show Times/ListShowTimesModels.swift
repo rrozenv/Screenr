@@ -12,7 +12,7 @@ enum ListShowtimes {
         
         //Interactor Output -> Presenter Input
         struct Response {
-            var movie: Movie
+            var movie: Movie_R
         }
         
         //Presenter Output -> View Controller Input
@@ -20,8 +20,8 @@ enum ListShowtimes {
             struct DisplayedTheatre {
                 let theatreID: String
                 let name: String
-                let movie: Movie
-                let showtimes: [Showtime]?
+                let movie: Movie_R
+                let showtimes: [Showtime_R]?
             }
             var displayedTheaters: [DisplayedTheatre]
         }

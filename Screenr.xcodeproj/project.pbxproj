@@ -16,6 +16,9 @@
 		981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B87501F9298EA002D86C4 /* ServerAPI.swift */; };
 		9826A2541F9A7AC200C81F64 /* CalendarDaysGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826A2531F9A7AC200C81F64 /* CalendarDaysGridLayout.swift */; };
 		9826A2561F9A7B3300C81F64 /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826A2551F9A7B3300C81F64 /* CalendarDayCell.swift */; };
+		98280DD11FA2570E00D45C59 /* Theatre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98280DD01FA2570E00D45C59 /* Theatre.swift */; };
+		98280DD31FA25FFA00D45C59 /* Showtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98280DD21FA25FFA00D45C59 /* Showtime.swift */; };
+		98280DD51FA2609000D45C59 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98280DD41FA2609000D45C59 /* User.swift */; };
 		9828E4101F96E35600B8D921 /* MainMovieListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828E40F1F96E35600B8D921 /* MainMovieListRouter.swift */; };
 		9828E4121F96E47000B8D921 /* ListShowTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828E4111F96E47000B8D921 /* ListShowTimesViewController.swift */; };
 		9828E4151F96E53300B8D921 /* ListShowTimesEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9828E4141F96E53300B8D921 /* ListShowTimesEngine.swift */; };
@@ -32,7 +35,6 @@
 		9855EDD61FA0CDCA00225E05 /* SettingsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD51FA0CDCA00225E05 /* SettingsEngine.swift */; };
 		9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */; };
 		9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */; };
-		98713C451FA10FAE003A71C4 /* RealmMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C441FA10FAE003A71C4 /* RealmMovie.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
 		98C531571F9E8CBE0063D8A0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531561F9E8CBE0063D8A0 /* RealmManager.swift */; };
@@ -64,6 +66,9 @@
 		981B87501F9298EA002D86C4 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		9826A2531F9A7AC200C81F64 /* CalendarDaysGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDaysGridLayout.swift; sourceTree = "<group>"; };
 		9826A2551F9A7B3300C81F64 /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
+		98280DD01FA2570E00D45C59 /* Theatre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theatre.swift; sourceTree = "<group>"; };
+		98280DD21FA25FFA00D45C59 /* Showtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Showtime.swift; sourceTree = "<group>"; };
+		98280DD41FA2609000D45C59 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9828E40F1F96E35600B8D921 /* MainMovieListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListRouter.swift; sourceTree = "<group>"; };
 		9828E4111F96E47000B8D921 /* ListShowTimesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListShowTimesViewController.swift; sourceTree = "<group>"; };
 		9828E4141F96E53300B8D921 /* ListShowTimesEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListShowTimesEngine.swift; sourceTree = "<group>"; };
@@ -80,7 +85,6 @@
 		9855EDD51FA0CDCA00225E05 /* SettingsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEngine.swift; sourceTree = "<group>"; };
 		9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSharedObjects.swift; sourceTree = "<group>"; };
-		98713C441FA10FAE003A71C4 /* RealmMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMovie.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98C531561F9E8CBE0063D8A0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -160,11 +164,11 @@
 		9803463E1F93D7F8003F2E48 /* ListMovies */ = {
 			isa = PBXGroup;
 			children = (
-				98EA3A711FA041EE0070F459 /* VC */,
-				98EA3A721FA042000070F459 /* ENGINE */,
-				98EA3A731FA042140070F459 /* PRESENTER */,
-				98EA3A701FA041E30070F459 /* ROUTER */,
-				98EA3A741FA042260070F459 /* SHARED OBJECTS */,
+				98EA3A711FA041EE0070F459 /* View Controller */,
+				98EA3A721FA042000070F459 /* Engine */,
+				98EA3A731FA042140070F459 /* Presenter */,
+				98EA3A701FA041E30070F459 /* Router */,
+				98EA3A741FA042260070F459 /* Shared Objects */,
 			);
 			path = ListMovies;
 			sourceTree = "<group>";
@@ -182,8 +186,10 @@
 		980346401F93D80A003F2E48 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				98280DD41FA2609000D45C59 /* User.swift */,
 				98DF9AF41F927DC500DBAD5E /* Movie.swift */,
-				98713C441FA10FAE003A71C4 /* RealmMovie.swift */,
+				98280DD21FA25FFA00D45C59 /* Showtime.swift */,
+				98280DD01FA2570E00D45C59 /* Theatre.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -214,13 +220,13 @@
 			path = "Calendar Days";
 			sourceTree = "<group>";
 		};
-		9840E2F91F968EC600423C09 /* VC_VIEWS */ = {
+		9840E2F91F968EC600423C09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				9840E2F51F9689E900423C09 /* MainMovieListGridLayout.swift */,
 				9840E2F71F968C2300423C09 /* MainMovieListCell.swift */,
 			);
-			path = VC_VIEWS;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9855EDDB1FA0D8CC00225E05 /* User Settings */ = {
@@ -277,9 +283,9 @@
 				9803463C1F93D77D003F2E48 /* App Controller */,
 				98D3D8191F959E9C000A9F0B /* Data Storage */,
 				9803463B1F93D76D003F2E48 /* Networking */,
+				980346401F93D80A003F2E48 /* Models */,
 				9803463D1F93D79E003F2E48 /* Scenes */,
 				9803463F1F93D803003F2E48 /* Extensions */,
-				980346401F93D80A003F2E48 /* Models */,
 				98DF9AC51F924CF200DBAD5E /* LaunchScreen.storyboard */,
 				98DF9AC81F924CF200DBAD5E /* Info.plist */,
 			);
@@ -298,54 +304,54 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		98EA3A701FA041E30070F459 /* ROUTER */ = {
+		98EA3A701FA041E30070F459 /* Router */ = {
 			isa = PBXGroup;
 			children = (
 				9828E40F1F96E35600B8D921 /* MainMovieListRouter.swift */,
 			);
-			path = ROUTER;
+			path = Router;
 			sourceTree = "<group>";
 		};
-		98EA3A711FA041EE0070F459 /* VC */ = {
+		98EA3A711FA041EE0070F459 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
 				98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */,
-				9840E2F91F968EC600423C09 /* VC_VIEWS */,
+				9840E2F91F968EC600423C09 /* Views */,
 			);
-			path = VC;
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
-		98EA3A721FA042000070F459 /* ENGINE */ = {
+		98EA3A721FA042000070F459 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
 				980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */,
-				98EA3A751FA042BA0070F459 /* ENGINE_WORKER */,
+				98EA3A751FA042BA0070F459 /* Worker */,
 			);
-			path = ENGINE;
+			path = Engine;
 			sourceTree = "<group>";
 		};
-		98EA3A731FA042140070F459 /* PRESENTER */ = {
+		98EA3A731FA042140070F459 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
 				980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */,
 			);
-			path = PRESENTER;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
-		98EA3A741FA042260070F459 /* SHARED OBJECTS */ = {
+		98EA3A741FA042260070F459 /* Shared Objects */ = {
 			isa = PBXGroup;
 			children = (
 				980346431F93E9B6003F2E48 /* MainMovieListModels.swift */,
 			);
-			path = "SHARED OBJECTS";
+			path = "Shared Objects";
 			sourceTree = "<group>";
 		};
-		98EA3A751FA042BA0070F459 /* ENGINE_WORKER */ = {
+		98EA3A751FA042BA0070F459 /* Worker */ = {
 			isa = PBXGroup;
 			children = (
 				980346391F93D479003F2E48 /* MovieWorker.swift */,
 			);
-			path = ENGINE_WORKER;
+			path = Worker;
 			sourceTree = "<group>";
 		};
 		F8AF6FFDAEFE67FAF67E1E74 /* Pods */ = {
@@ -479,7 +485,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98713C451FA10FAE003A71C4 /* RealmMovie.swift in Sources */,
 				9840E2F81F968C2300423C09 /* MainMovieListCell.swift in Sources */,
 				98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */,
 				9828E4171F96E61800B8D921 /* ListShowTimesRouter.swift in Sources */,
@@ -487,10 +492,12 @@
 				98EA3A681FA02AD10070F459 /* LoginViewControllerEngine.swift in Sources */,
 				98DF9AF71F927E0500DBAD5E /* DateExtensions.swift in Sources */,
 				98DF9ABD1F924CF200DBAD5E /* AppDelegate.swift in Sources */,
+				98280DD11FA2570E00D45C59 /* Theatre.swift in Sources */,
 				980346461F93E9E4003F2E48 /* MainMovieListPresenter.swift in Sources */,
 				98CA6B3F1F9945F300CF312D /* StringExtensions.swift in Sources */,
 				9828E4151F96E53300B8D921 /* ListShowTimesEngine.swift in Sources */,
 				981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */,
+				98280DD31FA25FFA00D45C59 /* Showtime.swift in Sources */,
 				98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */,
 				98EA3A6E1FA02DB60070F459 /* LoginPresenter.swift in Sources */,
 				983185821F9BE08A00BAF81A /* CalendarDaysModels.swift in Sources */,
@@ -510,6 +517,7 @@
 				980346381F93CF46003F2E48 /* Webservice.swift in Sources */,
 				9835A3501FA0CD730028BD9C /* SettingsViewController.swift in Sources */,
 				9831857D1F9BE01700BAF81A /* CalendarDaysEngine.swift in Sources */,
+				98280DD51FA2609000D45C59 /* User.swift in Sources */,
 				98DF9ACF1F924D1300DBAD5E /* AppController.swift in Sources */,
 				9828E4101F96E35600B8D921 /* MainMovieListRouter.swift in Sources */,
 				98C531571F9E8CBE0063D8A0 /* RealmManager.swift in Sources */,
