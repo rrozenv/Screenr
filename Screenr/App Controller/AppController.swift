@@ -8,7 +8,7 @@ enum UserState {
     case loggedOut
     
     static var currentState: UserState {
-        if let syncUser = RealmManager.isUserLoggedIn() {
+        if let syncUser = RealmLoginManager.isUserLoggedIn() {
             return .loggedIn(syncUser)
         }
         return .loggedOut

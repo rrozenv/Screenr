@@ -19,6 +19,8 @@ final class MainMovieListViewController: UIViewController {
          MainMovieListDataPassing &
          NSObjectProtocol)?
     
+    var postalCodeButton: UIBarButtonItem!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -54,7 +56,11 @@ extension MainMovieListViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didSelectSettingsButton))
         setupCollectionViewProperties()
         loadCachedMovies()
-        loadMoviesFromNetwork()
+        LocationService.shared.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewWillLayoutSubviews() {
@@ -66,6 +72,40 @@ extension MainMovieListViewController {
         router?.routeToSettings()
     }
     
+    func didSelectPostalCode(_ sender: UIBarButtonItem) {
+        print("Postal Code Selected")
+    }
+    
+}
+
+extension MainMovieListViewController: LocationServiceDelegate {
+    
+    func tracingLocation(currentLocation: CLLocation) {
+        LocationService.shared.stopUpdatingLocation()
+        fetchPostalCodeAndRequestMovies(location: currentLocation)
+    }
+    
+    func tracingLocationDidFailWithError(error: NSError) {
+        if let lastLocation = LocationService.shared.lastLocation {
+            fetchPostalCodeAndRequestMovies(location: lastLocation)
+        }
+        print("Fetching location failed: \(error.localizedDescription)")
+    }
+    
+    func fetchPostalCodeAndRequestMovies(location: CLLocation) {
+        LocationService.shared
+            .fetchPostalCodeFor(location)
+            .then { [weak self] (postalCode) -> Void in
+                guard let postalCode = postalCode else { return }
+                self?.loadMoviesFromNetwork(postalCode: postalCode)
+                self?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\(postalCode)", style: .plain, target: self, action: #selector(self?.didSelectPostalCode))
+                print("Fetched zip: \(String(describing: postalCode))")
+            }
+            .catch { (error) in
+                print(error.localizedDescription)
+        }
+    }
+    
 }
 
 // MARK: - Output
@@ -73,12 +113,12 @@ extension MainMovieListViewController {
 extension MainMovieListViewController {
 
     func loadCachedMovies() {
-        let request = MainMovieList.Request(location: "10016")
+        let request = MainMovieList.Request(location: nil)
         interactor?.loadCachedMovies(request: request)
     }
     
-    func loadMoviesFromNetwork() {
-        let request = MainMovieList.Request(location: "10018")
+    func loadMoviesFromNetwork(postalCode: String) {
+        let request = MainMovieList.Request(location: postalCode)
         interactor?.loadMoviesFromNetwork(request: request)
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }

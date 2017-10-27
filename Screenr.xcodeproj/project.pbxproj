@@ -13,6 +13,8 @@
 		980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */; };
 		980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346431F93E9B6003F2E48 /* MainMovieListModels.swift */; };
 		980346461F93E9E4003F2E48 /* MainMovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */; };
+		981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */; };
+		981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580821FA3BAD200B4EDB5 /* LocationService.swift */; };
 		981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B87501F9298EA002D86C4 /* ServerAPI.swift */; };
 		9826A2541F9A7AC200C81F64 /* CalendarDaysGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826A2531F9A7AC200C81F64 /* CalendarDaysGridLayout.swift */; };
 		9826A2561F9A7B3300C81F64 /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826A2551F9A7B3300C81F64 /* CalendarDayCell.swift */; };
@@ -35,6 +37,10 @@
 		9855EDD61FA0CDCA00225E05 /* SettingsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD51FA0CDCA00225E05 /* SettingsEngine.swift */; };
 		9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */; };
 		9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */; };
+		98591F901FA3DA770077E40C /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */; };
+		98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */; };
+		98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */; };
+		98591F961FA3DAE50077E40C /* LocationSearchSharedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
 		98C531571F9E8CBE0063D8A0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531561F9E8CBE0063D8A0 /* RealmManager.swift */; };
@@ -63,6 +69,8 @@
 		980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListInteractor.swift; sourceTree = "<group>"; };
 		980346431F93E9B6003F2E48 /* MainMovieListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListModels.swift; sourceTree = "<group>"; };
 		980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListPresenter.swift; sourceTree = "<group>"; };
+		981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
+		981580821FA3BAD200B4EDB5 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		981B87501F9298EA002D86C4 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		9826A2531F9A7AC200C81F64 /* CalendarDaysGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDaysGridLayout.swift; sourceTree = "<group>"; };
 		9826A2551F9A7B3300C81F64 /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
@@ -85,6 +93,10 @@
 		9855EDD51FA0CDCA00225E05 /* SettingsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEngine.swift; sourceTree = "<group>"; };
 		9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSharedObjects.swift; sourceTree = "<group>"; };
+		98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
+		98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchEngine.swift; sourceTree = "<group>"; };
+		98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchPresenter.swift; sourceTree = "<group>"; };
+		98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchSharedObjects.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98C531561F9E8CBE0063D8A0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -133,6 +145,7 @@
 		9803463B1F93D76D003F2E48 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				981580821FA3BAD200B4EDB5 /* LocationService.swift */,
 				98713C461FA17F24003A71C4 /* Secrets.swift */,
 				981B87501F9298EA002D86C4 /* ServerAPI.swift */,
 				980346371F93CF46003F2E48 /* Webservice.swift */,
@@ -152,6 +165,10 @@
 		9803463D1F93D79E003F2E48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */,
+				98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */,
+				98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */,
+				98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */,
 				9855EDDB1FA0D8CC00225E05 /* User Settings */,
 				98EA3A6F1FA03B670070F459 /* Login */,
 				9831857E1F9BE02700BAF81A /* Calendar Days */,
@@ -253,6 +270,7 @@
 			children = (
 				98D3D8171F959E80000A9F0B /* Cache.swift */,
 				98C531561F9E8CBE0063D8A0 /* RealmManager.swift */,
+				981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */,
 			);
 			path = "Data Storage";
 			sourceTree = "<group>";
@@ -495,6 +513,7 @@
 				98280DD11FA2570E00D45C59 /* Theatre.swift in Sources */,
 				980346461F93E9E4003F2E48 /* MainMovieListPresenter.swift in Sources */,
 				98CA6B3F1F9945F300CF312D /* StringExtensions.swift in Sources */,
+				98591F901FA3DA770077E40C /* LocationSearchViewController.swift in Sources */,
 				9828E4151F96E53300B8D921 /* ListShowTimesEngine.swift in Sources */,
 				981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */,
 				98280DD31FA25FFA00D45C59 /* Showtime.swift in Sources */,
@@ -510,7 +529,9 @@
 				98CA6B411F99487600CF312D /* TheatreTableViewCell.swift in Sources */,
 				9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */,
 				9855EDD61FA0CDCA00225E05 /* SettingsEngine.swift in Sources */,
+				98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */,
 				9826A2561F9A7B3300C81F64 /* CalendarDayCell.swift in Sources */,
+				981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */,
 				980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */,
 				9803463A1F93D479003F2E48 /* MovieWorker.swift in Sources */,
 				983185801F9BE07500BAF81A /* CalendarDaysPresenter.swift in Sources */,
@@ -518,10 +539,13 @@
 				9835A3501FA0CD730028BD9C /* SettingsViewController.swift in Sources */,
 				9831857D1F9BE01700BAF81A /* CalendarDaysEngine.swift in Sources */,
 				98280DD51FA2609000D45C59 /* User.swift in Sources */,
+				98591F961FA3DAE50077E40C /* LocationSearchSharedObjects.swift in Sources */,
 				98DF9ACF1F924D1300DBAD5E /* AppController.swift in Sources */,
 				9828E4101F96E35600B8D921 /* MainMovieListRouter.swift in Sources */,
 				98C531571F9E8CBE0063D8A0 /* RealmManager.swift in Sources */,
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
+				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
+				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,
 				984988AA1F97F9F1009C55AF /* ListShowTimesPresenter.swift in Sources */,
 				980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */,
 				98713C471FA17F24003A71C4 /* Secrets.swift in Sources */,
@@ -661,6 +685,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26Z24PM6F7;
 				INFOPLIST_FILE = Screenr/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.gokid.Screenr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -677,6 +702,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26Z24PM6F7;
 				INFOPLIST_FILE = Screenr/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.gokid.Screenr;
 				PRODUCT_NAME = "$(TARGET_NAME)";

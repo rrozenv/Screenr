@@ -3,71 +3,7 @@ import Foundation
 import RealmSwift
 import PromiseKit
 
-struct Constants {
-    static let defaultSyncHost = "127.0.0.1"
-    static let syncAuthURL = URL(string: "http://\(defaultSyncHost):9080")!
-    static let syncServerURL = URL(string: "realm://\(defaultSyncHost):9080/")
-    static let commonRealmURL = URL(string: "realm://\(defaultSyncHost):9080/CommonRealm")!
-    static let privateRealmURL = URL(string: "realm://\(defaultSyncHost):9080/~/privateRealm")!
-}
-
-enum RealmConfig {
-    
-    // MARK: - enum cases
-    case common
-    case secret
-    
-    // MARK: - current configuration
-    var configuration: Realm.Configuration {
-        switch self {
-        case .common:
-            return RealmConfig.commonRealmConfig(user: SyncUser.current!)
-        case .secret:
-            return RealmConfig.privateRealmConfig(user: SyncUser.current!)
-        }
-    }
-    
-    private static func commonRealmConfig(user: SyncUser) -> Realm.Configuration  {
-        let config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: SyncUser.current!, realmURL: Constants.commonRealmURL), objectTypes: [User.self, Movie_R.self, Theatre_R.self, Showtime_R.self])
-        return config
-    }
-    
-    private static func privateRealmConfig(user: SyncUser) -> Realm.Configuration  {
-        let config = Realm.Configuration(syncConfiguration: SyncConfiguration(user: SyncUser.current!, realmURL: Constants.privateRealmURL), objectTypes: [Theatre_R.self])
-        return config
-    }
-    
-}
-
-final class RealmManager {
-    
-    enum RealmError: Error {
-        case existingUserNotLoaded
-    }
-    
-//    static let syncHost = "127.0.0.1"
-//    static let syncAuthURL = URL(string: "http://\(syncHost):9080")!
-//    static let syncServerURL = URL(string: "realm://\(syncHost):9080/~/screenr")!
-    
-//    class func loadExistingUser(with syncUser: SyncUser) -> Promise<User> {
-//        let realm = try! Realm()
-//        return Promise { fullfill, reject in
-//            if let user = realm.object(ofType: User.self, forPrimaryKey: syncUser.identity) {
-//                fullfill(user)
-//            } else {
-//                reject(RealmError.existingUserNotLoaded)
-//            }
-//        }
-//    }
-    
-//    class func createNewUser(syncUser: SyncUser, _ name: String, _ email: String) -> User {
-//        let realm = try! Realm()
-//        let user = User(syncUser: syncUser, name: name, email: email)
-//        try! realm.write {
-//            realm.add(user)
-//        }
-//        return user
-//    }
+final class RealmLoginManager {
     
     class func isUserLoggedIn() -> SyncUser? {
         guard let syncUser = SyncUser.current else {
@@ -76,31 +12,10 @@ final class RealmManager {
         return syncUser
     }
     
-    class func isDefaultRealmConfigured() -> Bool {
-        return try! !Realm().isEmpty
-    }
-    
     class func resetDefaultRealm() {
         guard let user = SyncUser.current else { return }
         user.logOut()
     }
-    
-//    class func setDefaultRealmConfiguration(with user: SyncUser) {
-//        Realm.Configuration.defaultConfiguration = Realm.Configuration(
-//            syncConfiguration: SyncConfiguration(user: user, realmURL: syncServerURL),
-//            objectTypes: [User.self, Movie_R.self, Theatre_R.self, Showtime_R.self]
-//        )
-//    }
-    
-//    class func setPublicRealmConfiguration(with user: SyncUser) {
-//        let documentDirectory = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask,
-//                                                             appropriateFor: nil, create: false)
-//        let url = documentDirectory.appendingPathComponent("public.realm")
-//        var config = Realm.Configuration(fileURL: url, syncConfiguration: SyncConfiguration(user: user, realmURL: syncServerURL), readOnly: false, objectTypes: [Theatre_R.self])
-//        config.fileURL = url
-//        let realm = try! Realm(configuration: config)
-//        return realm
-//    }
     
     class func login(email: String, password: String) -> Promise<SyncUser> {
         let credentials = SyncCredentials.usernamePassword(username: email, password: password, register: false)
@@ -110,7 +25,7 @@ final class RealmManager {
                     fulfill(user)
                 }
                 if let error = error {
-                   reject(error)
+                    reject(error)
                 }
             }
         }
@@ -129,6 +44,41 @@ final class RealmManager {
             }
         }
     }
+    
+    class func initializeCommonRealm(completion: @escaping (Bool) -> Void) {
+        Realm.asyncOpen(configuration: RealmConfig.common.configuration, callback: { (realm, error) in
+            if let realm = realm {
+                if SyncUser.current?.isAdmin == true {
+                    self.setPermissionForRealm(realm, accessLevel: .write, personID: "*")
+                }
+                completion(true)
+            }
+            if let error = error {
+                print(error.localizedDescription)
+                completion(false)
+            }
+        })
+    }
+    
+    class func setPermissionForRealm(_ realm: Realm?, accessLevel: SyncAccessLevel, personID: String) {
+        if let realm = realm {
+            let perm = SyncPermission(realmPath: realm.configuration.syncConfiguration!.realmURL.path,
+                                      identity: personID,
+                                      accessLevel: accessLevel)
+            SyncUser.current?.apply(perm) { error in
+                if let error = error {
+                    print("Error when attempting to set permissions: \(error.localizedDescription)")
+                    return
+                } else {
+                    print("Permissions successfully set")
+                }
+            }
+        }
+    }
+    
+}
+
+final class RealmManager {
 
     class func addObject<T: Object>(_ object: T, primaryKey: String) {
         let realm = try! Realm(configuration: RealmConfig.common.configuration)

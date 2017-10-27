@@ -30,11 +30,14 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     
     func loadMoviesFromNetwork(request: MainMovieList.Request) {
         let resource = moviesResource(for: request.location)
-        moviesWorker.fetchCurrentlyPlayingMovies(resource).then { [weak self] movies -> Void in
-            guard let strongSelf = self else { return }
-            strongSelf.saveMoviesToDataStore(movies)
-            strongSelf.generateResponseForPresenter(with: movies)
-            }.catch { [weak self] (error) -> Void in
+        moviesWorker
+            .fetchCurrentlyPlayingMovies(resource)
+            .then { [weak self] movies -> Void in
+                guard let strongSelf = self else { return }
+                strongSelf.saveMoviesToDataStore(movies)
+                strongSelf.generateResponseForPresenter(with: movies)
+            }
+            .catch { [weak self] (error) -> Void in
                 guard let strongSelf = self else { return }
                 strongSelf.generateResponseForPresenter(with: nil)
                 print(error.localizedDescription)
@@ -68,8 +71,8 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         }
     }
     
-    private func moviesResource(for location: String) -> Resource<[Movie_R]> {
-        return Resource<[Movie_R]>(target: .currentMovies(location: location)) { json in
+    private func moviesResource(for location: String?) -> Resource<[Movie_R]> {
+        return Resource<[Movie_R]>(target: .currentMovies(location: location ?? "")) { json in
             guard let dictionaries = json as? [JSONDictionary] else { return nil }
             return dictionaries.flatMap(Movie_R.init)
         }

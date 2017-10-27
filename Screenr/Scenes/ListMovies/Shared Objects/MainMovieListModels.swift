@@ -15,7 +15,7 @@ enum MainMovieList {
     }
     
     struct Request {
-        var location: String
+        var location: String?
     }
     
     //Interactor Output -> Presenter Input
