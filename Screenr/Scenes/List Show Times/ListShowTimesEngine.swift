@@ -2,7 +2,7 @@
 import Foundation
 
 protocol ListShowtimesDataStore {
-    var movie: Movie! { get set }
+    var movie: Movie_R! { get set }
 }
 
 protocol ListShowtimesBusinessLogic {
@@ -11,7 +11,7 @@ protocol ListShowtimesBusinessLogic {
 
 final class ListShowtimesEngine: ListShowtimesDataStore, ListShowtimesBusinessLogic {
     
-    var movie: Movie! //Data is passed from MainMovieList Scene
+    var movie: Movie_R! //Data is passed from MainMovieList Scene
     var presenter: ListShowtimesPresentationLogic?
     var moviesWorker = MovieWorker()
     
@@ -23,22 +23,26 @@ final class ListShowtimesEngine: ListShowtimesDataStore, ListShowtimesBusinessLo
             return
         }
         
-        let resource = movieShowtimesResource(location: location, date: date, movieId: movie.id)
-        moviesWorker.fetchShowtimesForMovie(resource).then { [weak self] (movie) -> Void in
-            guard let strongSelf = self else { return }
-            let response = ListShowtimes.GetShowtimes.Response(movie: movie)
-            strongSelf.presenter?.presentMovieShowtimes(response: response)
-            }.catch { (error) -> Void in
+        let resource = movieShowtimesResource(location: location, date: date, movieId: movie.movieID)
+        moviesWorker
+            .fetchShowtimesForMovie(resource)
+            .then { [weak self] (movie) -> Void in
+                guard let strongSelf = self else { return }
+                //TODO: - Fetch details for each theatre
+                let response = ListShowtimes.GetShowtimes.Response(movie: movie)
+                strongSelf.presenter?.presentMovieShowtimes(response: response)
+            }
+            .catch { (error) -> Void in
                 print("ERROR: \(error)")
                 print("ERROR: \(error.localizedDescription)")
-            }
+        }
         
     }
     
-    private func movieShowtimesResource(location: String, date: String, movieId: String) -> Resource<Movie> {
-        return Resource<Movie>(target: .movieShowtimes(id: movieId, date: date, location: location)) { json in
+    private func movieShowtimesResource(location: String, date: String, movieId: String) -> Resource<Movie_R> {
+        return Resource<Movie_R>(target: .movieShowtimes(id: movieId, date: date, location: location)) { json in
             guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap(Movie.init).first
+            return dictionaries.flatMap(Movie_R.init).first
         }
     }
     

@@ -47,8 +47,8 @@ extension AppController {
     
     func loadInitialViewController() {
         switch UserState.currentState {
-        case .loggedIn(let syncUser):
-            RealmManager.setDefaultRealmConfiguration(with: syncUser)
+        case .loggedIn(_):
+            Realm.Configuration.defaultConfiguration = RealmConfig.common.configuration
             self.actingVC = UINavigationController(rootViewController: MainMovieListViewController())
         case .loggedOut:
             self.actingVC = LoginViewController()

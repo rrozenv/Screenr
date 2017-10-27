@@ -24,14 +24,14 @@ class ListShowtimesPresenter: ListShowtimesPresentationLogic {
 
 extension ListShowtimesPresenter {
     
-    fileprivate func getShowtimesFor(movie: Movie, at theatre: Theatre) -> DisplayedTheatre {
-        let showtimes = movie.getShowtimesFor(theatreID: theatre.uniqueID)
+    fileprivate func getShowtimesFor(movie: Movie_R, at theatre: Theatre_R) -> DisplayedTheatre {
+        let showtimes = movie.getShowtimesFor(theatreID: theatre.theatreID)
         let formattedShowtimes = formatShowtimes(showtimes)
-        return DisplayedTheatre(theatreID: theatre.id, name: theatre.name, movie: movie, showtimes: formattedShowtimes)
+        return DisplayedTheatre(theatreID: theatre.theatreID, name: theatre.name, movie: movie, showtimes: formattedShowtimes)
     }
     
-    fileprivate func formatShowtimes(_ showtimes: [Showtime]) -> [Showtime] {
-        var formattedShowtimes = [Showtime]()
+    fileprivate func formatShowtimes(_ showtimes: [Showtime_R]) -> [Showtime_R] {
+        var formattedShowtimes = [Showtime_R]()
         showtimes.forEach {
             if let formattedShowtime = $0.formattedShowTime {
                 formattedShowtimes.append(formattedShowtime)

@@ -21,7 +21,7 @@ extension SettingsEngine {
     
     fileprivate func createLogoutSetting() -> Setting {
         return Setting(type: .logout) {
-            guard RealmManager.isDefaultRealmConfigured() else { return }
+//            guard RealmManager.isDefaultRealmConfigured() else { return }
             RealmManager.resetDefaultRealm()
             NotificationCenter.default.post(name: .logout, object: nil)
         }

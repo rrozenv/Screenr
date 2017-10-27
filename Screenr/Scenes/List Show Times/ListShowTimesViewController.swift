@@ -1,6 +1,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 final class ListShowTimesViewController: UIViewController, ChildViewControllerManager {
     
@@ -119,6 +120,15 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
         let displayedTheatre = self.displayedTheatres[indexPath.row]
         cell.configure(with: displayedTheatre)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedTheatre = self.displayedTheatres[indexPath.row]
+        let theatre = Theatre_R(theatreID: selectedTheatre.theatreID, name: selectedTheatre.name)
+        let realm = try! Realm(configuration: RealmConfig.secret.configuration)
+        try! realm.write {
+            realm.add(theatre)
+        }
     }
     
 }
