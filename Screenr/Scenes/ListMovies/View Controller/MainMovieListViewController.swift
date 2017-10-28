@@ -74,6 +74,7 @@ extension MainMovieListViewController {
     
     func didSelectPostalCode(_ sender: UIBarButtonItem) {
         print("Postal Code Selected")
+        router?.routeToLocationSearch()
     }
     
 }
