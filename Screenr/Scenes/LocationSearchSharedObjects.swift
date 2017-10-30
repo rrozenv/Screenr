@@ -6,6 +6,7 @@ class Location_R: Object {
     dynamic var uniqueID: String = UUID().uuidString
     dynamic var code: String = ""
     dynamic var name: String?
+    dynamic var isCurrentlySelected = false
     
     override static func primaryKey() -> String? {
         return "uniqueID"

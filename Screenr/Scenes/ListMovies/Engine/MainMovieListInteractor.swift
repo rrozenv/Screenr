@@ -5,7 +5,7 @@ import PromiseKit
 import RealmSwift
 
 protocol MainMovieListBusinessLogic {
-    func loadMoviesFromNetwork(request: MainMovieList.Request)
+    func loadMoviesFromNetworkForCurrentLocation(request: MainMovieList.Request)
     func loadMoviesFromNetworkForUpdatedLocation() 
     func loadCachedMovies(request: MainMovieList.Request)
     func saveMovieToDatabase(request: MainMovieList.SaveMovie.Request)
@@ -31,11 +31,14 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         }
     }
     
-    func loadMoviesFromNetwork(request: MainMovieList.Request) {
+    //Called only once per session
+    func loadMoviesFromNetworkForCurrentLocation(request: MainMovieList.Request) {
         let resource = moviesResource(for: request.location)
+        saveCurrentLocationToDatabase(request.location!)
         fetchMovies(resource)
     }
     
+    //Called if user updates location through LocationSearchViewController
     func loadMoviesFromNetworkForUpdatedLocation() {
         guard let zipCode = currentlySelectedLocation?.code else { return }
         presenter?.displayUpdatedLocation(location: zipCode)
@@ -43,7 +46,22 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         fetchMovies(resource)
     }
     
-    func fetchMovies(_ resource: Resource<[Movie_R]>) {
+    func saveCurrentLocationToDatabase(_ location: String) {
+        UserDefaults.standard.set(location, forKey: "usersLocation")
+        let realm = try! Realm(configuration: RealmConfig.secret.configuration)
+        let locationExists = realm.objects(Location_R.self).filter("code == %@", "\(location)")
+        if locationExists.count < 1 {
+            let location = Location_R(zipCode: location, name: nil)
+            location.isCurrentlySelected = true
+            let realm = try! Realm(configuration: RealmConfig.secret.configuration)
+            try! realm.write {
+                //let loc = realm.create(Location_R.self, value:["code": location.code, "name": nil])
+                realm.add(location, update: true)
+            }
+        }
+    }
+    
+    fileprivate func fetchMovies(_ resource: Resource<[Movie_R]>) {
         moviesWorker
             .fetchCurrentlyPlayingMovies(resource)
             .then { [weak self] movies -> Void in

@@ -57,7 +57,7 @@ extension MainMovieListViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didSelectSettingsButton))
         setupCollectionViewProperties()
         loadCachedMovies()
-        LocationService.shared.delegate = self
+        fetchUsersCurrentLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,8 +86,12 @@ extension MainMovieListViewController {
 
 extension MainMovieListViewController: LocationServiceDelegate {
     
+    fileprivate func fetchUsersCurrentLocation() {
+        //tracingLocation(currentLocation:) will be called after inital location is found
+        LocationService.shared.delegate = self
+    }
+    
     func tracingLocation(currentLocation: CLLocation) {
-        LocationService.shared.stopUpdatingLocation()
         fetchPostalCodeAndRequestMovies(location: currentLocation)
     }
     
@@ -103,7 +107,7 @@ extension MainMovieListViewController: LocationServiceDelegate {
             .fetchPostalCodeFor(location)
             .then { [weak self] (postalCode) -> Void in
                 guard let postalCode = postalCode else { return }
-                self?.loadMoviesFromNetwork(postalCode: postalCode)
+                self?.loadMoviesFromNetworkForCurrentLocation(postalCode)
                 self?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\(postalCode)", style: .plain, target: self, action: #selector(self?.didSelectPostalCode))
                 print("Fetched zip: \(String(describing: postalCode))")
             }
@@ -123,14 +127,14 @@ extension MainMovieListViewController {
         interactor?.loadCachedMovies(request: request)
     }
     
-    func loadMoviesFromNetwork(postalCode: String) {
+    func loadMoviesFromNetworkForCurrentLocation(_ postalCode: String) {
         let request = MainMovieList.Request(location: postalCode)
-        interactor?.loadMoviesFromNetwork(request: request)
+        interactor?.loadMoviesFromNetworkForCurrentLocation(request: request)
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
     
     func loadMoviesFromNetworkForUpdatedLocation() {
-        //let request = MainMovieList.Request(location: nil)
+        //Location is passed from LocationSearchDataStore
         interactor?.loadMoviesFromNetworkForUpdatedLocation()
     }
     

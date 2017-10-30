@@ -29,11 +29,16 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
     }
     
+    func requestSingleLocation() {
+        print("Requesting single location")
+        self.locationManager?.requestLocation()
+    }
+    
     func startUpdatingLocation() {
         print("Starting Location Updates")
         self.locationManager?.startUpdatingLocation()
     }
-    
+
     func stopUpdatingLocation() {
         print("Stop Location Updates")
         self.locationManager?.stopUpdatingLocation()
@@ -55,7 +60,7 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
-            self.startUpdatingLocation()
+            self.requestSingleLocation()
         }
     }
     
