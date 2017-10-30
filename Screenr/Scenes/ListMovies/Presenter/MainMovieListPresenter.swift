@@ -5,6 +5,7 @@ import UIKit
 protocol MainMovieListPresentationLogic {
     func presentCachedMovieList(response: MainMovieList.Response)
     func presentMovieList(response: MainMovieList.Response)
+    func displayUpdatedLocation(location: String)
 }
 
 class MainMovieListPresenter: MainMovieListPresentationLogic {
@@ -25,6 +26,10 @@ class MainMovieListPresenter: MainMovieListPresentationLogic {
         viewController?.displayMoviesFromNetwork(viewModel: viewModel)
     }
     
+    func displayUpdatedLocation(location: String) {
+        viewController?.displayUpdatedLocation(location: location)
+    }
+    
     private func formatMoviesForDisplay(_ movies: [Movie_R]) -> [MainMovieList.ViewModel.DisplayedMovie] {
         return movies.map({ (movie) -> MainMovieList.ViewModel.DisplayedMovie in
             let title = movie.title.uppercased()
@@ -37,5 +42,7 @@ class MainMovieListPresenter: MainMovieListPresentationLogic {
         let viewModel = MainMovieList.ViewModel(movies: nil)
         viewController?.displayMoviesFromNetwork(viewModel: viewModel)
     }
+    
+    
     
 }

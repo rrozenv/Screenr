@@ -5,9 +5,12 @@ import UIKit
 final class LocationSearchViewController: UIViewController {
     
     var tableView: UITableView!
-    var displayedLocations = [LocationSearch.ViewModel.DisplayedLocation]()
+    var displayedLocations = [LocationSearch.DisplayedLocation]()
     
-    //var router: (NSObjectProtocol & ListShowtimesDataPassing)?
+    var router: (LocationSearchRoutingLogic &
+                LocationSearchDataPassing &
+                NSObjectProtocol)?
+    
     var engine: LocationSearchLogic?
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -29,12 +32,13 @@ final class LocationSearchViewController: UIViewController {
         let viewController = self
         let engine = LocationSearchEngine()
         let presenter = LocationSearchPresenter()
+        let router = LocationSearchRouter()
         viewController.engine = engine
-        //viewController.router = router
+        viewController.router = router
         engine.presenter = presenter
         presenter.viewController = viewController
-//        router.viewController = viewController
-//        router.dataStore = engine
+        router.viewController = viewController
+        router.dataStore = engine
     }
     
     // MARK: - View Life Cycle
@@ -43,6 +47,7 @@ final class LocationSearchViewController: UIViewController {
         //self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor.red
         setupTableView()
+        fetchSavedLocations()
     }
     
     override func viewWillLayoutSubviews() {
@@ -66,6 +71,19 @@ final class LocationSearchViewController: UIViewController {
         self.tableView.reloadData()
     }
     
+    func displayDidChangeLocationConfirmation(viewModel: LocationSearch.SaveLocation.ViewModel) {
+        self.showConfirmationAlert(title: "Location Changed", message: "You successfully changed your preffered zip code to: \(viewModel.displayedLocation.zipCode)")
+    }
+    
+    fileprivate func showConfirmationAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction.init(title: "OK", style: .default) { [weak self] _ in
+            self?.router?.routeToMainMovieList()
+        }
+        alertController.addAction(alertAction)
+        self.showDetailViewController(alertController, sender: nil)
+    }
+    
     fileprivate func setupTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LocationCell")
@@ -87,8 +105,6 @@ final class LocationSearchViewController: UIViewController {
             tableView.tableHeaderView = searchController.searchBar
         }
     }
-    
-  
     
 }
 
@@ -123,7 +139,7 @@ extension LocationSearchViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath)
-        var displayedLocation: LocationSearch.ViewModel.DisplayedLocation
+        var displayedLocation: LocationSearch.DisplayedLocation
         if isSearching() {
             if indexPath.row == 0 {
                 cell.textLabel?.text = searchController.searchBar.text
@@ -141,7 +157,8 @@ extension LocationSearchViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         guard let text = cell?.textLabel?.text else { return }
-        self.didSelectLocation?(text)
+        let request = LocationSearch.SaveLocation.Request(zipCode: text)
+        engine?.saveLocationToDatabase(request: request)
         self.dismiss(animated: true, completion: nil)
     }
     

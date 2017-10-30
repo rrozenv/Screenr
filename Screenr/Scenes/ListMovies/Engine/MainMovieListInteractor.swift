@@ -6,12 +6,14 @@ import RealmSwift
 
 protocol MainMovieListBusinessLogic {
     func loadMoviesFromNetwork(request: MainMovieList.Request)
+    func loadMoviesFromNetworkForUpdatedLocation() 
     func loadCachedMovies(request: MainMovieList.Request)
     func saveMovieToDatabase(request: MainMovieList.SaveMovie.Request)
 }
 
 protocol MainMovieListDataStore {
     var movies: [Movie_R]? { get }
+    var currentlySelectedLocation: Location_R? { get set }
 }
 
 final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDataStore {
@@ -19,6 +21,7 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     var presenter: MainMovieListPresentationLogic?
     var moviesWorker = MovieWorker()
     var movies: [Movie_R]?
+    var currentlySelectedLocation: Location_R?
     
     func loadCachedMovies(request: MainMovieList.Request) {
         let resource = moviesResource(for: request.location)
@@ -30,6 +33,17 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     
     func loadMoviesFromNetwork(request: MainMovieList.Request) {
         let resource = moviesResource(for: request.location)
+        fetchMovies(resource)
+    }
+    
+    func loadMoviesFromNetworkForUpdatedLocation() {
+        guard let zipCode = currentlySelectedLocation?.code else { return }
+        presenter?.displayUpdatedLocation(location: zipCode)
+        let resource = moviesResource(for: zipCode)
+        fetchMovies(resource)
+    }
+    
+    func fetchMovies(_ resource: Resource<[Movie_R]>) {
         moviesWorker
             .fetchCurrentlyPlayingMovies(resource)
             .then { [weak self] movies -> Void in
@@ -41,7 +55,7 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
                 guard let strongSelf = self else { return }
                 strongSelf.generateResponseForPresenter(with: nil)
                 print(error.localizedDescription)
-            }
+        }
     }
     
     fileprivate func saveMoviesToDataStore(_ movies: [Movie_R]) {

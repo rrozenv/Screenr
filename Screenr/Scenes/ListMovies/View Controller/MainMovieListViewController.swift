@@ -20,6 +20,7 @@ final class MainMovieListViewController: UIViewController {
          NSObjectProtocol)?
     
     var postalCodeButton: UIBarButtonItem!
+    var locationDidChange = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -61,6 +62,10 @@ extension MainMovieListViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if locationDidChange {
+            loadMoviesFromNetworkForUpdatedLocation()
+            locationDidChange = false
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -122,6 +127,15 @@ extension MainMovieListViewController {
         let request = MainMovieList.Request(location: postalCode)
         interactor?.loadMoviesFromNetwork(request: request)
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func loadMoviesFromNetworkForUpdatedLocation() {
+        //let request = MainMovieList.Request(location: nil)
+        interactor?.loadMoviesFromNetworkForUpdatedLocation()
+    }
+    
+    func displayUpdatedLocation(location: String) {
+        self.navigationItem.leftBarButtonItem?.title = "\(location)"
     }
     
     func saveMovieToDatabase(id: String) {

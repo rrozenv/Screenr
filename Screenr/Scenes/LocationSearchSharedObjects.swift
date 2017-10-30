@@ -19,6 +19,24 @@ class Location_R: Object {
 
 enum LocationSearch {
     
+    struct DisplayedLocation {
+        let zipCode: String
+    }
+    
+    enum SaveLocation {
+        struct Request {
+            let zipCode: String
+        }
+        
+        struct Response {
+            var location: Location_R
+        }
+        
+        struct ViewModel {
+            var displayedLocation: DisplayedLocation
+        }
+    }
+    
     //User Input -> Interactor Input
     struct Request { }
     
@@ -29,9 +47,6 @@ enum LocationSearch {
     
     //Presenter Output -> View Controller Input
     struct ViewModel {
-        struct DisplayedLocation {
-            let zipCode: String
-        }
         var displayedLocations: [DisplayedLocation]
     }
     
