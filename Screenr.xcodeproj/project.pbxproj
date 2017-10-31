@@ -169,16 +169,12 @@
 		9803463D1F93D79E003F2E48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */,
-				98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */,
-				98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */,
-				98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */,
-				989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */,
-				9855EDDB1FA0D8CC00225E05 /* User Settings */,
 				98EA3A6F1FA03B670070F459 /* Login */,
-				9831857E1F9BE02700BAF81A /* Calendar Days */,
-				9828E4131F96E4E100B8D921 /* List Show Times */,
 				9803463E1F93D7F8003F2E48 /* ListMovies */,
+				9828E4131F96E4E100B8D921 /* List Show Times */,
+				984C962B1FA8CF140040C583 /* Location Search */,
+				9855EDDB1FA0D8CC00225E05 /* User Settings */,
+				9831857E1F9BE02700BAF81A /* Calendar Days */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -186,11 +182,13 @@
 		9803463E1F93D7F8003F2E48 /* ListMovies */ = {
 			isa = PBXGroup;
 			children = (
-				98EA3A711FA041EE0070F459 /* View Controller */,
-				98EA3A721FA042000070F459 /* Engine */,
-				98EA3A731FA042140070F459 /* Presenter */,
-				98EA3A701FA041E30070F459 /* Router */,
-				98EA3A741FA042260070F459 /* Shared Objects */,
+				9840E2F91F968EC600423C09 /* Views */,
+				98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */,
+				980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */,
+				980346391F93D479003F2E48 /* MovieWorker.swift */,
+				980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */,
+				9828E40F1F96E35600B8D921 /* MainMovieListRouter.swift */,
+				980346431F93E9B6003F2E48 /* MainMovieListModels.swift */,
 			);
 			path = ListMovies;
 			sourceTree = "<group>";
@@ -249,6 +247,18 @@
 				9840E2F71F968C2300423C09 /* MainMovieListCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		984C962B1FA8CF140040C583 /* Location Search */ = {
+			isa = PBXGroup;
+			children = (
+				98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */,
+				98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */,
+				98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */,
+				98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */,
+				989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */,
+			);
+			path = "Location Search";
 			sourceTree = "<group>";
 		};
 		9855EDDB1FA0D8CC00225E05 /* User Settings */ = {
@@ -326,56 +336,6 @@
 				98EA3A6B1FA02D800070F459 /* LoginRouter.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		98EA3A701FA041E30070F459 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				9828E40F1F96E35600B8D921 /* MainMovieListRouter.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
-		98EA3A711FA041EE0070F459 /* View Controller */ = {
-			isa = PBXGroup;
-			children = (
-				98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */,
-				9840E2F91F968EC600423C09 /* Views */,
-			);
-			path = "View Controller";
-			sourceTree = "<group>";
-		};
-		98EA3A721FA042000070F459 /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */,
-				98EA3A751FA042BA0070F459 /* Worker */,
-			);
-			path = Engine;
-			sourceTree = "<group>";
-		};
-		98EA3A731FA042140070F459 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		98EA3A741FA042260070F459 /* Shared Objects */ = {
-			isa = PBXGroup;
-			children = (
-				980346431F93E9B6003F2E48 /* MainMovieListModels.swift */,
-			);
-			path = "Shared Objects";
-			sourceTree = "<group>";
-		};
-		98EA3A751FA042BA0070F459 /* Worker */ = {
-			isa = PBXGroup;
-			children = (
-				980346391F93D479003F2E48 /* MovieWorker.swift */,
-			);
-			path = Worker;
 			sourceTree = "<group>";
 		};
 		F8AF6FFDAEFE67FAF67E1E74 /* Pods */ = {

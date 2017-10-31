@@ -40,6 +40,17 @@ class Movie_R: Object {
 
 extension Movie_R {
     
+    class func resource(for location: String?) -> Resource<[Movie_R]> {
+        return Resource<[Movie_R]>(target: .currentMovies(location: location ?? "")) { json in
+            guard let dictionaries = json as? [JSONDictionary] else { return nil }
+            return dictionaries.flatMap(Movie_R.init)
+        }
+    }
+    
+}
+
+extension Movie_R {
+    
     func getShowtimesFor(theatreID: String) -> [Showtime_R] {
         return Array(self.showtimes).filter { $0.theatreID == theatreID }
     }

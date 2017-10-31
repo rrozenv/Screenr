@@ -132,7 +132,7 @@ extension LocationSearchViewController: UISearchResultsUpdating, UISearchBarDele
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request = LocationSearch.SaveLocation.Request(zipCode: searchBar.text!)
-        engine?.saveLocationToDatabase(request: request)
+        engine?.didSelectLocation(request: request)
     }
     
 }
@@ -160,8 +160,9 @@ extension LocationSearchViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         guard let zipcode = cell?.textLabel?.text else { return }
+        self.deselectPreviousCell()
         let request = LocationSearch.SaveLocation.Request(zipCode: zipcode)
-        engine?.saveLocationToDatabase(request: request)
+        engine?.didSelectLocation(request: request)
     }
     
     private func deselectPreviousCell() {

@@ -54,18 +54,24 @@ extension MainMovieListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.red
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didSelectSettingsButton))
+        setupNavigationButtons()
         setupCollectionViewProperties()
         loadCachedMovies()
         fetchUsersCurrentLocation()
     }
     
+    fileprivate func setupNavigationButtons() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didSelectSettingsButton))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "No Location", style: .plain, target: self, action: #selector(self.didSelectPostalCode))
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if locationDidChange {
-            loadMoviesFromNetwork()
-            locationDidChange = false
+        guard locationDidChange else { return }
+        if let location = UserDefaults.standard.object(forKey: "usersLocation") as? String {
+            self.loadMoviesFromNetwork(for: location)
         }
+        locationDidChange = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -107,9 +113,8 @@ extension MainMovieListViewController: LocationServiceDelegate {
             .fetchPostalCodeFor(location)
             .then { [weak self] (postalCode) -> Void in
                 guard let postalCode = postalCode else { return }
-                self?.saveCurrentPostalCodeToDefaults(postalCode)
-                self?.loadMoviesFromNetwork()
-                self?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\(postalCode)", style: .plain, target: self, action: #selector(self?.didSelectPostalCode))
+                self?.loadMoviesFromNetwork(for: postalCode)
+                self?.displayUpdatedLocation(location: postalCode)
                 print("Fetched zip: \(String(describing: postalCode))")
             }
             .catch { (error) in
@@ -132,18 +137,13 @@ extension MainMovieListViewController {
         interactor?.loadCachedMovies(request: request)
     }
     
-    func loadMoviesFromNetwork() {
+    func loadMoviesFromNetwork(for location: String) {
         //Location is passed from LocationSearchDataStore
-        interactor?.loadMoviesFromNetwork()
+        interactor?.loadMoviesFromNetwork(for: location)
     }
     
     func displayUpdatedLocation(location: String) {
         self.navigationItem.leftBarButtonItem?.title = "\(location)"
-    }
-    
-    func saveMovieToDatabase(id: String) {
-        let request = MainMovieList.SaveMovie.Request(movieId: id)
-        interactor?.saveMovieToDatabase(request: request)
     }
     
 }
@@ -156,7 +156,7 @@ extension MainMovieListViewController {
         isValidMovieList(viewModel: viewModel) ? handleMoviesFetchedSuccess(viewModel: viewModel) : handleCreateMoviesFailure()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         collectionView.reloadData()
-        print("Got \(String(describing: viewModel.movies?.count)) from network")
+        print("Got \(String(describing: viewModel.movies?.count))")
     }
     
     fileprivate func isValidMovieList(viewModel: MainMovieList.ViewModel) -> Bool {
@@ -198,8 +198,6 @@ extension MainMovieListViewController: UICollectionViewDataSource {
 extension MainMovieListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedMovie = displayedMovies[indexPath.item]
-        self.saveMovieToDatabase(id: selectedMovie.id)
         if let router = router {
             router.routeToShowMovieShowtimes()
         }

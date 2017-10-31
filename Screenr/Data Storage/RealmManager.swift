@@ -77,15 +77,3 @@ final class RealmLoginManager {
     }
     
 }
-
-final class RealmManager {
-
-    class func addObject<T: Object>(_ object: T, primaryKey: String, config: RealmConfig) {
-        let realm = try! Realm(configuration: config.configuration)
-        if let _ = realm.object(ofType: T.self, forPrimaryKey: primaryKey) { return }
-        try! realm.write {
-            realm.add(object)
-        }
-    }
-    
-}
