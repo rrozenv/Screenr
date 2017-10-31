@@ -2,20 +2,41 @@
 import Foundation
 import UIKit
 
+enum DefaultsIdentifier: String {
+    case currentLocation
+}
+
+final class DefaultsProperty<T> {
+    
+    let identifier: String
+    
+    init(_ identifier: DefaultsIdentifier) {
+        self.identifier = identifier.rawValue
+    }
+    
+    var value: T? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: self.identifier)
+        }
+        get {
+            return UserDefaults.standard.object(forKey: self.identifier) as? T
+        }
+    }
+    
+}
+
 final class LocationSearchViewController: UIViewController {
     
     var tableView: UITableView!
     var displayedLocations = [LocationSearch.DisplayedLocation]()
     var displayedLocationStates: [Bool]!
     
+    var engine: LocationSearchLogic?
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var router: (LocationSearchRoutingLogic &
                 LocationSearchDataPassing &
                 NSObjectProtocol)?
-    
-    var engine: LocationSearchLogic?
-    
-    let searchController = UISearchController(searchResultsController: nil)
-    var didSelectLocation: ((String) -> ())?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -70,7 +91,7 @@ final class LocationSearchViewController: UIViewController {
     func displaySavedLocations(viewModel: LocationSearch.ViewModel) {
         self.displayedLocations = viewModel.displayedLocations
         self.displayedLocationStates = Array(repeating: false, count: viewModel.displayedLocations.count)
-        if let currentLocation = UserDefaults.standard.object(forKey: "usersLocation") as? String {
+        if let currentLocation = DefaultsProperty<String>(.currentLocation).value {
             if let index = viewModel.displayedLocations.index(where: { $0.zipCode == currentLocation }) {
                 self.displayedLocationStates[index] = true
             }

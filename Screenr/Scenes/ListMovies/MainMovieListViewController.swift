@@ -68,7 +68,7 @@ extension MainMovieListViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard locationDidChange else { return }
-        if let location = UserDefaults.standard.object(forKey: "usersLocation") as? String {
+        if let location =  DefaultsProperty<String>.init(.currentLocation).value {
             self.loadMoviesFromNetwork(for: location)
         }
         locationDidChange = false
@@ -128,17 +128,12 @@ extension MainMovieListViewController: LocationServiceDelegate {
 
 extension MainMovieListViewController {
     
-    func saveCurrentPostalCodeToDefaults(_ postalCode: String) {
-        UserDefaults.standard.set(postalCode, forKey: "usersLocation")
-    }
-
     func loadCachedMovies() {
         let request = MainMovieList.Request(location: nil)
         interactor?.loadCachedMovies(request: request)
     }
     
     func loadMoviesFromNetwork(for location: String) {
-        //Location is passed from LocationSearchDataStore
         interactor?.loadMoviesFromNetwork(for: location)
     }
     

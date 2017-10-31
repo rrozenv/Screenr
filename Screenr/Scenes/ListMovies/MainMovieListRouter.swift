@@ -20,8 +20,8 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
     func routeToShowMovieShowtimes() {
         let destinationVC = ListShowTimesViewController()
         var destinationDS = destinationVC.router!.dataStore!
-        passDataToShowOrder(source: dataStore!, destination: &destinationDS)
-        navigateToShowOrder(source: viewController!, destination: destinationVC)
+        passDataToListShowtimes(source: dataStore!, destination: &destinationDS)
+        navigateToListShowtimes(source: viewController!, destination: destinationVC)
     }
     
     func routeToSettings() {
@@ -36,7 +36,7 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
   
   // MARK: Navigation
   
-  func navigateToShowOrder(source: MainMovieListViewController, destination: ListShowTimesViewController) {
+  func navigateToListShowtimes(source: MainMovieListViewController, destination: ListShowTimesViewController) {
      source.navigationController?.pushViewController(destination, animated: true)
   }
     
@@ -50,7 +50,7 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
   
   // MARK: Passing data
   
-  func passDataToShowOrder(source: MainMovieListDataStore, destination: inout ListShowtimesDataStore) {
+  func passDataToListShowtimes(source: MainMovieListDataStore, destination: inout ListShowtimesDataStore) {
     let selectedRow = viewController?.collectionView.indexPathsForSelectedItems?.first
     destination.movie = source.movies?[(selectedRow?.row)!]
   }

@@ -23,17 +23,22 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
     }()
     
     func fetchSavedLocations() {
-        privateRealm.fetch(Location_R.self) { (locations) in
-            var response: LocationSearch.Response
-            if locations.count >= 1 {
-                self.locations = locations
-                response = LocationSearch.Response(locations: self.locations)
-            } else {
-                self.locations = [Location_R]()
-                response = LocationSearch.Response(locations: self.locations)
+        privateRealm
+            .fetch(Location_R.self)
+            .then { [weak self] (locations) -> Void in
+                var response: LocationSearch.Response
+                if locations.count >= 1 {
+                    self?.locations = locations
+                    response = LocationSearch.Response(locations: locations)
+                } else {
+                    self?.locations = [Location_R]()
+                    response = LocationSearch.Response(locations: locations)
+                }
+                self?.presenter?.presentSavedLocations(response: response)
             }
-            presenter?.presentSavedLocations(response: response)
-        }
+            .catch { (error) in
+                print(error.localizedDescription)
+            }
     }
     
     func didSelectLocation(request: LocationSearch.SaveLocation.Request) {
@@ -47,15 +52,21 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
     }
     
     private func saveCurrentLocationToDefaults(location: String) {
-        UserDefaults.standard.set(location, forKey: "usersLocation")
+        DefaultsProperty<String>(.currentLocation).value = location
     }
     
     private func saveLocationToDatabase(location: String) {
         let value = ["code": location]
-        privateRealm.create(Location_R.self, value: value) { (location) in
-            let response = LocationSearch.SaveLocation.Response(location: location)
-            self.presenter?.presentConfirmation(response: response)
-        }
+        //let backgroundQ = DispatchQueue.global(qos: .background)
+        privateRealm
+            .create(Location_R.self, value: value)
+            .then { newLocation -> Void in
+                let response = LocationSearch.SaveLocation.Response(location: newLocation)
+                self.presenter?.presentConfirmation(response: response)
+            }
+            .catch { (error) in
+                print(error.localizedDescription)
+            }
     }
     
 }

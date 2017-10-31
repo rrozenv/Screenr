@@ -7,19 +7,6 @@ import RealmSwift
 
 typealias JSONDictionary = [String: Any]
 
-
-
-struct MovieListDataBaseWorker {
-    
-//    lazy var privateRealm: Realm = {
-//        return
-//    }()
-    //private let privateRealm = try! Realm(configuration: RealmConfig.secret.configuration)
-    
- 
-    
-}
-
 struct MovieWorker {
     
     private let webservice = WebService.shared

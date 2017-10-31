@@ -3,7 +3,6 @@ import Foundation
 import UIKit
 import PromiseKit
 
-
 protocol MainMovieListBusinessLogic {
     func loadMoviesFromNetwork(for location: String)
     func loadCachedMovies(request: MainMovieList.Request)
@@ -74,18 +73,31 @@ extension MainMovieListInteractor {
 extension MainMovieListInteractor {
     
     fileprivate func saveCurrentLocationToDefaults(location: String) {
-        UserDefaults.standard.set(location, forKey: "usersLocation")
+        DefaultsProperty<String>(.currentLocation).value = location
     }
     
     fileprivate func saveLocationInDatabase(_ location: String) {
-        //Check if location is already saved
+        //Check if location is already saved first
         let predicate = NSPredicate(format: "code == %@", "\(location)")
-        privateRealm.fetch(Location_R.self, predicate: predicate, sorted: nil) { (locations) in
-            if locations.count < 1 {
-                let value = ["code": location]
-                privateRealm.create(Location_R.self, value: value) { _ in }
+        privateRealm
+            .fetch(Location_R.self, predicate: predicate, sorted: nil)
+            .then { [weak self] (locations) -> Void in
+                if locations.count < 1 {
+                    self?.createNewLocation(location)
+                }
             }
-        }
+            .catch { (error) in
+                print(error.localizedDescription)
+            }
+    }
+    
+    fileprivate func createNewLocation(_ location: String) {
+        let value = ["code": location]
+        privateRealm
+            .create(Location_R.self, value: value)
+            .catch { (error) in
+                print(error.localizedDescription)
+            }
     }
     
     fileprivate func saveMoviesToDataStore(_ movies: [Movie_R]) {
