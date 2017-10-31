@@ -101,6 +101,7 @@ final class LocationSearchViewController: UIViewController {
     
     fileprivate func setupSearchController() {
         searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Zip Code"
         //navigationItem.searchController = searchController
@@ -115,7 +116,7 @@ final class LocationSearchViewController: UIViewController {
     
 }
 
-extension LocationSearchViewController: UISearchResultsUpdating {
+extension LocationSearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         tableView.reloadData()
@@ -129,6 +130,11 @@ extension LocationSearchViewController: UISearchResultsUpdating {
         return searchController.isActive && !searchBarIsEmpty()
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request = LocationSearch.SaveLocation.Request(zipCode: searchBar.text!)
+        engine?.saveLocationToDatabase(request: request)
+    }
+    
 }
 
 extension LocationSearchViewController: UITableViewDataSource, UITableViewDelegate {
@@ -138,56 +144,29 @@ extension LocationSearchViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSearching() {
-            return displayedLocations.count + 1
-        }
         return displayedLocations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath)
         var displayedLocation: LocationSearch.DisplayedLocation
-        if isSearching() {
-            if indexPath.row == 0 {
-                cell.textLabel?.text = searchController.searchBar.text
-            } else {
-                let isSelected = self.displayedLocationStates[indexPath.row - 1]
-                displayedLocation = self.displayedLocations[indexPath.row - 1]
-                if isSelected {
-                    cell.accessoryType = .checkmark
-                } else {
-                    cell.accessoryType = .none
-                }
-                cell.textLabel?.text = displayedLocation.zipCode
-            }
-        } else {
-            let isSelected = self.displayedLocationStates[indexPath.row]
-            displayedLocation = self.displayedLocations[indexPath.row]
-            if isSelected {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
-            cell.textLabel?.text = displayedLocation.zipCode
-        }
+        let isSelected = self.displayedLocationStates[indexPath.row]
+        cell.accessoryType = isSelected ? .checkmark : .none
+        displayedLocation = self.displayedLocations[indexPath.row]
+        cell.textLabel?.text = displayedLocation.zipCode
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if searchController.isActive { searchController.isActive = false }
         let cell = tableView.cellForRow(at: indexPath)
-        //guard let text = cell?.textLabel?.text else { return }
-        self.deselectPreviousCell()
-        self.displayedLocationStates[indexPath.row] = true
-        tableView.reloadRows(at: [indexPath], with: .none)
-//        let request = LocationSearch.SaveLocation.Request(zipCode: text)
-//        engine?.saveLocationToDatabase(request: request)
+        guard let zipcode = cell?.textLabel?.text else { return }
+        let request = LocationSearch.SaveLocation.Request(zipCode: zipcode)
+        engine?.saveLocationToDatabase(request: request)
     }
     
     private func deselectPreviousCell() {
         if let previousIndex = self.displayedLocationStates.index(where: { $0 }) {
-            let offset = isSearching() ? 1 : 0
-            self.displayedLocationStates[previousIndex - offset] = false
+            self.displayedLocationStates[previousIndex] = false
             let previousIndexPath = IndexPath(row: previousIndex, section: 0)
             tableView.reloadRows(at: [previousIndexPath], with: .none)
         }

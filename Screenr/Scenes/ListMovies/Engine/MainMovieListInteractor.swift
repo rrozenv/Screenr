@@ -5,15 +5,14 @@ import PromiseKit
 import RealmSwift
 
 protocol MainMovieListBusinessLogic {
-    func loadMoviesFromNetworkForCurrentLocation(request: MainMovieList.Request)
-    func loadMoviesFromNetworkForUpdatedLocation() 
+    //func loadMoviesFromNetworkForCurrentLocation(request: MainMovieList.Request)
+    func loadMoviesFromNetwork()
     func loadCachedMovies(request: MainMovieList.Request)
     func saveMovieToDatabase(request: MainMovieList.SaveMovie.Request)
 }
 
 protocol MainMovieListDataStore {
     var movies: [Movie_R]? { get }
-    var currentlySelectedLocation: Location_R? { get set }
 }
 
 final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDataStore {
@@ -21,7 +20,6 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     var presenter: MainMovieListPresentationLogic?
     var moviesWorker = MovieWorker()
     var movies: [Movie_R]?
-    var currentlySelectedLocation: Location_R?
     
     func loadCachedMovies(request: MainMovieList.Request) {
         let resource = moviesResource(for: request.location)
@@ -31,31 +29,22 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         }
     }
     
-    //Called only once per session
-    func loadMoviesFromNetworkForCurrentLocation(request: MainMovieList.Request) {
-        let resource = moviesResource(for: request.location)
-        saveCurrentLocationToDatabase(request.location!)
-        fetchMovies(resource)
-    }
-    
     //Called if user updates location through LocationSearchViewController
-    func loadMoviesFromNetworkForUpdatedLocation() {
-        guard let zipCode = currentlySelectedLocation?.code else { return }
-        presenter?.displayUpdatedLocation(location: zipCode)
-        let resource = moviesResource(for: zipCode)
+    func loadMoviesFromNetwork() {
+        guard let zipcode = UserDefaults.standard.object(forKey: "usersLocation") as? String else { return }
+        self.saveLocationToHistoryInDatabase(zipcode)
+        presenter?.displayUpdatedLocation(location: zipcode)
+        let resource = moviesResource(for: zipcode)
         fetchMovies(resource)
     }
     
-    func saveCurrentLocationToDatabase(_ location: String) {
-        UserDefaults.standard.set(location, forKey: "usersLocation")
+    func saveLocationToHistoryInDatabase(_ location: String) {
         let realm = try! Realm(configuration: RealmConfig.secret.configuration)
-        let locationExists = realm.objects(Location_R.self).filter("code == %@", "\(location)")
-        if locationExists.count < 1 {
+        let filteredLocations = realm.objects(Location_R.self).filter("code == %@", "\(location)")
+        if filteredLocations.count < 1 {
             let location = Location_R(zipCode: location, name: nil)
-            location.isCurrentlySelected = true
             let realm = try! Realm(configuration: RealmConfig.secret.configuration)
             try! realm.write {
-                //let loc = realm.create(Location_R.self, value:["code": location.code, "name": nil])
                 realm.add(location, update: true)
             }
         }

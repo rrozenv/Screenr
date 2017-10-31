@@ -63,7 +63,7 @@ extension MainMovieListViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if locationDidChange {
-            loadMoviesFromNetworkForUpdatedLocation()
+            loadMoviesFromNetwork()
             locationDidChange = false
         }
     }
@@ -107,7 +107,8 @@ extension MainMovieListViewController: LocationServiceDelegate {
             .fetchPostalCodeFor(location)
             .then { [weak self] (postalCode) -> Void in
                 guard let postalCode = postalCode else { return }
-                self?.loadMoviesFromNetworkForCurrentLocation(postalCode)
+                self?.saveCurrentPostalCodeToDefaults(postalCode)
+                self?.loadMoviesFromNetwork()
                 self?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "\(postalCode)", style: .plain, target: self, action: #selector(self?.didSelectPostalCode))
                 print("Fetched zip: \(String(describing: postalCode))")
             }
@@ -121,21 +122,19 @@ extension MainMovieListViewController: LocationServiceDelegate {
 // MARK: - Output
 
 extension MainMovieListViewController {
+    
+    func saveCurrentPostalCodeToDefaults(_ postalCode: String) {
+        UserDefaults.standard.set(postalCode, forKey: "usersLocation")
+    }
 
     func loadCachedMovies() {
         let request = MainMovieList.Request(location: nil)
         interactor?.loadCachedMovies(request: request)
     }
     
-    func loadMoviesFromNetworkForCurrentLocation(_ postalCode: String) {
-        let request = MainMovieList.Request(location: postalCode)
-        interactor?.loadMoviesFromNetworkForCurrentLocation(request: request)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func loadMoviesFromNetworkForUpdatedLocation() {
+    func loadMoviesFromNetwork() {
         //Location is passed from LocationSearchDataStore
-        interactor?.loadMoviesFromNetworkForUpdatedLocation()
+        interactor?.loadMoviesFromNetwork()
     }
     
     func displayUpdatedLocation(location: String) {
@@ -157,7 +156,7 @@ extension MainMovieListViewController {
         isValidMovieList(viewModel: viewModel) ? handleMoviesFetchedSuccess(viewModel: viewModel) : handleCreateMoviesFailure()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         collectionView.reloadData()
-        print("Got \(String(describing: viewModel.movies?.count))")
+        print("Got \(String(describing: viewModel.movies?.count)) from network")
     }
     
     func displayMoviesFromCache(viewModel: MainMovieList.ViewModel) {

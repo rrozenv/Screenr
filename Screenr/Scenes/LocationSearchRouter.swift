@@ -19,15 +19,15 @@ class LocationSearchRouter: NSObject, LocationSearchRoutingLogic, LocationSearch
     func routeToMainMovieList() {
         let index = viewController!.navigationController!.viewControllers.count - 2
         let destinationVC = viewController?.navigationController?.viewControllers[index] as! MainMovieListViewController
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToMainMovieList(source: dataStore!, destination: &destinationDS)
+        //var destinationDS = destinationVC.router!.dataStore!
+        //passDataToMainMovieList(source: dataStore!, destination: &destinationDS)
         navigateToMainMovieList(source: viewController!, destination: destinationVC)
     }
     
     // MARK: Passing data
     
     func passDataToMainMovieList(source: LocationSearchDataStore, destination: inout MainMovieListDataStore) {
-        destination.currentlySelectedLocation = source.currentlySelectedLocation
+        
     }
     
     func navigateToMainMovieList(source: LocationSearchViewController, destination: MainMovieListViewController) {
