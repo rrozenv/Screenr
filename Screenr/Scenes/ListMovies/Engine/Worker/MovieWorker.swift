@@ -3,8 +3,22 @@ import Foundation
 import Moya
 import PromiseKit
 import UIKit
+import RealmSwift
 
 typealias JSONDictionary = [String: Any]
+
+
+
+struct MovieListDataBaseWorker {
+    
+//    lazy var privateRealm: Realm = {
+//        return
+//    }()
+    //private let privateRealm = try! Realm(configuration: RealmConfig.secret.configuration)
+    
+ 
+    
+}
 
 struct MovieWorker {
     

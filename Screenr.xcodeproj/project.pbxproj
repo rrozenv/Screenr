@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B6FE0E27DCC9EDD95A5CDC3 /* Pods_Screenr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7734059D4AE9BA7C3DE07AD /* Pods_Screenr.framework */; };
+		980200251FA8223C001334ED /* RealmStorageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980200241FA8223C001334ED /* RealmStorageContext.swift */; };
 		980346381F93CF46003F2E48 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346371F93CF46003F2E48 /* Webservice.swift */; };
 		9803463A1F93D479003F2E48 /* MovieWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346391F93D479003F2E48 /* MovieWorker.swift */; };
 		980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		011B987782B75D26055D7492 /* Pods-Screenr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Screenr/Pods-Screenr.debug.xcconfig"; sourceTree = "<group>"; };
+		980200241FA8223C001334ED /* RealmStorageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorageContext.swift; sourceTree = "<group>"; };
 		980346371F93CF46003F2E48 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		980346391F93D479003F2E48 /* MovieWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieWorker.swift; sourceTree = "<group>"; };
 		980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListInteractor.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			children = (
 				98D3D8171F959E80000A9F0B /* Cache.swift */,
 				98C531561F9E8CBE0063D8A0 /* RealmManager.swift */,
+				980200241FA8223C001334ED /* RealmStorageContext.swift */,
 				981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */,
 			);
 			path = "Data Storage";
@@ -549,6 +552,7 @@
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
 				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,
+				980200251FA8223C001334ED /* RealmStorageContext.swift in Sources */,
 				984988AA1F97F9F1009C55AF /* ListShowTimesPresenter.swift in Sources */,
 				980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */,
 				98713C471FA17F24003A71C4 /* Secrets.swift in Sources */,
