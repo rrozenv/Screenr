@@ -159,12 +159,6 @@ extension MainMovieListViewController {
         print("Got \(String(describing: viewModel.movies?.count)) from network")
     }
     
-    func displayMoviesFromCache(viewModel: MainMovieList.ViewModel) {
-        print("Got \(String(describing: viewModel.movies?.count)) from CACHE")
-        handleMoviesFetchedSuccess(viewModel: viewModel)
-        collectionView.reloadData()
-    }
-    
     fileprivate func isValidMovieList(viewModel: MainMovieList.ViewModel) -> Bool {
         return viewModel.movies != nil
     }

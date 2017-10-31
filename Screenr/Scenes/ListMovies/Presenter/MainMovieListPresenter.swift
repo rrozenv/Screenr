@@ -3,7 +3,6 @@ import Foundation
 import UIKit
 
 protocol MainMovieListPresentationLogic {
-    func presentCachedMovieList(response: MainMovieList.Response)
     func presentMovieList(response: MainMovieList.Response)
     func displayUpdatedLocation(location: String)
 }
@@ -11,14 +10,7 @@ protocol MainMovieListPresentationLogic {
 class MainMovieListPresenter: MainMovieListPresentationLogic {
     
     weak var viewController: MainMovieListViewController?
-    
-    func presentCachedMovieList(response: MainMovieList.Response) {
-        guard let movies = response.movies else { return }
-        let formattedMovies = formatMoviesForDisplay(movies)
-        let viewModel = MainMovieList.ViewModel(movies: formattedMovies)
-        viewController?.displayMoviesFromCache(viewModel: viewModel)
-    }
-    
+ 
     func presentMovieList(response: MainMovieList.Response) {
         guard let movies = response.movies else { displayEmptyMovieList() ; return }
         let formattedMovies = formatMoviesForDisplay(movies)
@@ -42,7 +34,5 @@ class MainMovieListPresenter: MainMovieListPresentationLogic {
         let viewModel = MainMovieList.ViewModel(movies: nil)
         viewController?.displayMoviesFromNetwork(viewModel: viewModel)
     }
-    
-    
     
 }
