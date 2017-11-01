@@ -23,13 +23,13 @@ final class Cache {
    
     private init () { }
     
-    func load<T>(_ resource: Resource<T>) -> T? {
-        let data = storage[resource.target.cacheKey]
+    func load<T>(_ resource: Resource<T>, cacheKey: String) -> T? {
+        let data = storage[cacheKey]
         return data.flatMap(resource.parse)
     }
     
-    func saveData<T>(_ data: Data, for resource: Resource<T>) {
-        storage[resource.target.cacheKey] = data
+    func saveData<T>(_ data: Data, for resource: Resource<T>, cacheKey: String) {
+        storage[cacheKey] = data
     }
     
 }

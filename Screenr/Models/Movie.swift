@@ -6,6 +6,8 @@ class Movie_R: Object {
     dynamic var uniqueID: String = UUID().uuidString
     dynamic var movieID: String = "0"
     dynamic var title: String = ""
+    dynamic var posterURL: String = ""
+    dynamic var year: String = ""
     let theatres = List<Theatre_R>()
     let showtimes = List<Showtime_R>()
     
@@ -35,21 +37,52 @@ class Movie_R: Object {
         }
     }
     
+    convenience init?(OMDBdictionary: JSONDictionary) {
+        self.init()
+        guard let id = OMDBdictionary["rootId"] as? String,
+            let title = OMDBdictionary["title"] as? String else { return nil }
+        self.movieID = id
+        self.title = title
+        
+        if let posterUrl = OMDBdictionary["Poster"] as? String {
+            self.posterURL = posterUrl
+        }
+        
+        if let year = OMDBdictionary["Year"] as? String {
+            self.year = year
+        }
+    }
+    
 }
 
 extension Movie_R {
     
+    class func OMDBmoviesResource(for query: String) -> Resource<[Movie_R]> {
+        return Resource<[Movie_R]>(target: OMDbAPI.search(query: query)) { (json: Any) -> [Movie_R]? in
+            guard let searchDictionary = json as? [String: Any] else { return nil }
+            guard let dictionaries = searchDictionary["Search"] as? [JSONDictionary] else { return nil }
+            return dictionaries.flatMap({ (dictionary) -> Movie_R? in
+                return Movie_R(OMDBdictionary: dictionary)
+            })
+        }
+    }
+    
     class func moviesResource(for location: String?) -> Resource<[Movie_R]> {
-        return Resource<[Movie_R]>(target: .currentMovies(location: location ?? "")) { json in
+        return Resource<[Movie_R]>(target: ServerAPI.currentMovies(location: location ?? "")) { json in
             guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap(Movie_R.init)
+            return dictionaries.flatMap({ (dictionary) -> Movie_R? in
+                return Movie_R(dictionary: dictionary)
+            })
         }
     }
     
     class func showtimesResource(location: String, date: String, movieId: String) -> Resource<Movie_R> {
-        return Resource<Movie_R>(target: .movieShowtimes(id: movieId, date: date, location: location)) { json in
+        return Resource<Movie_R>(target: ServerAPI.movieShowtimes(id: movieId, date: date, location: location)) { json in
             guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap(Movie_R.init).first
+            let movies = dictionaries.flatMap({ (dictionary) -> Movie_R? in
+                return Movie_R(dictionary: dictionary)
+            })
+            return movies.first
         }
     }
     

@@ -4,6 +4,12 @@ import Moya
 
 enum ServerAPI {
     
+    static var cacheKey: String {
+        let base = "https://data.tmsapi.com/v1.1"
+        let path = "/movies/showings"
+        return String(base.hashValue + path.hashValue)
+    }
+    
     // MARK: - Movies
     case currentMovies(location: String)
     case getImage(uri: String)
@@ -13,10 +19,6 @@ enum ServerAPI {
 }
 
 extension ServerAPI: TargetType {
-    
-    var cacheKey: String {
-        return String(self.baseURL.hashValue + self.path.hashValue)
-    }
     
     // 3:
     var baseURL: URL {
