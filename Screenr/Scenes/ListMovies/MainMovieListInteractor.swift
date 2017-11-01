@@ -22,7 +22,7 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     }()
     
     func loadCachedMovies(request: MainMovieList.Request) {
-        let resource = Movie_R.resource(for: request.location)
+        let resource = Movie_R.moviesResource(for: request.location)
         if let cachedMovies = moviesWorker.loadCachedMovies(resource) {
             self.saveMoviesToDataStore(cachedMovies)
             self.generateResponseForPresenter(with: cachedMovies)
@@ -32,11 +32,9 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     func loadMoviesFromNetwork(for location: String) {
         self.saveCurrentLocationToDefaults(location: location)
         self.saveLocationInDatabase(location)
-        
-        let resource = Movie_R.resource(for: location)
-        fetchMovies(resource)
-        
-        presenter?.displayUpdatedLocation(location: location)
+        let resource = Movie_R.moviesResource(for: location)
+        self.fetchMovies(resource)
+        self.presenter?.displayUpdatedLocation(location: location)
     }
 
 }
@@ -44,28 +42,25 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
 extension MainMovieListInteractor {
     
     fileprivate func fetchMovies(_ resource: Resource<[Movie_R]>) {
-        moviesWorker
+        self.moviesWorker
             .fetchCurrentlyPlayingMovies(resource)
             .then { [weak self] movies -> Void in
-                guard let strongSelf = self else { return }
-                strongSelf.saveMoviesToDataStore(movies)
-                strongSelf.generateResponseForPresenter(with: movies)
+                self?.saveMoviesToDataStore(movies)
+                self?.generateResponseForPresenter(with: movies)
             }
             .catch { [weak self] (error) -> Void in
-                guard let strongSelf = self else { return }
-                strongSelf.generateResponseForPresenter(with: nil)
-                print(error.localizedDescription)
+                self?.generateResponseForPresenter(with: nil)
+                if let httpError = error as? HTTPError {
+                    print(httpError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
         }
     }
     
     fileprivate func generateResponseForPresenter(with movies: [Movie_R]?) {
-        if let movies = movies {
-            let response = MainMovieList.Response(movies: movies)
-            self.presenter?.presentMovieList(response: response)
-        } else {
-            let response = MainMovieList.Response(movies: nil)
-            self.presenter?.presentMovieList(response: response)
-        }
+        let response = MainMovieList.Response(movies: movies ?? nil)
+        self.presenter?.presentMovieList(response: response)
     }
     
 }
@@ -79,7 +74,7 @@ extension MainMovieListInteractor {
     fileprivate func saveLocationInDatabase(_ location: String) {
         //Check if location is already saved first
         let predicate = NSPredicate(format: "code == %@", "\(location)")
-        privateRealm
+        self.privateRealm
             .fetch(Location_R.self, predicate: predicate, sorted: nil)
             .then { [weak self] (locations) -> Void in
                 if locations.count < 1 {
@@ -93,10 +88,14 @@ extension MainMovieListInteractor {
     
     fileprivate func createNewLocation(_ location: String) {
         let value = ["code": location]
-        privateRealm
+        self.privateRealm
             .create(Location_R.self, value: value)
             .catch { (error) in
-                print(error.localizedDescription)
+                if let realmError = error as? RealmError {
+                    print(realmError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
             }
     }
     

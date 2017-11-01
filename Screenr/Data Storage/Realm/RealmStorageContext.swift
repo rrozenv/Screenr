@@ -3,6 +3,20 @@ import Foundation
 import RealmSwift
 import PromiseKit
 
+enum RealmError: Error {
+    case saveFailed(String)
+    case createFailed(String?)
+    
+    var description: String {
+        switch self {
+        case .saveFailed(let objectName):
+            return "Realm failed to save object with name: \(objectName)"
+        case .createFailed(let objectName):
+            return "Realm failed to save object with name: \(objectName ?? "name not provied")"
+        }
+    }
+}
+
 public struct Sorted {
     var key: String
     var ascending: Bool = true
@@ -30,7 +44,7 @@ class RealmStorageContext: RealmStorageFunctions {
                     fullfill(newObject)
                 }
             } catch {
-                reject(NSError())
+                reject(RealmError.createFailed(model._realmObjectName() ?? nil))
             }
         }
     }
@@ -43,7 +57,7 @@ class RealmStorageContext: RealmStorageFunctions {
                 }
                 fullfill()
             } catch {
-                reject(NSError())
+                reject(RealmError.saveFailed(object.description))
             }
         }
     }

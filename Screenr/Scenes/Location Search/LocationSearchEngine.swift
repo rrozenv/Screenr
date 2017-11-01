@@ -26,14 +26,8 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
         privateRealm
             .fetch(Location_R.self)
             .then { [weak self] (locations) -> Void in
-                var response: LocationSearch.Response
-                if locations.count >= 1 {
-                    self?.locations = locations
-                    response = LocationSearch.Response(locations: locations)
-                } else {
-                    self?.locations = [Location_R]()
-                    response = LocationSearch.Response(locations: locations)
-                }
+                self?.locations = locations.isEmpty ? [Location_R]() : locations
+                let response = LocationSearch.Response(locations: locations)
                 self?.presenter?.presentSavedLocations(response: response)
             }
             .catch { (error) in
@@ -51,11 +45,15 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
         }
     }
     
-    private func saveCurrentLocationToDefaults(location: String) {
+}
+
+extension LocationSearchEngine {
+    
+    fileprivate func saveCurrentLocationToDefaults(location: String) {
         DefaultsProperty<String>(.currentLocation).value = location
     }
     
-    private func saveLocationToDatabase(location: String) {
+    fileprivate func saveLocationToDatabase(location: String) {
         let value = ["code": location]
         //let backgroundQ = DispatchQueue.global(qos: .background)
         privateRealm
@@ -65,8 +63,12 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
                 self.presenter?.presentConfirmation(response: response)
             }
             .catch { (error) in
-                print(error.localizedDescription)
-            }
+                if let realmError = error as? RealmError {
+                    print(realmError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
+        }
     }
     
 }

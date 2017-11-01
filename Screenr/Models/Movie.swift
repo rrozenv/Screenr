@@ -21,7 +21,6 @@ class Movie_R: Object {
         self.title = title
         
         guard let showtimesArray = dictionary["showtimes"] as? [JSONDictionary] else { return }
-        
         for showtime in showtimesArray {
             if let theatreDict = showtime["theatre"] as? JSONDictionary,
                 let time = showtime["dateTime"] as? String {
@@ -40,10 +39,17 @@ class Movie_R: Object {
 
 extension Movie_R {
     
-    class func resource(for location: String?) -> Resource<[Movie_R]> {
+    class func moviesResource(for location: String?) -> Resource<[Movie_R]> {
         return Resource<[Movie_R]>(target: .currentMovies(location: location ?? "")) { json in
             guard let dictionaries = json as? [JSONDictionary] else { return nil }
             return dictionaries.flatMap(Movie_R.init)
+        }
+    }
+    
+    class func showtimesResource(location: String, date: String, movieId: String) -> Resource<Movie_R> {
+        return Resource<Movie_R>(target: .movieShowtimes(id: movieId, date: date, location: location)) { json in
+            guard let dictionaries = json as? [JSONDictionary] else { return nil }
+            return dictionaries.flatMap(Movie_R.init).first
         }
     }
     

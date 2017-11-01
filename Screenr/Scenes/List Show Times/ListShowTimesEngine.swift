@@ -23,27 +23,21 @@ final class ListShowtimesEngine: ListShowtimesDataStore, ListShowtimesBusinessLo
             return
         }
         
-        let resource = movieShowtimesResource(location: location, date: date, movieId: movie.movieID)
+        let resource = Movie_R.showtimesResource(location: location, date: date, movieId: movie.movieID)
         moviesWorker
             .fetchShowtimesForMovie(resource)
             .then { [weak self] (movie) -> Void in
-                guard let strongSelf = self else { return }
-                //TODO: - Fetch details for each theatre
                 let response = ListShowtimes.GetShowtimes.Response(movie: movie)
-                strongSelf.presenter?.presentMovieShowtimes(response: response)
+                self?.presenter?.presentMovieShowtimes(response: response)
             }
             .catch { (error) -> Void in
-                print("ERROR: \(error)")
-                print("ERROR: \(error.localizedDescription)")
+                if let httpError = error as? HTTPError {
+                    print(httpError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
         }
         
-    }
-    
-    private func movieShowtimesResource(location: String, date: String, movieId: String) -> Resource<Movie_R> {
-        return Resource<Movie_R>(target: .movieShowtimes(id: movieId, date: date, location: location)) { json in
-            guard let dictionaries = json as? [JSONDictionary] else { return nil }
-            return dictionaries.flatMap(Movie_R.init).first
-        }
     }
     
 }
