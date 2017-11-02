@@ -44,7 +44,7 @@ extension OMDbAPI: TargetType {
         case .search(query: let query):
             var parameters = [String: Any]()
             parameters["s"] = "\(query)"
-            parameters["api_key"] = Secrets.API_Key
+            parameters["apikey"] = Secrets.OMDbAPI_Key
             return parameters
         }
     }

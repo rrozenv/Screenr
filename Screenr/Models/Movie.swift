@@ -39,8 +39,8 @@ class Movie_R: Object {
     
     convenience init?(OMDBdictionary: JSONDictionary) {
         self.init()
-        guard let id = OMDBdictionary["rootId"] as? String,
-            let title = OMDBdictionary["title"] as? String else { return nil }
+        guard let id = OMDBdictionary["imdbID"] as? String,
+            let title = OMDBdictionary["Title"] as? String else { return nil }
         self.movieID = id
         self.title = title
         
@@ -58,7 +58,7 @@ class Movie_R: Object {
 extension Movie_R {
     
     class func OMDBmoviesResource(for query: String) -> Resource<[Movie_R]> {
-        return Resource<[Movie_R]>(target: OMDbAPI.search(query: query)) { (json: Any) -> [Movie_R]? in
+        return Resource<[Movie_R]>(target: OMDbAPI.search(query: query)) { (json) -> [Movie_R]? in
             guard let searchDictionary = json as? [String: Any] else { return nil }
             guard let dictionaries = searchDictionary["Search"] as? [JSONDictionary] else { return nil }
             return dictionaries.flatMap({ (dictionary) -> Movie_R? in
