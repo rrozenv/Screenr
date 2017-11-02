@@ -46,15 +46,14 @@ final class MovieSearchViewController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor.red
-        setupSearchTextfield()
         setupTableView()
+        setupSearchTextfield()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         searchTextField.frame = CGRect(x: 20, y: 40, width: self.view.frame.size.width * 0.8, height: 70)
         tableView.frame = CGRect(x: 0, y: 50, width: self.view.frame.size.width, height: self.view.frame.size.height - 50)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +78,7 @@ final class MovieSearchViewController: UIViewController {
     }
 
     fileprivate func setupSearchTextfield() {
+        searchTextField = UITextField()
         searchTextField.delegate = self
         searchTextField.placeholder = "Email"
         searchTextField.backgroundColor = UIColor.gray

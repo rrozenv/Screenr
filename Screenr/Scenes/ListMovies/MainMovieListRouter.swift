@@ -5,6 +5,7 @@ import UIKit
     func routeToShowMovieShowtimes()
     func routeToSettings()
     func routeToLocationSearch()
+    func routeToMovieSearch()
 }
 
 protocol MainMovieListDataPassing {
@@ -33,6 +34,11 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
         let destinationVC = LocationSearchViewController()
         navigateToLocationSearch(source: viewController!, destination: destinationVC)
     }
+    
+    func routeToMovieSearch() {
+        let destinationVC = MovieSearchViewController()
+        navigateToMovieSearch(source: viewController!, destination: destinationVC)
+    }
   
   // MARK: Navigation
   
@@ -45,6 +51,10 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
     }
     
     func navigateToLocationSearch(source: MainMovieListViewController, destination: LocationSearchViewController) {
+        source.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    func navigateToMovieSearch(source: MainMovieListViewController, destination: MovieSearchViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
   

@@ -11,6 +11,7 @@ final class MainMovieListViewController: UIViewController {
     
     var collectionView: UICollectionView!
     var collectionViewGridLayout: MainMovieListGridLayout!
+    var movieSearchButton: UIButton!
 
     var interactor: MainMovieListBusinessLogic?
     var displayedMovies: [MainMovieList.ViewModel.DisplayedMovie] = []
@@ -56,6 +57,7 @@ extension MainMovieListViewController {
         self.view.backgroundColor = UIColor.red
         setupNavigationButtons()
         setupCollectionViewProperties()
+        setupMovieSearchButtonProperties()
         loadCachedMovies()
         fetchUsersCurrentLocation()
     }
@@ -77,6 +79,7 @@ extension MainMovieListViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         setupCollectionViewConstraints()
+        setupMovieSearchButtonConstrains()
     }
     
     func didSelectSettingsButton(_ sender: UIBarButtonItem) {
@@ -86,6 +89,10 @@ extension MainMovieListViewController {
     func didSelectPostalCode(_ sender: UIBarButtonItem) {
         print("Postal Code Selected")
         router?.routeToLocationSearch()
+    }
+    
+    func didSelectMovieSearchButton(_ sender: UIButton) {
+        router?.routeToMovieSearch()
     }
     
 }
@@ -229,6 +236,13 @@ extension MainMovieListViewController {
         self.view.addSubview(collectionView)
     }
     
+    fileprivate func setupMovieSearchButtonProperties() {
+        movieSearchButton = UIButton()
+        movieSearchButton.backgroundColor = UIColor.red
+        movieSearchButton.addTarget(self, action: #selector(didSelectMovieSearchButton), for: .touchUpInside)
+        self.view.addSubview(movieSearchButton)
+    }
+    
 }
 
 //MARK: - View Constraints Setup
@@ -237,6 +251,10 @@ extension MainMovieListViewController {
     
     fileprivate func setupCollectionViewConstraints() {
         collectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    }
+    
+    fileprivate func setupMovieSearchButtonConstrains() {
+        movieSearchButton.frame = CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: 50)
     }
     
 }

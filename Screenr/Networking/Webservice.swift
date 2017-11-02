@@ -69,7 +69,7 @@ final class WebService {
     func saveDataToCache<T>(data: Data, for resource: Resource<T>) {
         switch resource.target {
         case is ServerAPI:
-            self.cache.saveData(data, for: resource, cacheKey: ServerAPI.cacheKey)
+            self.cache.saveData(data, for: resource, cacheKey: CacheKey.movies)
         case is OMDbAPI:
             self.cache.saveData(data, for: resource, cacheKey: OMDbAPI.cacheKey)
         default: break

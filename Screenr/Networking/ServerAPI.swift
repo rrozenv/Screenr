@@ -2,6 +2,10 @@
 import Foundation
 import Moya
 
+struct CacheKey {
+    static let movies = String("https://data.tmsapi.com/v1.1/showings".hashValue)
+}
+
 enum ServerAPI {
     
     static var cacheKey: String {

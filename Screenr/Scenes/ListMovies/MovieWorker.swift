@@ -13,7 +13,7 @@ struct MovieWorker {
     private let cache = Cache.shared
     
     func loadCachedMovies(_ resource:  Resource<[Movie_R]>) -> [Movie_R]? {
-        guard let movies = cache.load(resource, cacheKey: ServerAPI.cacheKey) else { return nil }
+        guard let movies = cache.load(resource, cacheKey: CacheKey.movies) else { return nil }
         return movies
     }
     

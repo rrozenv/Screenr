@@ -19,7 +19,7 @@ extension OMDbAPI: TargetType {
     var baseURL: URL {
         switch self {
         case .search(query: _):
-            return URL(string: "http://www.omdbapi.com")!
+            return URL(string: "https://www.omdbapi.com")!
         }
     }
     
