@@ -14,6 +14,7 @@
 		980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */; };
 		980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346431F93E9B6003F2E48 /* MainMovieListModels.swift */; };
 		980346461F93E9E4003F2E48 /* MainMovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */; };
+		98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */; };
 		981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */; };
 		981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580821FA3BAD200B4EDB5 /* LocationService.swift */; };
 		98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A6D1FAA6335005A838F /* OMDbAPI.swift */; };
@@ -25,6 +26,8 @@
 		981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B87501F9298EA002D86C4 /* ServerAPI.swift */; };
 		9826A2541F9A7AC200C81F64 /* CalendarDaysGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826A2531F9A7AC200C81F64 /* CalendarDaysGridLayout.swift */; };
 		9826A2561F9A7B3300C81F64 /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826A2551F9A7B3300C81F64 /* CalendarDayCell.swift */; };
+		9827EED41FAB840C00D30BA9 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827EED31FAB840C00D30BA9 /* Throttler.swift */; };
+		9827EED61FAB849900D30BA9 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827EED51FAB849900D30BA9 /* SearchTextField.swift */; };
 		98280DD11FA2570E00D45C59 /* Theatre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98280DD01FA2570E00D45C59 /* Theatre.swift */; };
 		98280DD31FA25FFA00D45C59 /* Showtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98280DD21FA25FFA00D45C59 /* Showtime.swift */; };
 		98280DD51FA2609000D45C59 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98280DD41FA2609000D45C59 /* User.swift */; };
@@ -78,6 +81,7 @@
 		980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListInteractor.swift; sourceTree = "<group>"; };
 		980346431F93E9B6003F2E48 /* MainMovieListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListModels.swift; sourceTree = "<group>"; };
 		980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListPresenter.swift; sourceTree = "<group>"; };
+		98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedMovieSearchCell.swift; sourceTree = "<group>"; };
 		981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		981580821FA3BAD200B4EDB5 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		98174A6D1FAA6335005A838F /* OMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbAPI.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 		981B87501F9298EA002D86C4 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
 		9826A2531F9A7AC200C81F64 /* CalendarDaysGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDaysGridLayout.swift; sourceTree = "<group>"; };
 		9826A2551F9A7B3300C81F64 /* CalendarDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
+		9827EED31FAB840C00D30BA9 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
+		9827EED51FAB849900D30BA9 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		98280DD01FA2570E00D45C59 /* Theatre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theatre.swift; sourceTree = "<group>"; };
 		98280DD21FA25FFA00D45C59 /* Showtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Showtime.swift; sourceTree = "<group>"; };
 		98280DD41FA2609000D45C59 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -161,9 +167,8 @@
 		9803463B1F93D76D003F2E48 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				98713C461FA17F24003A71C4 /* Secrets.swift */,
-				981B87501F9298EA002D86C4 /* ServerAPI.swift */,
-				98174A6D1FAA6335005A838F /* OMDbAPI.swift */,
+				9827EED81FAB8E1E00D30BA9 /* Target Types */,
+				9827EED31FAB840C00D30BA9 /* Throttler.swift */,
 				980346371F93CF46003F2E48 /* Webservice.swift */,
 				98D3D81A1F95AFB0000A9F0B /* Resource.swift */,
 			);
@@ -230,6 +235,7 @@
 		98174A711FAA6A27005A838F /* Movie Search */ = {
 			isa = PBXGroup;
 			children = (
+				9827EED71FAB8DFC00D30BA9 /* Views */,
 				98174A6F1FAA6A19005A838F /* MovieSearchViewController.swift */,
 				98174A721FAA6A4B005A838F /* MovieSearchEngine.swift */,
 				98174A741FAA6A5F005A838F /* MovieSearchPresenter.swift */,
@@ -239,15 +245,33 @@
 			path = "Movie Search";
 			sourceTree = "<group>";
 		};
+		9827EED71FAB8DFC00D30BA9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9827EED51FAB849900D30BA9 /* SearchTextField.swift */,
+				98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9827EED81FAB8E1E00D30BA9 /* Target Types */ = {
+			isa = PBXGroup;
+			children = (
+				981B87501F9298EA002D86C4 /* ServerAPI.swift */,
+				98174A6D1FAA6335005A838F /* OMDbAPI.swift */,
+			);
+			path = "Target Types";
+			sourceTree = "<group>";
+		};
 		9828E4131F96E4E100B8D921 /* List Show Times */ = {
 			isa = PBXGroup;
 			children = (
+				98CA6B421F9948A200CF312D /* Views */,
 				9828E4111F96E47000B8D921 /* ListShowTimesViewController.swift */,
 				9828E4141F96E53300B8D921 /* ListShowTimesEngine.swift */,
 				984988A91F97F9F1009C55AF /* ListShowTimesPresenter.swift */,
 				984988AB1F97FA08009C55AF /* ListShowTimesModels.swift */,
 				9828E4161F96E61800B8D921 /* ListShowTimesRouter.swift */,
-				98CA6B421F9948A200CF312D /* Views */,
 			);
 			path = "List Show Times";
 			sourceTree = "<group>";
@@ -355,6 +379,7 @@
 			children = (
 				98DF9AC31F924CF200DBAD5E /* Assets.xcassets */,
 				98DF9ABC1F924CF200DBAD5E /* AppDelegate.swift */,
+				98713C461FA17F24003A71C4 /* Secrets.swift */,
 				9803463C1F93D77D003F2E48 /* App Controller */,
 				98D3D8191F959E9C000A9F0B /* Data Storage */,
 				9803463B1F93D76D003F2E48 /* Networking */,
@@ -527,6 +552,7 @@
 				981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */,
 				98280DD31FA25FFA00D45C59 /* Showtime.swift in Sources */,
 				98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */,
+				98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */,
 				98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */,
 				98EA3A6E1FA02DB60070F459 /* LoginPresenter.swift in Sources */,
 				983185821F9BE08A00BAF81A /* CalendarDaysModels.swift in Sources */,
@@ -536,6 +562,7 @@
 				9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */,
 				98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */,
 				98DF9AF51F927DC500DBAD5E /* Movie.swift in Sources */,
+				9827EED41FAB840C00D30BA9 /* Throttler.swift in Sources */,
 				98DF9AD11F924E0000DBAD5E /* MainMovieListViewController.swift in Sources */,
 				98CA6B411F99487600CF312D /* TheatreTableViewCell.swift in Sources */,
 				9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */,
@@ -556,6 +583,7 @@
 				98DF9ACF1F924D1300DBAD5E /* AppController.swift in Sources */,
 				9828E4101F96E35600B8D921 /* MainMovieListRouter.swift in Sources */,
 				98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */,
+				9827EED61FAB849900D30BA9 /* SearchTextField.swift in Sources */,
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
 				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,

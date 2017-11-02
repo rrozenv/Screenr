@@ -12,15 +12,16 @@ protocol MovieSearchDataStore {
 
 final class MovieSearchEngine: MovieSearchLogic, MovieSearchDataStore {
     
-    var presenter: LocationSearchPresentationLogic?
+    var presenter: MovieSearchPresentationLogic?
     var movies: [Movie_R]!
-    private let webservice = WebService.shared
+    fileprivate let webservice = WebService.shared
     
     func makeQuery(request: MoviesSearch.Request) {
         let resource = Movie_R.OMDBmoviesResource(for: request.query)
         fetchMovies(resource)
-            .then { (movies) in
+            .then { (movies) -> Void in
                 self.saveMoviesToDataStore(movies)
+                self.generateResponseForPresenter(with: movies)
             }
             .catch { (error) in
                 if let httpError = error as? HTTPError {
@@ -31,7 +32,16 @@ final class MovieSearchEngine: MovieSearchLogic, MovieSearchDataStore {
             }
     }
     
-    func fetchMovies(_ resource: Resource<[Movie_R]>) -> Promise<[Movie_R]> {
+    fileprivate func generateResponseForPresenter(with movies: [Movie_R]) {
+        let response = MoviesSearch.Response(movies: movies)
+        self.presenter?.formatMovies(response: response)
+    }
+    
+}
+
+extension MovieSearchEngine {
+    
+    fileprivate func fetchMovies(_ resource: Resource<[Movie_R]>) -> Promise<[Movie_R]> {
         return webservice.load(resource)
     }
     

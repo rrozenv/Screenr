@@ -19,12 +19,7 @@ enum HTTPError: Error, CustomStringConvertible {
 }
 
 final class WebService {
-    
-    enum Target {
-        case datatmsapi(TargetType)
-        case imdb(TargetType)
-    }
-    
+ 
     static let shared = WebService()
     private let provider = MoyaProvider<MultiTarget>()
     private let cache = Cache.shared

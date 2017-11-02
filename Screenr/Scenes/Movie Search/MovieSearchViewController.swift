@@ -4,7 +4,7 @@ import UIKit
 
 final class MovieSearchViewController: UIViewController {
     
-    var searchTextField: UITextField!
+    var searchTextField: SearchTextField!
     var tableView: UITableView!
     var displayedMovies = [MoviesSearch.ViewModel.DisplayedMovie]()
 //    var displayedLocationStates: [Bool]!
@@ -35,7 +35,7 @@ final class MovieSearchViewController: UIViewController {
         //let router = LocationSearchRouter()
         viewController.engine = engine
         //viewController.router = router
-        //engine.presenter = presenter
+        engine.presenter = presenter
         presenter.viewController = viewController
 //        router.viewController = viewController
 //        router.dataStore = engine
@@ -48,6 +48,7 @@ final class MovieSearchViewController: UIViewController {
         self.view.backgroundColor = UIColor.red
         setupTableView()
         setupSearchTextfield()
+        setupSearchTextFieldCallback()
     }
     
     override func viewWillLayoutSubviews() {
@@ -62,6 +63,21 @@ final class MovieSearchViewController: UIViewController {
     }
     
     //MARK: Output
+    func createRequestWithSearch(query: String) {
+        let request = MoviesSearch.Request(query: query)
+        engine?.makeQuery(request: request)
+    }
+    
+    fileprivate func setupSearchTextFieldCallback() {
+        searchTextField.onSearch = { searchText in
+            if searchText.characters.count == 0 {
+                self.displayedMovies = [DisplayedMovieInSearch]()
+                self.tableView.reloadData()
+            } else if searchText.characters.count >= 3 {
+                self.createRequestWithSearch(query: searchText)
+            }
+        }
+    }
     
     //MARK: Input
     func displayMovies(viewModel: MoviesSearch.ViewModel) {
@@ -69,59 +85,17 @@ final class MovieSearchViewController: UIViewController {
         self.tableView.reloadData()
     }
 
-    fileprivate func setupTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "LocationCell")
-        tableView.delegate = self
-        tableView.dataSource = self
-        self.view.addSubview(tableView)
-    }
-
-    fileprivate func setupSearchTextfield() {
-        searchTextField = UITextField()
-        searchTextField.delegate = self
-        searchTextField.placeholder = "Email"
-        searchTextField.backgroundColor = UIColor.gray
-        searchTextField.layer.cornerRadius = 4.0
-        searchTextField.layer.masksToBounds = true
-        searchTextField.font = UIFont(name: "Avenir-Medium", size: 14.0)
-        searchTextField.textColor = UIColor.black
-        self.view.addSubview(searchTextField)
-    }
-    
 }
 
-extension MovieSearchViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let request = MoviesSearch.Request(query: textField.text!)
-        engine?.makeQuery(request: request)
-        return true
-    }
-    
-}
-
-//extension MovieSearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
-//    
-//    func updateSearchResults(for searchController: UISearchController) {
-//        tableView.reloadData()
-//    }
-//    
-//    func searchBarIsEmpty() -> Bool {
-//        return searchController.searchBar.text?.isEmpty ?? true
-//    }
-//    
-//    func isSearching() -> Bool {
-//        return searchController.isActive && !searchBarIsEmpty()
-//    }
-//    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        let request = LocationSearch.SaveLocation.Request(zipCode: searchBar.text!)
-//        engine?.didSelectLocation(request: request)
-//    }
-//    
-//}
+//extension MovieSearchViewController: UITextFieldDelegate {
 //
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        guard let query = textField.text else { return false }
+//        self.createRequestWithSearch(query: query)
+//        return true
+//    }
+//
+//}
 
 extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -134,15 +108,44 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DisplayedMovieSearchCell.reuseIdentifier, for: indexPath) as? DisplayedMovieSearchCell else { fatalError("Unexpected Table View Cell") }
         let displayedMovie = self.displayedMovies[indexPath.row]
-        cell.textLabel?.text = displayedMovie.title
+        cell.configure(with: displayedMovie)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0
+    }
+    
+}
+
+extension MovieSearchViewController {
+    
+    fileprivate func setupTableView() {
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView.register(DisplayedMovieSearchCell.self, forCellReuseIdentifier: DisplayedMovieSearchCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.addSubview(tableView)
+    }
+    
+    fileprivate func setupSearchTextfield() {
+        searchTextField = SearchTextField()
+        searchTextField.throttlingInterval = 0.5
+        searchTextField.placeholder = "Email"
+        searchTextField.backgroundColor = UIColor.gray
+        searchTextField.layer.cornerRadius = 4.0
+        searchTextField.layer.masksToBounds = true
+        searchTextField.font = UIFont(name: "Avenir-Medium", size: 14.0)
+        searchTextField.textColor = UIColor.black
+        self.view.addSubview(searchTextField)
+    }
+
     
 }
 
