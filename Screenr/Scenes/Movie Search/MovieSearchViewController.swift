@@ -87,16 +87,6 @@ final class MovieSearchViewController: UIViewController {
 
 }
 
-//extension MovieSearchViewController: UITextFieldDelegate {
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        guard let query = textField.text else { return false }
-//        self.createRequestWithSearch(query: query)
-//        return true
-//    }
-//
-//}
-
 extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -146,6 +136,5 @@ extension MovieSearchViewController {
         self.view.addSubview(searchTextField)
     }
 
-    
 }
 
