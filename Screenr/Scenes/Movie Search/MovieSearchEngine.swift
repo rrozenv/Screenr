@@ -4,6 +4,7 @@ import PromiseKit
 
 protocol MovieSearchLogic {
     func makeQuery(request: MoviesSearch.Request)
+    func getMovieAtIndex(_ index: Int) -> Movie_R?
 }
 
 protocol MovieSearchDataStore {
@@ -30,6 +31,11 @@ final class MovieSearchEngine: MovieSearchLogic, MovieSearchDataStore {
                     print(error.localizedDescription)
                 }
             }
+    }
+    
+    func getMovieAtIndex(_ index: Int) -> Movie_R? {
+        guard index < movies.count else { return nil }
+        return movies[index]
     }
     
     fileprivate func generateResponseForPresenter(with movies: [Movie_R]) {

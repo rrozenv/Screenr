@@ -36,7 +36,7 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
     }
     
     func routeToMovieSearch() {
-        let destinationVC = MovieSearchViewController()
+        let destinationVC = SelectMoviesViewController()
         navigateToMovieSearch(source: viewController!, destination: destinationVC)
     }
   
@@ -54,7 +54,7 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
-    func navigateToMovieSearch(source: MainMovieListViewController, destination: MovieSearchViewController) {
+    func navigateToMovieSearch(source: MainMovieListViewController, destination: SelectMoviesViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
   

@@ -2,20 +2,18 @@
 import Foundation
 import UIKit
 
+protocol MovieSearchControllerDelegate: class {
+    func didSelectMovie(_ movie: Movie_R)
+}
+
 final class MovieSearchViewController: UIViewController {
     
     var searchTextField: SearchTextField!
     var tableView: UITableView!
     var displayedMovies = [MoviesSearch.ViewModel.DisplayedMovie]()
-//    var displayedLocationStates: [Bool]!
-    
     var engine: MovieSearchLogic?
-//    let searchController = UISearchController(searchResultsController: nil)
-//
-//    var router: (LocationSearchRoutingLogic &
-//    LocationSearchDataPassing &
-//    NSObjectProtocol)?
-//
+    weak var delegate: MovieSearchControllerDelegate?
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -32,16 +30,13 @@ final class MovieSearchViewController: UIViewController {
         let viewController = self
         let engine = MovieSearchEngine()
         let presenter = MovieSearchPresenter()
-        //let router = LocationSearchRouter()
         viewController.engine = engine
-        //viewController.router = router
         engine.presenter = presenter
         presenter.viewController = viewController
-//        router.viewController = viewController
-//        router.dataStore = engine
     }
 
-//    // MARK: - View Life Cycle
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -63,6 +58,7 @@ final class MovieSearchViewController: UIViewController {
     }
     
     //MARK: Output
+    
     func createRequestWithSearch(query: String) {
         let request = MoviesSearch.Request(query: query)
         engine?.makeQuery(request: request)
@@ -70,16 +66,19 @@ final class MovieSearchViewController: UIViewController {
     
     fileprivate func setupSearchTextFieldCallback() {
         searchTextField.onSearch = { searchText in
-            if searchText.characters.count == 0 {
+            let shouldNotSearch = (0...3).contains(searchText.characters.count)
+            //let shouldNotSearch = 0...3 ~= searchText.characters.count
+            if shouldNotSearch {
                 self.displayedMovies = [DisplayedMovieInSearch]()
                 self.tableView.reloadData()
-            } else if searchText.characters.count >= 3 {
+            } else {
                 self.createRequestWithSearch(query: searchText)
             }
         }
     }
     
     //MARK: Input
+    
     func displayMovies(viewModel: MoviesSearch.ViewModel) {
         self.displayedMovies = viewModel.displayedMovies
         self.tableView.reloadData()
@@ -105,7 +104,8 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let movie = engine?.getMovieAtIndex(indexPath.row) else { print("No movie at index: \(indexPath.row)"); return }
+        delegate?.didSelectMovie(movie)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

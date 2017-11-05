@@ -47,6 +47,11 @@
 		9855EDD61FA0CDCA00225E05 /* SettingsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD51FA0CDCA00225E05 /* SettingsEngine.swift */; };
 		9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */; };
 		9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */; };
+		98587D4C1FAFCB74005313E7 /* SelectMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D4B1FAFCB74005313E7 /* SelectMoviesViewController.swift */; };
+		98587D4E1FAFCB92005313E7 /* SelectMoviesEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D4D1FAFCB92005313E7 /* SelectMoviesEngine.swift */; };
+		98587D501FAFCBAA005313E7 /* SelectMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */; };
+		98587D521FAFCBCF005313E7 /* SelectMoviesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D511FAFCBCF005313E7 /* SelectMoviesModels.swift */; };
+		98587D541FAFCBDB005313E7 /* SelectMoviesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D531FAFCBDB005313E7 /* SelectMoviesRouter.swift */; };
 		98591F901FA3DA770077E40C /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */; };
 		98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */; };
 		98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */; };
@@ -114,6 +119,11 @@
 		9855EDD51FA0CDCA00225E05 /* SettingsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEngine.swift; sourceTree = "<group>"; };
 		9855EDD71FA0CED200225E05 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSharedObjects.swift; sourceTree = "<group>"; };
+		98587D4B1FAFCB74005313E7 /* SelectMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesViewController.swift; sourceTree = "<group>"; };
+		98587D4D1FAFCB92005313E7 /* SelectMoviesEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesEngine.swift; sourceTree = "<group>"; };
+		98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesPresenter.swift; sourceTree = "<group>"; };
+		98587D511FAFCBCF005313E7 /* SelectMoviesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesModels.swift; sourceTree = "<group>"; };
+		98587D531FAFCBDB005313E7 /* SelectMoviesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesRouter.swift; sourceTree = "<group>"; };
 		98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchEngine.swift; sourceTree = "<group>"; };
 		98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchPresenter.swift; sourceTree = "<group>"; };
@@ -186,6 +196,7 @@
 		9803463D1F93D79E003F2E48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				98587D551FAFDB90005313E7 /* Select Movies */,
 				98174A711FAA6A27005A838F /* Movie Search */,
 				98EA3A6F1FA03B670070F459 /* Login */,
 				9803463E1F93D7F8003F2E48 /* ListMovies */,
@@ -319,6 +330,18 @@
 				9855EDD91FA0CF7E00225E05 /* SettingsSharedObjects.swift */,
 			);
 			path = "User Settings";
+			sourceTree = "<group>";
+		};
+		98587D551FAFDB90005313E7 /* Select Movies */ = {
+			isa = PBXGroup;
+			children = (
+				98587D4B1FAFCB74005313E7 /* SelectMoviesViewController.swift */,
+				98587D4D1FAFCB92005313E7 /* SelectMoviesEngine.swift */,
+				98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */,
+				98587D511FAFCBCF005313E7 /* SelectMoviesModels.swift */,
+				98587D531FAFCBDB005313E7 /* SelectMoviesRouter.swift */,
+			);
+			path = "Select Movies";
 			sourceTree = "<group>";
 		};
 		98B405B61FA8F168007262E8 /* Realm */ = {
@@ -537,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9840E2F81F968C2300423C09 /* MainMovieListCell.swift in Sources */,
+				98587D501FAFCBAA005313E7 /* SelectMoviesPresenter.swift in Sources */,
 				98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */,
 				9828E4171F96E61800B8D921 /* ListShowTimesRouter.swift in Sources */,
 				98D3D81B1F95AFB0000A9F0B /* Resource.swift in Sources */,
@@ -558,6 +582,7 @@
 				983185821F9BE08A00BAF81A /* CalendarDaysModels.swift in Sources */,
 				98174A731FAA6A4B005A838F /* MovieSearchEngine.swift in Sources */,
 				9828E4121F96E47000B8D921 /* ListShowTimesViewController.swift in Sources */,
+				98587D4E1FAFCB92005313E7 /* SelectMoviesEngine.swift in Sources */,
 				9840E2F61F9689E900423C09 /* MainMovieListGridLayout.swift in Sources */,
 				9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */,
 				98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */,
@@ -566,6 +591,7 @@
 				98DF9AD11F924E0000DBAD5E /* MainMovieListViewController.swift in Sources */,
 				98CA6B411F99487600CF312D /* TheatreTableViewCell.swift in Sources */,
 				9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */,
+				98587D521FAFCBCF005313E7 /* SelectMoviesModels.swift in Sources */,
 				9855EDD61FA0CDCA00225E05 /* SettingsEngine.swift in Sources */,
 				98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */,
 				9826A2561F9A7B3300C81F64 /* CalendarDayCell.swift in Sources */,
@@ -584,6 +610,7 @@
 				9828E4101F96E35600B8D921 /* MainMovieListRouter.swift in Sources */,
 				98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */,
 				9827EED61FAB849900D30BA9 /* SearchTextField.swift in Sources */,
+				98587D4C1FAFCB74005313E7 /* SelectMoviesViewController.swift in Sources */,
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
 				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,
@@ -595,6 +622,7 @@
 				9831857B1F9BDD0F00BAF81A /* CalendarDayCollectionViewController.swift in Sources */,
 				9826A2541F9A7AC200C81F64 /* CalendarDaysGridLayout.swift in Sources */,
 				989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */,
+				98587D541FAFCBDB005313E7 /* SelectMoviesRouter.swift in Sources */,
 				98EA3A6C1FA02D800070F459 /* LoginRouter.swift in Sources */,
 				984988AC1F97FA08009C55AF /* ListShowTimesModels.swift in Sources */,
 			);

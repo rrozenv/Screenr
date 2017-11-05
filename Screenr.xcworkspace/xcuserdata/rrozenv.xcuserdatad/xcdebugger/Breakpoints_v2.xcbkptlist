@@ -105,28 +105,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Screenr/Scenes/Movie Search/MovieSearchViewController.swift"
-            timestampString = "531336451.659794"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "createRequestWithSearch(query:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Screenr/Scenes/Movie Search/MovieSearchEngine.swift"
-            timestampString = "531331727.235776"
+            timestampString = "531618629.954483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "makeQuery(request:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Screenr/Scenes/Movie Search/MovieSearchEngine.swift"
-            timestampString = "531331727.235914"
+            timestampString = "531618629.954619"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "generateResponseForPresenter(with:)"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "getMovieAtIndex(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Screenr/Scenes/Movie Search/MovieSearchEngine.swift"
-            timestampString = "531331727.236027"
+            timestampString = "531618629.954724"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "generateResponseForPresenter(with:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "getMovieAtIndex(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -208,6 +192,22 @@
             startingLineNumber = "14"
             endingLineNumber = "14"
             landmarkName = "formatMovies(response:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Screenr/Scenes/SelectMoviesViewController.swift"
+            timestampString = "531618629.954826"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "didSelectMovie(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
