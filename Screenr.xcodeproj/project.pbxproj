@@ -202,7 +202,7 @@
 				98587D551FAFDB90005313E7 /* Select Movies */,
 				98174A711FAA6A27005A838F /* Movie Search */,
 				98EA3A6F1FA03B670070F459 /* Login */,
-				9803463E1F93D7F8003F2E48 /* ListMovies */,
+				9803463E1F93D7F8003F2E48 /* List Movies */,
 				9828E4131F96E4E100B8D921 /* List Show Times */,
 				984C962B1FA8CF140040C583 /* Location Search */,
 				9855EDDB1FA0D8CC00225E05 /* User Settings */,
@@ -211,7 +211,7 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		9803463E1F93D7F8003F2E48 /* ListMovies */ = {
+		9803463E1F93D7F8003F2E48 /* List Movies */ = {
 			isa = PBXGroup;
 			children = (
 				9840E2F91F968EC600423C09 /* Views */,
@@ -222,7 +222,7 @@
 				9828E40F1F96E35600B8D921 /* MainMovieListRouter.swift */,
 				980346431F93E9B6003F2E48 /* MainMovieListModels.swift */,
 			);
-			path = ListMovies;
+			path = "List Movies";
 			sourceTree = "<group>";
 		};
 		9803463F1F93D803003F2E48 /* Extensions */ = {

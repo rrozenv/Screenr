@@ -62,6 +62,19 @@ class RealmStorageContext: RealmStorageFunctions {
         }
     }
     
+    func save(objects: [Object]) -> Promise<Void> {
+        return Promise { fullfill, reject in
+            do {
+                try realm.write {
+                    realm.add(objects)
+                }
+                fullfill()
+            } catch {
+                reject(RealmError.saveFailed("Failed to save sequence."))
+            }
+        }
+    }
+    
     func fetch<T: Object>(_ model: T.Type, predicate: NSPredicate? = nil, sorted: Sorted? = nil) -> Promise<[T]> {
         return Promise { fullfill, reject in
             var objects = self.realm.objects(model as Object.Type)

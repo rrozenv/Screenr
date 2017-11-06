@@ -66,7 +66,7 @@ final class MovieSearchViewController: UIViewController {
     
     fileprivate func setupSearchTextFieldCallback() {
         searchTextField.onSearch = { searchText in
-            let shouldNotSearch = (0...3).contains(searchText.characters.count)
+            let shouldNotSearch = (0...3).contains(searchText.count)
             //let shouldNotSearch = 0...3 ~= searchText.characters.count
             if shouldNotSearch {
                 self.displayedMovies = [DisplayedMovieInSearch]()
