@@ -1,16 +1,32 @@
 
 import Foundation
+import Moya
 
 struct Resource<A> {
-    let target: ServerAPI
+    let target: TargetType
     let parse: (Data) -> A?
 }
 
 extension Resource {
-    init(target: ServerAPI, parseJSON: @escaping (Any) -> A?) {
+    init(target: TargetType, parseJSON: @escaping (Any) -> A?) {
         self.target = target
         self.parse = { data -> A? in
-            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            let json = try? JSONSerialization.jsonObject(with: data, options: [.allowFragments])
+            return json.flatMap(parseJSON)
+        }
+    }
+}
+
+struct OMDBResource<A> {
+    let target: OMDbAPI
+    let parse: (Data) -> A?
+}
+
+extension OMDBResource {
+    init(target: OMDbAPI, parseJSON: @escaping (Any) -> A?) {
+        self.target = target
+        self.parse = { data -> A? in
+            let json = try? JSONSerialization.jsonObject(with: data, options: [.allowFragments])
             return json.flatMap(parseJSON)
         }
     }

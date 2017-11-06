@@ -17,10 +17,10 @@ final class LoginEngine: LoginBusinessLogic, LoginDataStore {
     var presenter: LoginPresentationLogic?
     
     func createUser(request: Login.Request) {
-        RealmManager
+        RealmLoginManager
             .register(email: request.email, password: request.password)
             .then { [weak self] (syncUser) -> Void in
-                self?.initializeCommonRealm(completion: { [weak self] (isSuccess) in
+                RealmLoginManager.initializeCommonRealm(completion: { (isSuccess) in
                     if isSuccess {
                         let user = User.loadUser(request.name!, request.email)
                         let response = Login.Response(user: user)
@@ -39,10 +39,10 @@ final class LoginEngine: LoginBusinessLogic, LoginDataStore {
     }
     
     func loginUser(request: Login.Request) {
-        RealmManager
+        RealmLoginManager
             .login(email: request.email, password: request.password)
             .then { [weak self] (syncUser) -> Void in
-                self?.initializeCommonRealm(completion: { [weak self] (isSuccess) in
+                RealmLoginManager.initializeCommonRealm(completion: { (isSuccess) in
                     if isSuccess {
                         let user = User.loadUser(request.name ?? "", request.email)
                         let response = Login.Response(user: user)
@@ -62,37 +62,3 @@ final class LoginEngine: LoginBusinessLogic, LoginDataStore {
     
 }
 
-extension LoginEngine {
-    
-    func initializeCommonRealm(completion: @escaping (Bool) -> Void) {
-        Realm.asyncOpen(configuration: RealmConfig.common.configuration, callback: { (realm, error) in
-            if let realm = realm {
-                if SyncUser.current?.isAdmin == true {
-                    self.setPermissionForRealm(realm, accessLevel: .write, personID: "*")
-                }
-                completion(true)
-            }
-            if let error = error {
-                print(error.localizedDescription)
-                completion(false)
-            }
-        })
-    }
-    
-    func setPermissionForRealm(_ realm: Realm?, accessLevel: SyncAccessLevel, personID: String) {
-        if let realm = realm {
-            let perm = SyncPermission(realmPath: realm.configuration.syncConfiguration!.realmURL.path,
-                                      identity: personID,
-                                      accessLevel: accessLevel)
-            SyncUser.current?.apply(perm) { error in
-                if let error = error {
-                    print("Error when attempting to set permissions: \(error.localizedDescription)")
-                    return
-                } else {
-                    print("Permissions successfully set")
-                }
-            }
-        }
-    }
-    
-}

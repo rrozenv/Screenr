@@ -19,15 +19,15 @@ enum HTTPError: Error, CustomStringConvertible {
 }
 
 final class WebService {
-    
+ 
     static let shared = WebService()
-    private let provider = MoyaProvider<ServerAPI>()
+    private let provider = MoyaProvider<MultiTarget>()
     private let cache = Cache.shared
     
     private init () { }
 
-    private func request(target: ServerAPI, success successCallback: @escaping (Response) -> Void, error errorCallback: @escaping (HTTPError) -> Void, failure failureCallback: @escaping (MoyaError) -> Void) {
-        provider.request(target) { (result) in
+    private func request(target: TargetType, success successCallback: @escaping (Response) -> Void, error errorCallback: @escaping (HTTPError) -> Void, failure failureCallback: @escaping (MoyaError) -> Void) {
+        provider.request(MultiTarget(target)) { (result) in
             switch result {
             case .success(let response):
                 if response.statusCode >= 200 && response.statusCode <= 300 {
@@ -46,7 +46,7 @@ final class WebService {
         let target = resource.target
         return Promise { fulfill, reject in
             self.request(target: target, success: { (response) in
-                self.cache.saveData(response.data, for: resource)
+                self.saveDataToCache(data: response.data, for: resource)
                 if let objects = resource.parse(response.data) {
                     fulfill(objects)
                 } else {
@@ -58,6 +58,16 @@ final class WebService {
             }, failure: { (moyaError) in
                 reject(moyaError)
             })
+        }
+    }
+    
+    func saveDataToCache<T>(data: Data, for resource: Resource<T>) {
+        switch resource.target {
+        case is ServerAPI:
+            self.cache.saveData(data, for: resource, cacheKey: CacheKey.movies)
+        case is OMDbAPI:
+            self.cache.saveData(data, for: resource, cacheKey: OMDbAPI.cacheKey)
+        default: break
         }
     }
     
