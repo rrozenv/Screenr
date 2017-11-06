@@ -3,7 +3,7 @@ import Foundation
 import PromiseKit
 
 protocol MovieSearchLogic {
-    func makeQuery(request: MoviesSearch.Request)
+    func makeQuery(request: MoviesSearch.Movies.Request)
     func getMovieAtIndex(_ index: Int) -> Movie_R?
 }
 
@@ -17,7 +17,7 @@ final class MovieSearchEngine: MovieSearchLogic, MovieSearchDataStore {
     var movies: [Movie_R]!
     fileprivate let webservice = WebService.shared
     
-    func makeQuery(request: MoviesSearch.Request) {
+    func makeQuery(request: MoviesSearch.Movies.Request) {
         let resource = Movie_R.OMDBmoviesResource(for: request.query)
         fetchMovies(resource)
             .then { (movies) -> Void in
@@ -39,7 +39,7 @@ final class MovieSearchEngine: MovieSearchLogic, MovieSearchDataStore {
     }
     
     fileprivate func generateResponseForPresenter(with movies: [Movie_R]) {
-        let response = MoviesSearch.Response(movies: movies)
+        let response = MoviesSearch.Movies.Response(movies: movies)
         self.presenter?.formatMovies(response: response)
     }
     

@@ -86,7 +86,7 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
 extension SelectMoviesViewController {
     
     fileprivate func setupChildMovieSearchViewController() {
-        movieSearchViewController = MovieSearchViewController(nibName: nil, bundle: nil)
+        movieSearchViewController = MovieSearchViewController(searchType: .movies)
         movieSearchViewController.delegate = self
         self.addChildViewController(movieSearchViewController, frame: nil, animated: false)
     }
