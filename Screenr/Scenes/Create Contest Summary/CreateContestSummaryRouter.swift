@@ -1,9 +1,22 @@
-//
-//  CreateContestSummaryRouter.swift
-//  Screenr
-//
-//  Created by Robert Rozenvasser on 11/6/17.
-//  Copyright © 2017 GoKid. All rights reserved.
-//
 
 import Foundation
+import UIKit
+
+@objc protocol CreateContestSummaryRoutingLogic {
+    func routeToMainMovieList()
+}
+
+class CreateContestSummaryRouter: NSObject, CreateContestSummaryRoutingLogic {
+    
+    weak var viewController: CreateContestSummaryViewController?
+    
+    // MARK: Routing
+    func routeToMainMovieList() {
+        navigateToMainMovieList(source: viewController!)
+    }
+    
+    func navigateToMainMovieList(source: CreateContestSummaryViewController) {
+        source.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+}

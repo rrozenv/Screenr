@@ -188,3 +188,97 @@ final class DisplayedMovieSearchCell: UITableViewCell {
     }
     
 }
+
+final class TextFieldCell: UITableViewCell {
+    
+    // MARK: - Type Properties
+    enum Style: String {
+        case price = "TICKET PRICE"
+        case votes = "# VOTES REQUIRED TO WIN"
+    }
+    
+    static let reuseIdentifier = "TextFieldCell"
+    
+    // MARK: - Properties
+    
+    fileprivate var containerView: UIView!
+    fileprivate var titleLabel: UILabel!
+    fileprivate var userInputLabel: UILabel!
+    
+    // MARK: - Initialization
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
+    
+    func commonInit() {
+        self.contentView.backgroundColor = UIColor.white
+        setupContainerView()
+        setupTitleLabel()
+        setupUserInputLabel()
+        setupLabelsStackView()
+    }
+    
+    func configure(with style: Style) {
+        self.selectionStyle = .none
+        titleLabel.text = style.rawValue
+        switch style {
+        case .price:
+            userInputLabel.text = "$ 10"
+        case .votes:
+            userInputLabel.text = "20"
+        }
+    }
+    
+    override func prepareForReuse() {
+        containerView.backgroundColor = UIColor.white
+    }
+    
+    fileprivate func setupContainerView() {
+        containerView = UIView()
+        containerView.backgroundColor = UIColor.white
+        contentView.addSubview(containerView)
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+    }
+    
+    func setupTitleLabel() {
+        titleLabel = UILabel()
+        titleLabel.font = UIFont(name: "Avenir-Medium", size: 12)
+        titleLabel.textColor = UIColor.gray
+    }
+    
+    func setupUserInputLabel() {
+        userInputLabel = UILabel()
+        userInputLabel.font = UIFont(name: "Avenir-Medium", size: 12)
+        userInputLabel.textColor = UIColor.black
+    }
+    
+    func setupLabelsStackView() {
+        let labels: [UILabel] = [titleLabel, userInputLabel]
+        let labelsStack = UIStackView(arrangedSubviews: labels)
+        labelsStack.spacing = 4.0
+        labelsStack.axis = .vertical
+        
+        containerView.addSubview(labelsStack)
+        labelsStack.translatesAutoresizingMaskIntoConstraints = false
+        labelsStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20).isActive = true
+        labelsStack.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+    }
+    
+}

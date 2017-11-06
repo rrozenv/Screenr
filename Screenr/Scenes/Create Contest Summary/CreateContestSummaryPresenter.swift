@@ -1,9 +1,26 @@
-//
-//  CreateContestSummaryPresenter.swift
-//  Screenr
-//
-//  Created by Robert Rozenvasser on 11/6/17.
-//  Copyright © 2017 GoKid. All rights reserved.
-//
 
 import Foundation
+import UIKit
+
+protocol CreateContestSummaryPresentationLogic {
+    func formatMovies(response: CreateContestSummary.SelectedMovies.Response)
+}
+
+final class CreateContestSummaryPresenter: CreateContestSummaryPresentationLogic {
+    
+    weak var viewController: CreateContestSummaryViewController?
+    
+    func formatMovies(response:  CreateContestSummary.SelectedMovies.Response) {
+        let formattedMovies = formatMoviesForDisplay(response.movies)
+        let viewModel = SelectMovies.ViewModel(displayedMovies: formattedMovies)
+        viewController?.displaySelectedMovies(viewModel: viewModel)
+    }
+    
+    private func formatMoviesForDisplay(_ movies: [Movie_R]) -> [DisplayedMovie] {
+        return movies.map({ (movie) -> DisplayedMovie in
+            let displayedMovie = DisplayedMovie(id: movie.movieID, title: movie.title, year: movie.year, posterURL: movie.posterURL)
+            return displayedMovie
+        })
+    }
+    
+}
