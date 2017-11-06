@@ -195,6 +195,15 @@ final class TextFieldCell: UITableViewCell {
     enum Style: String {
         case price = "TICKET PRICE"
         case votes = "# VOTES REQUIRED TO WIN"
+        
+        var defaultValue: String {
+            switch self {
+            case .price:
+                return "$ 10"
+            case .votes:
+                return "20"
+            }
+        }
     }
     
     static let reuseIdentifier = "TextFieldCell"
@@ -230,15 +239,10 @@ final class TextFieldCell: UITableViewCell {
         setupLabelsStackView()
     }
     
-    func configure(with style: Style) {
+    func configure(with style: Style, inputValue: String?) {
         self.selectionStyle = .none
         titleLabel.text = style.rawValue
-        switch style {
-        case .price:
-            userInputLabel.text = "$ 10"
-        case .votes:
-            userInputLabel.text = "20"
-        }
+        userInputLabel.text = inputValue ?? style.defaultValue
     }
     
     override func prepareForReuse() {

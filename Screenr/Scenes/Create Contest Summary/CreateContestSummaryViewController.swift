@@ -99,15 +99,15 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         switch cellType {
         case .date:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .price)
+            cell.configure(with: .price, inputValue: nil)
             return cell
         case .price:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .price)
+            cell.configure(with: .price, inputValue: nil)
             return cell
         case .votes:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .votes)
+            cell.configure(with: .votes, inputValue: nil)
             return cell
         }
     }
