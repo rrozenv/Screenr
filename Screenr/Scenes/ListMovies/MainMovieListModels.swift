@@ -25,10 +25,6 @@ enum MainMovieList {
     
     //Presenter Output -> View Controller Input
     struct ViewModel {
-        struct DisplayedMovie {
-            var id: String
-            var title: String
-        }
         var movies: [DisplayedMovie]?
     }
     

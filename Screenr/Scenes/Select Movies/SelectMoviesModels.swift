@@ -1,6 +1,13 @@
 
 import Foundation
 
+struct DisplayedMovie {
+    let id: String
+    let title: String
+    let year: String?
+    let posterURL: String?
+}
+
 enum SelectMovies {
     
     //User Input -> Interactor Input
@@ -15,12 +22,6 @@ enum SelectMovies {
     
     //Presenter Output -> View Controller Input
     struct ViewModel {
-        struct DisplayedMovie {
-            let id: String
-            let title: String
-            let year: String
-            let posterURL: String
-        }
         var displayedMovies: [DisplayedMovie]
     }
     

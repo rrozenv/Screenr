@@ -6,6 +6,7 @@ import PromiseKit
 protocol MainMovieListBusinessLogic {
     func loadMoviesFromNetwork(for location: String)
     func loadCachedMovies(request: MainMovieList.Request)
+    func getMovieAtIndex(_ index: Int) -> Movie_R?
 }
 
 protocol MainMovieListDataStore {
@@ -35,6 +36,11 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         let resource = Movie_R.moviesResource(for: location)
         self.fetchMovies(resource)
         self.presenter?.displayUpdatedLocation(location: location)
+    }
+    
+    func getMovieAtIndex(_ index: Int) -> Movie_R? {
+        guard let movies = movies, index < movies.count else { return nil }
+        return movies[index]
     }
 
 }

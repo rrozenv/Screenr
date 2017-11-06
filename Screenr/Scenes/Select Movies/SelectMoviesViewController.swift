@@ -5,11 +5,9 @@ import UIKit
 final class SelectMoviesViewController: UIViewController, ChildViewControllerManager {
     
     var movieSearchViewController: MovieSearchViewController!
-    var collectionView: UICollectionView!
-    var collectionViewGridLayout: SelectedMoviesGridLayout!
+    var selectedMoviesCollectionViewController: DisplayMoviesCollectionViewController!
     
     var engine: SelectMoviesLogic?
-    var displayedMovies: [SelectMovies.ViewModel.DisplayedMovie] = []
     var router:
     (MainMovieListRoutingLogic &
     MainMovieListDataPassing &
@@ -41,6 +39,19 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
         //router.dataStore = interactor
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.red
+        setupChildSelectedMoviesViewController()
+        setupChildMovieSearchViewController()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        movieSearchViewController.view.frame = CGRect(x: 0, y: 160, width: self.view.frame.size.width, height: 400)
+        selectedMoviesCollectionViewController.view.frame = CGRect(x: 0, y: 10, width: self.view.frame.size.width, height: 150)
+    }
+    
 }
 
 extension SelectMoviesViewController: MovieSearchControllerDelegate {
@@ -51,42 +62,13 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
     }
     
     func displaySelectedMovies(viewModel: SelectMovies.ViewModel) {
-        self.displayedMovies = viewModel.displayedMovies
-        self.collectionView.reloadData()
+        self.selectedMoviesCollectionViewController.displayedMovies = viewModel.displayedMovies
+        self.selectedMoviesCollectionViewController.collectionView.reloadData()
     }
     
 }
 
 extension SelectMoviesViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.red
-        setupCollectionViewProperties()
-        setupChildMovieSearchViewController()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        setupCollectionViewConstraints()
-        movieSearchViewController.view.frame = CGRect(x: 0, y: 160, width: self.view.frame.size.width, height: 400)
-    }
-    
-    fileprivate func setupCollectionViewProperties() {
-        collectionViewGridLayout = SelectedMoviesGridLayout()
-        collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: collectionViewGridLayout)
-        collectionView.backgroundColor = UIColor.orange
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(MainMovieListCell.self, forCellWithReuseIdentifier: MainMovieListCell.reuseIdentifier)
-        self.view.addSubview(collectionView)
-    }
-    
-    fileprivate func setupCollectionViewConstraints() {
-        collectionView.frame = CGRect(x: 0, y: 10, width: self.view.frame.size.width, height: 150)
-    }
     
     fileprivate func setupChildMovieSearchViewController() {
         movieSearchViewController = MovieSearchViewController(nibName: nil, bundle: nil)
@@ -94,30 +76,10 @@ extension SelectMoviesViewController {
         self.addChildViewController(movieSearchViewController, frame: nil, animated: false)
     }
     
-}
-
-extension SelectMoviesViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayedMovies.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainMovieListCell.reuseIdentifier, for: indexPath) as! MainMovieListCell
-        cell.label.text = displayedMovies[indexPath.item].title
-        return cell
+    fileprivate func setupChildSelectedMoviesViewController() {
+        selectedMoviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: SelectedMoviesGridLayout())
+        self.addChildViewController(selectedMoviesCollectionViewController, frame: nil, animated: false)
     }
     
 }
 
-extension SelectMoviesViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-    }
-    
-}

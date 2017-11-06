@@ -15,9 +15,9 @@ final class SelectMoviesPresenter: SelectMoviesPresentationLogic {
         viewController?.displaySelectedMovies(viewModel: viewModel)
     }
     
-    private func formatMoviesForDisplay(_ movies: [Movie_R]) -> [SelectMovies.ViewModel.DisplayedMovie] {
-        return movies.map({ (movie) -> SelectMovies.ViewModel.DisplayedMovie in
-            let displayedMovie = SelectMovies.ViewModel.DisplayedMovie(id: movie.movieID, title: movie.title, year: movie.year, posterURL: movie.posterURL)
+    private func formatMoviesForDisplay(_ movies: [Movie_R]) -> [DisplayedMovie] {
+        return movies.map({ (movie) -> DisplayedMovie in
+            let displayedMovie = DisplayedMovie(id: movie.movieID, title: movie.title, year: movie.year, posterURL: movie.posterURL)
             return displayedMovie
         })
     }

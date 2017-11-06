@@ -2,7 +2,7 @@
 import UIKit
 
 @objc protocol MainMovieListRoutingLogic {
-    func routeToShowMovieShowtimes()
+    func routeToShowMovieShowtimes(for selectedMovie: Movie_R)
     func routeToSettings()
     func routeToLocationSearch()
     func routeToMovieSearch()
@@ -18,10 +18,11 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
     var dataStore: MainMovieListDataStore?
   
   // MARK: Routing
-    func routeToShowMovieShowtimes() {
+    func routeToShowMovieShowtimes(for selectedMovie: Movie_R) {
         let destinationVC = ListShowTimesViewController()
         var destinationDS = destinationVC.router!.dataStore!
-        passDataToListShowtimes(source: dataStore!, destination: &destinationDS)
+        passDataToListShowtimes(selectedMovie: selectedMovie, destination: &destinationDS)
+        //passDataToListShowtimes(source: dataStore!, destination: &destinationDS)
         navigateToListShowtimes(source: viewController!, destination: destinationVC)
     }
     
@@ -60,9 +61,10 @@ class MainMovieListRouter: NSObject, MainMovieListRoutingLogic, MainMovieListDat
   
   // MARK: Passing data
   
-  func passDataToListShowtimes(source: MainMovieListDataStore, destination: inout ListShowtimesDataStore) {
-    let selectedRow = viewController?.collectionView.indexPathsForSelectedItems?.first
-    destination.movie = source.movies?[(selectedRow?.row)!]
+  func passDataToListShowtimes(selectedMovie: Movie_R, destination: inout ListShowtimesDataStore) {
+    //let selectedRow = viewController?.collectionView.indexPathsForSelectedItems?.first
+    //destination.movie = source.movies?[(selectedRow?.row)!]
+    destination.movie = selectedMovie
   }
     
 }

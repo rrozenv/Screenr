@@ -22,10 +22,10 @@ class MainMovieListPresenter: MainMovieListPresentationLogic {
         viewController?.displayUpdatedLocation(location: location)
     }
     
-    private func formatMoviesForDisplay(_ movies: [Movie_R]) -> [MainMovieList.ViewModel.DisplayedMovie] {
-        return movies.map({ (movie) -> MainMovieList.ViewModel.DisplayedMovie in
+    private func formatMoviesForDisplay(_ movies: [Movie_R]) -> [DisplayedMovie] {
+        return movies.map({ (movie) -> DisplayedMovie in
             let title = movie.title.uppercased()
-            let displayedMovie = MainMovieList.ViewModel.DisplayedMovie(id: movie.movieID, title: title)
+            let displayedMovie = DisplayedMovie(id: movie.movieID, title: title, year: nil, posterURL: nil)
             return displayedMovie
         })
     }

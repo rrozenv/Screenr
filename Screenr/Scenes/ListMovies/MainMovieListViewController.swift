@@ -7,14 +7,12 @@ import PromiseKit
 
 // MARK: - Initialization
 
-final class MainMovieListViewController: UIViewController {
+final class MainMovieListViewController: UIViewController, ChildViewControllerManager {
     
-    var collectionView: UICollectionView!
-    var collectionViewGridLayout: MainMovieListGridLayout!
+    var moviesCollectionViewController: DisplayMoviesCollectionViewController!
     var movieSearchButton: UIButton!
 
     var interactor: MainMovieListBusinessLogic?
-    var displayedMovies: [MainMovieList.ViewModel.DisplayedMovie] = []
     var router:
         (MainMovieListRoutingLogic &
          MainMovieListDataPassing &
@@ -56,7 +54,7 @@ extension MainMovieListViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.red
         setupNavigationButtons()
-        setupCollectionViewProperties()
+        setupChildSelectedMoviesViewController()
         setupMovieSearchButtonProperties()
         loadCachedMovies()
         fetchUsersCurrentLocation()
@@ -80,6 +78,12 @@ extension MainMovieListViewController {
         super.viewWillLayoutSubviews()
         setupCollectionViewConstraints()
         setupMovieSearchButtonConstrains()
+    }
+    
+    fileprivate func setupChildSelectedMoviesViewController() {
+        moviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: MainMovieListGridLayout())
+        moviesCollectionViewController.delegate = self
+        self.addChildViewController(moviesCollectionViewController, frame: nil, animated: false)
     }
     
     func didSelectSettingsButton(_ sender: UIBarButtonItem) {
@@ -157,7 +161,7 @@ extension MainMovieListViewController {
     func displayMoviesFromNetwork(viewModel: MainMovieList.ViewModel) {
         isValidMovieList(viewModel: viewModel) ? handleMoviesFetchedSuccess(viewModel: viewModel) : handleCreateMoviesFailure()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        collectionView.reloadData()
+        moviesCollectionViewController.collectionView.reloadData()
         print("Got \(String(describing: viewModel.movies?.count))")
     }
     
@@ -166,7 +170,8 @@ extension MainMovieListViewController {
     }
     
     fileprivate func handleMoviesFetchedSuccess(viewModel: MainMovieList.ViewModel) {
-        displayedMovies = viewModel.movies!
+        moviesCollectionViewController.displayedMovies = viewModel.movies!
+        //displayedMovies = viewModel.movies!
     }
     
     fileprivate func handleCreateMoviesFailure() {
@@ -175,33 +180,15 @@ extension MainMovieListViewController {
     
 }
 
-//MARK: - Collection View Data Source
-
-extension MainMovieListViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayedMovies.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainMovieListCell.reuseIdentifier, for: indexPath) as! MainMovieListCell
-        cell.label.text = displayedMovies[indexPath.item].title
-        return cell
-    }
-    
-}
 
 //MARK: - Collection View Delegate
 
-extension MainMovieListViewController: UICollectionViewDelegate {
+extension MainMovieListViewController: DisplayMoviesCollectionViewControllerDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func didSelectMovie(_ movie: DisplayedMovie, at index: Int) {
+        guard let selectedMovie = interactor?.getMovieAtIndex(index) else { return }
         if let router = router {
-            router.routeToShowMovieShowtimes()
+            router.routeToShowMovieShowtimes(for: selectedMovie)
         }
     }
     
@@ -223,19 +210,7 @@ extension MainMovieListViewController {
 //MARK: - View Properties Setup
 
 extension MainMovieListViewController {
-    
-    fileprivate func setupCollectionViewProperties() {
-        collectionViewGridLayout = MainMovieListGridLayout()
-        collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: collectionViewGridLayout)
-        collectionView.backgroundColor = UIColor.orange
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(MainMovieListCell.self, forCellWithReuseIdentifier: MainMovieListCell.reuseIdentifier)
-        self.view.addSubview(collectionView)
-    }
-    
+
     fileprivate func setupMovieSearchButtonProperties() {
         movieSearchButton = UIButton()
         movieSearchButton.backgroundColor = UIColor.red
@@ -250,7 +225,7 @@ extension MainMovieListViewController {
 extension MainMovieListViewController {
     
     fileprivate func setupCollectionViewConstraints() {
-        collectionView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        moviesCollectionViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
     }
     
     fileprivate func setupMovieSearchButtonConstrains() {

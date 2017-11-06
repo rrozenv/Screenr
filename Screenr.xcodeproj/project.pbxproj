@@ -52,6 +52,7 @@
 		98587D501FAFCBAA005313E7 /* SelectMoviesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */; };
 		98587D521FAFCBCF005313E7 /* SelectMoviesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D511FAFCBCF005313E7 /* SelectMoviesModels.swift */; };
 		98587D541FAFCBDB005313E7 /* SelectMoviesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D531FAFCBDB005313E7 /* SelectMoviesRouter.swift */; };
+		98587D571FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */; };
 		98591F901FA3DA770077E40C /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */; };
 		98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */; };
 		98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */; };
@@ -124,6 +125,7 @@
 		98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesPresenter.swift; sourceTree = "<group>"; };
 		98587D511FAFCBCF005313E7 /* SelectMoviesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesModels.swift; sourceTree = "<group>"; };
 		98587D531FAFCBDB005313E7 /* SelectMoviesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMoviesRouter.swift; sourceTree = "<group>"; };
+		98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayMoviesCollectionViewController.swift; sourceTree = "<group>"; };
 		98591F8F1FA3DA770077E40C /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
 		98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchEngine.swift; sourceTree = "<group>"; };
 		98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchPresenter.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 		9803463D1F93D79E003F2E48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */,
 				98587D551FAFDB90005313E7 /* Select Movies */,
 				98174A711FAA6A27005A838F /* Movie Search */,
 				98EA3A6F1FA03B670070F459 /* Login */,
@@ -573,6 +576,7 @@
 				98591F901FA3DA770077E40C /* LocationSearchViewController.swift in Sources */,
 				98174A791FAA6A9D005A838F /* MovieSearchRouter.swift in Sources */,
 				9828E4151F96E53300B8D921 /* ListShowTimesEngine.swift in Sources */,
+				98587D571FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift in Sources */,
 				981B87511F9298EA002D86C4 /* ServerAPI.swift in Sources */,
 				98280DD31FA25FFA00D45C59 /* Showtime.swift in Sources */,
 				98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */,
