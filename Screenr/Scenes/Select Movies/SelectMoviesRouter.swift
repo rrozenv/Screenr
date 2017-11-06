@@ -12,11 +12,11 @@ class SelectMoviesRouter: NSObject, SelectMoviesRoutingLogic {
     
     // MARK: Routing
     func routeToSelectTheatre(){
-        let destinationVC = MovieSearchViewController(searchType: .theatres)
+        let destinationVC = SelectTheatreViewController()
         navigateToMainMovieList(source: viewController!, destination: destinationVC)
     }
     
-    func navigateToMainMovieList(source: SelectMoviesViewController, destination: MovieSearchViewController) {
+    func navigateToMainMovieList(source: SelectMoviesViewController, destination: SelectTheatreViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     

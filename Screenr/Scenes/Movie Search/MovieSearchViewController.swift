@@ -7,8 +7,9 @@ enum SearchType {
     case theatres
 }
 
-protocol MovieSearchControllerDelegate: class {
-    func didSelectMovie(_ movie: Movie_R)
+@objc protocol MovieSearchControllerDelegate: class {
+    @objc optional func didSelectMovie(_ movie: Movie_R)
+    @objc optional func didSelectTheatre(_ theatre: Theatre_R)
 }
 
 final class MovieSearchViewController: UIViewController {
@@ -140,8 +141,11 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
         switch searchType {
         case .movies:
             guard let movie = engine?.getMovieAtIndex(indexPath.row) else { print("No movie at index: \(indexPath.row)"); return }
-            delegate?.didSelectMovie(movie)
+            delegate?.didSelectMovie?(movie)
         case .theatres:
+            let displayedTheatre = self.displayedTheatres[indexPath.row]
+            let theatre = Theatre_R(theatreID: displayedTheatre.id, name: displayedTheatre.name)
+            delegate?.didSelectTheatre?(theatre)
             print("Theatre was selected")
         }
     }

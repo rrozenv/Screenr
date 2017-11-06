@@ -57,6 +57,9 @@
 		98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */; };
 		98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */; };
 		98591F961FA3DAE50077E40C /* LocationSearchSharedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */; };
+		986F31C81FB0C1C1009D4571 /* SelectTheatreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31C71FB0C1C1009D4571 /* SelectTheatreViewController.swift */; };
+		986F31CB1FB0C1E3009D4571 /* SelectTheatreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31CA1FB0C1E3009D4571 /* SelectTheatreEngine.swift */; };
+		986F31D11FB0C2A0009D4571 /* SelectTheatresRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D01FB0C2A0009D4571 /* SelectTheatresRouter.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
@@ -130,6 +133,9 @@
 		98591F911FA3DAAD0077E40C /* LocationSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchEngine.swift; sourceTree = "<group>"; };
 		98591F931FA3DAC50077E40C /* LocationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchPresenter.swift; sourceTree = "<group>"; };
 		98591F951FA3DAE50077E40C /* LocationSearchSharedObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchSharedObjects.swift; sourceTree = "<group>"; };
+		986F31C71FB0C1C1009D4571 /* SelectTheatreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTheatreViewController.swift; sourceTree = "<group>"; };
+		986F31CA1FB0C1E3009D4571 /* SelectTheatreEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTheatreEngine.swift; sourceTree = "<group>"; };
+		986F31D01FB0C2A0009D4571 /* SelectTheatresRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTheatresRouter.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */,
+				986F31C91FB0C1C7009D4571 /* Select Theatre */,
 				98587D551FAFDB90005313E7 /* Select Movies */,
 				98174A711FAA6A27005A838F /* Movie Search */,
 				98EA3A6F1FA03B670070F459 /* Login */,
@@ -345,6 +352,16 @@
 				98587D531FAFCBDB005313E7 /* SelectMoviesRouter.swift */,
 			);
 			path = "Select Movies";
+			sourceTree = "<group>";
+		};
+		986F31C91FB0C1C7009D4571 /* Select Theatre */ = {
+			isa = PBXGroup;
+			children = (
+				986F31C71FB0C1C1009D4571 /* SelectTheatreViewController.swift */,
+				986F31CA1FB0C1E3009D4571 /* SelectTheatreEngine.swift */,
+				986F31D01FB0C2A0009D4571 /* SelectTheatresRouter.swift */,
+			);
+			path = "Select Theatre";
 			sourceTree = "<group>";
 		};
 		98B405B61FA8F168007262E8 /* Realm */ = {
@@ -582,6 +599,7 @@
 				98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */,
 				98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */,
 				98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */,
+				986F31C81FB0C1C1009D4571 /* SelectTheatreViewController.swift in Sources */,
 				98EA3A6E1FA02DB60070F459 /* LoginPresenter.swift in Sources */,
 				983185821F9BE08A00BAF81A /* CalendarDaysModels.swift in Sources */,
 				98174A731FAA6A4B005A838F /* MovieSearchEngine.swift in Sources */,
@@ -594,6 +612,7 @@
 				9827EED41FAB840C00D30BA9 /* Throttler.swift in Sources */,
 				98DF9AD11F924E0000DBAD5E /* MainMovieListViewController.swift in Sources */,
 				98CA6B411F99487600CF312D /* TheatreTableViewCell.swift in Sources */,
+				986F31CB1FB0C1E3009D4571 /* SelectTheatreEngine.swift in Sources */,
 				9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */,
 				98587D521FAFCBCF005313E7 /* SelectMoviesModels.swift in Sources */,
 				9855EDD61FA0CDCA00225E05 /* SettingsEngine.swift in Sources */,
@@ -605,6 +624,7 @@
 				983185801F9BE07500BAF81A /* CalendarDaysPresenter.swift in Sources */,
 				980346381F93CF46003F2E48 /* Webservice.swift in Sources */,
 				98174A751FAA6A5F005A838F /* MovieSearchPresenter.swift in Sources */,
+				986F31D11FB0C2A0009D4571 /* SelectTheatresRouter.swift in Sources */,
 				9835A3501FA0CD730028BD9C /* SettingsViewController.swift in Sources */,
 				98174A701FAA6A19005A838F /* MovieSearchViewController.swift in Sources */,
 				9831857D1F9BE01700BAF81A /* CalendarDaysEngine.swift in Sources */,
