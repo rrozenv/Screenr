@@ -162,6 +162,7 @@ extension MovieSearchViewController {
         tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.register(DisplayedMovieSearchCell.self, forCellReuseIdentifier: DisplayedMovieSearchCell.reuseIdentifier)
         tableView.register(DisplayedTheatreSearchCell.self, forCellReuseIdentifier: DisplayedTheatreSearchCell.reuseIdentifier)
+        tableView.keyboardDismissMode = .interactive
         tableView.delegate = self
         tableView.dataSource = self
         self.view.addSubview(tableView)

@@ -60,6 +60,11 @@
 		986F31C81FB0C1C1009D4571 /* SelectTheatreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31C71FB0C1C1009D4571 /* SelectTheatreViewController.swift */; };
 		986F31CB1FB0C1E3009D4571 /* SelectTheatreEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31CA1FB0C1E3009D4571 /* SelectTheatreEngine.swift */; };
 		986F31D11FB0C2A0009D4571 /* SelectTheatresRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D01FB0C2A0009D4571 /* SelectTheatresRouter.swift */; };
+		986F31D31FB0E024009D4571 /* CreateContestSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D21FB0E024009D4571 /* CreateContestSummaryViewController.swift */; };
+		986F31D61FB0E044009D4571 /* CreateContestSummaryEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D51FB0E044009D4571 /* CreateContestSummaryEngine.swift */; };
+		986F31D81FB0E054009D4571 /* CreateContestSummaryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D71FB0E054009D4571 /* CreateContestSummaryPresenter.swift */; };
+		986F31DA1FB0E06E009D4571 /* CreateContestSummaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D91FB0E06E009D4571 /* CreateContestSummaryModels.swift */; };
+		986F31DC1FB0E081009D4571 /* CreateContestSummaryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
@@ -136,6 +141,11 @@
 		986F31C71FB0C1C1009D4571 /* SelectTheatreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTheatreViewController.swift; sourceTree = "<group>"; };
 		986F31CA1FB0C1E3009D4571 /* SelectTheatreEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTheatreEngine.swift; sourceTree = "<group>"; };
 		986F31D01FB0C2A0009D4571 /* SelectTheatresRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTheatresRouter.swift; sourceTree = "<group>"; };
+		986F31D21FB0E024009D4571 /* CreateContestSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryViewController.swift; sourceTree = "<group>"; };
+		986F31D51FB0E044009D4571 /* CreateContestSummaryEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryEngine.swift; sourceTree = "<group>"; };
+		986F31D71FB0E054009D4571 /* CreateContestSummaryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryPresenter.swift; sourceTree = "<group>"; };
+		986F31D91FB0E06E009D4571 /* CreateContestSummaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryModels.swift; sourceTree = "<group>"; };
+		986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryRouter.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */,
+				986F31D41FB0E029009D4571 /* Create Contest Summary */,
 				986F31C91FB0C1C7009D4571 /* Select Theatre */,
 				98587D551FAFDB90005313E7 /* Select Movies */,
 				98174A711FAA6A27005A838F /* Movie Search */,
@@ -362,6 +373,18 @@
 				986F31D01FB0C2A0009D4571 /* SelectTheatresRouter.swift */,
 			);
 			path = "Select Theatre";
+			sourceTree = "<group>";
+		};
+		986F31D41FB0E029009D4571 /* Create Contest Summary */ = {
+			isa = PBXGroup;
+			children = (
+				986F31D21FB0E024009D4571 /* CreateContestSummaryViewController.swift */,
+				986F31D51FB0E044009D4571 /* CreateContestSummaryEngine.swift */,
+				986F31D71FB0E054009D4571 /* CreateContestSummaryPresenter.swift */,
+				986F31D91FB0E06E009D4571 /* CreateContestSummaryModels.swift */,
+				986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */,
+			);
+			path = "Create Contest Summary";
 			sourceTree = "<group>";
 		};
 		98B405B61FA8F168007262E8 /* Realm */ = {
@@ -585,6 +608,7 @@
 				9828E4171F96E61800B8D921 /* ListShowTimesRouter.swift in Sources */,
 				98D3D81B1F95AFB0000A9F0B /* Resource.swift in Sources */,
 				98EA3A681FA02AD10070F459 /* LoginViewControllerEngine.swift in Sources */,
+				986F31D61FB0E044009D4571 /* CreateContestSummaryEngine.swift in Sources */,
 				98DF9AF71F927E0500DBAD5E /* DateExtensions.swift in Sources */,
 				98DF9ABD1F924CF200DBAD5E /* AppDelegate.swift in Sources */,
 				98280DD11FA2570E00D45C59 /* Theatre.swift in Sources */,
@@ -599,8 +623,10 @@
 				98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */,
 				98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */,
 				98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */,
+				986F31D81FB0E054009D4571 /* CreateContestSummaryPresenter.swift in Sources */,
 				986F31C81FB0C1C1009D4571 /* SelectTheatreViewController.swift in Sources */,
 				98EA3A6E1FA02DB60070F459 /* LoginPresenter.swift in Sources */,
+				986F31DC1FB0E081009D4571 /* CreateContestSummaryRouter.swift in Sources */,
 				983185821F9BE08A00BAF81A /* CalendarDaysModels.swift in Sources */,
 				98174A731FAA6A4B005A838F /* MovieSearchEngine.swift in Sources */,
 				9828E4121F96E47000B8D921 /* ListShowTimesViewController.swift in Sources */,
@@ -635,6 +661,7 @@
 				98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */,
 				9827EED61FAB849900D30BA9 /* SearchTextField.swift in Sources */,
 				98587D4C1FAFCB74005313E7 /* SelectMoviesViewController.swift in Sources */,
+				986F31DA1FB0E06E009D4571 /* CreateContestSummaryModels.swift in Sources */,
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
 				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,
@@ -645,6 +672,7 @@
 				98174A771FAA6A79005A838F /* MovieSearchModels.swift in Sources */,
 				9831857B1F9BDD0F00BAF81A /* CalendarDayCollectionViewController.swift in Sources */,
 				9826A2541F9A7AC200C81F64 /* CalendarDaysGridLayout.swift in Sources */,
+				986F31D31FB0E024009D4571 /* CreateContestSummaryViewController.swift in Sources */,
 				989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */,
 				98587D541FAFCBDB005313E7 /* SelectMoviesRouter.swift in Sources */,
 				98EA3A6C1FA02D800070F459 /* LoginRouter.swift in Sources */,
