@@ -20,6 +20,7 @@
 		981669E81FB2027F002E76C1 /* FontBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669E71FB2027F002E76C1 /* FontBook.swift */; };
 		981669EA1FB20693002E76C1 /* CreateContestSummaryDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */; };
 		981669EC1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */; };
+		981669EE1FB21F10002E76C1 /* Contest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669ED1FB21F10002E76C1 /* Contest.swift */; };
 		98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A6D1FAA6335005A838F /* OMDbAPI.swift */; };
 		98174A701FAA6A19005A838F /* MovieSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A6F1FAA6A19005A838F /* MovieSearchViewController.swift */; };
 		98174A731FAA6A4B005A838F /* MovieSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A721FAA6A4B005A838F /* MovieSearchEngine.swift */; };
@@ -104,6 +105,7 @@
 		981669E71FB2027F002E76C1 /* FontBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontBook.swift; sourceTree = "<group>"; };
 		981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryDateCell.swift; sourceTree = "<group>"; };
 		981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDaySelectionModalViewController.swift; sourceTree = "<group>"; };
+		981669ED1FB21F10002E76C1 /* Contest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contest.swift; sourceTree = "<group>"; };
 		98174A6D1FAA6335005A838F /* OMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbAPI.swift; sourceTree = "<group>"; };
 		98174A6F1FAA6A19005A838F /* MovieSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewController.swift; sourceTree = "<group>"; };
 		98174A721FAA6A4B005A838F /* MovieSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchEngine.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				98280DD41FA2609000D45C59 /* User.swift */,
+				981669ED1FB21F10002E76C1 /* Contest.swift */,
 				98DF9AF41F927DC500DBAD5E /* Movie.swift */,
 				98280DD21FA25FFA00D45C59 /* Showtime.swift */,
 				98280DD01FA2570E00D45C59 /* Theatre.swift */,
@@ -617,6 +620,7 @@
 				98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */,
 				9828E4171F96E61800B8D921 /* ListShowTimesRouter.swift in Sources */,
 				98D3D81B1F95AFB0000A9F0B /* Resource.swift in Sources */,
+				981669EE1FB21F10002E76C1 /* Contest.swift in Sources */,
 				98EA3A681FA02AD10070F459 /* LoginViewControllerEngine.swift in Sources */,
 				986F31D61FB0E044009D4571 /* CreateContestSummaryEngine.swift in Sources */,
 				98DF9AF71F927E0500DBAD5E /* DateExtensions.swift in Sources */,

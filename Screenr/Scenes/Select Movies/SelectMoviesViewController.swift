@@ -71,7 +71,7 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
 
 extension SelectMoviesViewController: MovieSearchControllerDelegate {
     
-    func didSelectMovie(_ movie: Movie_R) {
+    func didSelectMovie(_ movie: ContestMovie_R) {
         let request = SelectMovies.Request(movie: movie)
         engine?.saveSelectedMovie(request: request)
     }
@@ -86,7 +86,7 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
 extension SelectMoviesViewController {
     
     fileprivate func setupChildMovieSearchViewController() {
-        movieSearchViewController = MovieSearchViewController(searchType: .movies)
+        movieSearchViewController = MovieSearchViewController(searchType: .contestMovies)
         movieSearchViewController.delegate = self
         self.addChildViewController(movieSearchViewController, frame: nil, animated: false)
     }

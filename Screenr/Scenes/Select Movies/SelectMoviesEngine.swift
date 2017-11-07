@@ -7,12 +7,12 @@ protocol SelectMoviesLogic {
 }
 
 protocol SelectMoviesDataStore {
-    var selectedMovies: [Movie_R] { get set }
+    var selectedMovies: [ContestMovie_R] { get set }
 }
 
 final class SelectMoviesEngine: SelectMoviesLogic, SelectMoviesDataStore {
     
-    var selectedMovies = [Movie_R]()
+    var selectedMovies = [ContestMovie_R]()
     var presenter: SelectMoviesPresentationLogic?
     lazy var temporaryRealm: RealmStorageContext = {
         return RealmStorageContext(configuration: RealmConfig.temporary)

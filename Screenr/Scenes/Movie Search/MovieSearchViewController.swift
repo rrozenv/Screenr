@@ -4,11 +4,12 @@ import UIKit
 
 enum SearchType {
     case movies
+    case contestMovies
     case theatres
 }
 
 @objc protocol MovieSearchControllerDelegate: class {
-    @objc optional func didSelectMovie(_ movie: Movie_R)
+    @objc optional func didSelectMovie(_ movie: ContestMovie_R)
     @objc optional func didSelectTheatre(_ theatre: Theatre_R)
 }
 
@@ -18,7 +19,7 @@ final class MovieSearchViewController: UIViewController {
     var searchTextField: SearchTextField!
     var tableView: UITableView!
     
-    var displayedMovies = [MoviesSearch.Movies.ViewModel.DisplayedMovie]()
+    var displayedMovies = [MoviesSearch.ContestMovies.ViewModel.DisplayedMovie]()
     var displayedTheatres = [MoviesSearch.Theatres.ViewModel.DisplayedTheatre]()
     
     var engine: MovieSearchLogic?
@@ -69,7 +70,7 @@ final class MovieSearchViewController: UIViewController {
     //MARK: Output
     
     func createRequestWithSearch(query: String) {
-        let request = MoviesSearch.Movies.Request(query: query)
+        let request = MoviesSearch.ContestMovies.Request(query: query)
         engine?.makeQuery(request: request)
     }
     
@@ -79,6 +80,13 @@ final class MovieSearchViewController: UIViewController {
             //let shouldNotSearch = 0...3 ~= searchText.characters.count
             switch self.searchType {
             case .movies:
+                if shouldNotSearch {
+                    self.displayedMovies = [DisplayedMovieInSearch]()
+                    self.tableView.reloadData()
+                } else {
+                    self.createRequestWithSearch(query: searchText)
+                }
+            case .contestMovies:
                 if shouldNotSearch {
                     self.displayedMovies = [DisplayedMovieInSearch]()
                     self.tableView.reloadData()
@@ -100,7 +108,7 @@ final class MovieSearchViewController: UIViewController {
     
     //MARK: Input
     
-    func displayMovies(viewModel: MoviesSearch.Movies.ViewModel) {
+    func displayMovies(viewModel: MoviesSearch.ContestMovies.ViewModel) {
         self.displayedMovies = viewModel.displayedMovies
         self.tableView.reloadData()
     }
@@ -115,6 +123,8 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch searchType {
+        case .contestMovies:
+            return displayedMovies.count
         case .movies:
             return displayedMovies.count
         case .theatres:
@@ -124,7 +134,7 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch searchType {
-        case .movies:
+        case .movies, .contestMovies:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DisplayedMovieSearchCell.reuseIdentifier, for: indexPath) as? DisplayedMovieSearchCell else { fatalError("Unexpected Table View Cell") }
             let displayedMovie = self.displayedMovies[indexPath.row]
             cell.configure(with: displayedMovie)
@@ -139,7 +149,7 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch searchType {
-        case .movies:
+        case .movies, .contestMovies:
             guard let movie = engine?.getMovieAtIndex(indexPath.row) else { print("No movie at index: \(indexPath.row)"); return }
             delegate?.didSelectMovie?(movie)
         case .theatres:

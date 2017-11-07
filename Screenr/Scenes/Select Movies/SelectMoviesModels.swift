@@ -12,12 +12,12 @@ enum SelectMovies {
     
     //User Input -> Interactor Input
     struct Request {
-        let movie: Movie_R
+        let movie: ContestMovie_R
     }
     
     //Interactor Output -> Presenter Input
     struct Response {
-        var movies: [Movie_R]
+        var movies: [ContestMovie_R]
     }
     
     //Presenter Output -> View Controller Input

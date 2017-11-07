@@ -53,6 +53,7 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         setupNextButton()
         setupRemoveCalendarCVButton()
         fetchSelectedMoviesFromDatabase()
+        fetchSelectedTheatreFromDatabase()
     }
     
     override func viewWillLayoutSubviews() {
@@ -78,11 +79,15 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
 extension CreateContestSummaryViewController {
     
     func didSelectNextButton(_ sender: UIButton) {
-        router?.routeToMainMovieList()
+        engine?.createContestInDatabase()
     }
     
     func fetchSelectedMoviesFromDatabase() {
         engine?.fetchSelectedMoviesFromDatabase()
+    }
+    
+    func fetchSelectedTheatreFromDatabase() {
+        engine?.fetchSelectedTheatreFromDatabase()
     }
     
     @objc fileprivate func didSelectDateButton() {
@@ -123,6 +128,23 @@ extension CreateContestSummaryViewController: CalendarDaySelectionModalViewContr
     func displaySelectedMovies(viewModel: SelectMovies.ViewModel) {
         self.selectedMoviesCollectionViewController.displayedMovies = viewModel.displayedMovies
         self.selectedMoviesCollectionViewController.collectionView.reloadData()
+    }
+    
+    func displaySelectedTheatre(viewModel: CreateContestSummary.SelectedTheatre.ViewModel) {
+        print("Selected theatre currently is: \(viewModel.displayedTheatre.name)")
+    }
+    
+    func displayDidCreateContestConfirmation() {
+        self.showConfirmationAlert(title: "Contest Created Successfully", message: "Woo!")
+    }
+    
+    fileprivate func showConfirmationAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertAction = UIAlertAction.init(title: "OK", style: .default) { [weak self] _ in
+            self?.router?.routeToMainMovieList()
+        }
+        alertController.addAction(alertAction)
+        self.showDetailViewController(alertController, sender: nil)
     }
     
     func displayUpdatedDate() {
