@@ -8,6 +8,9 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
     var selectedMoviesCollectionViewController: DisplayMoviesCollectionViewController!
     var nextButton: UIButton!
     
+    var currentTicketPrice: String = TextFieldCell.Style.price.defaultValue
+    var currentVotesRequired: String = TextFieldCell.Style.votes.defaultValue
+    
     var engine: CreateContestSummaryEngine?
     var router:
     (CreateContestSummaryRoutingLogic &
@@ -86,6 +89,20 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         case votes = 2
     }
     
+    enum Alert {
+        case price
+        case votes
+        
+        var title: String {
+            switch self {
+            case .price:
+                return "Price of ticket?"
+            case .votes:
+                return "Number of votes required?"
+            }
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -103,17 +120,56 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
             return cell
         case .price:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .price, inputValue: nil)
+            cell.configure(with: .price, inputValue: currentTicketPrice)
             return cell
         case .votes:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .votes, inputValue: nil)
+            cell.configure(with: .votes, inputValue: currentVotesRequired)
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cellType = Cell.init(rawValue: indexPath.row) else { fatalError("Unexpected Table View Cell") }
+        switch cellType {
+        case .date:
+            //TODO
+            break
+        case .price:
+            displayTextFieldAlert(for: .price)
+        case .votes:
+            displayTextFieldAlert(for: .votes)
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85.0
+    }
+    
+    fileprivate func displayTextFieldAlert(for alertType: Alert) {
+        let alertController = UIAlertController(title: alertType.title, message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        var submitAction: UIAlertAction
+        switch alertType {
+        case .price:
+            submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+                let textField = alertController.textFields![0]
+                textField.keyboardType = .decimalPad
+                guard let priceUpdate = textField.text, priceUpdate != "" else { return }
+                self.currentTicketPrice = priceUpdate
+                self.tableView.reloadRows(at: [IndexPath(row: Cell.price.rawValue, section: 0)], with: .none)
+            }
+        case .votes:
+            submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+                let textField = alertController.textFields![0]
+                textField.keyboardType = .decimalPad
+                guard let voteUpdate = textField.text, voteUpdate != "" else { return }
+                self.currentVotesRequired = voteUpdate
+                self.tableView.reloadRows(at: [IndexPath(row: Cell.votes.rawValue, section: 0)], with: .none)
+            }
+        }
+        alertController.addAction(submitAction)
+        self.showDetailViewController(alertController, sender: nil)
     }
     
 }
