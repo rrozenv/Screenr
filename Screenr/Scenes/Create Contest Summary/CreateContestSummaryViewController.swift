@@ -4,8 +4,10 @@ import UIKit
 
 final class CreateContestSummaryViewController: UIViewController, ChildViewControllerManager {
     
-    lazy var calendarDaysCollectionViewController: CalendarDayCollectionViewController = {
-        return CalendarDayCollectionViewController()
+    lazy var calendarDaysSelectionModalVC: CalendarDaySelectionModalViewController = {
+        let calendarDaysSelectionModalVC = CalendarDaySelectionModalViewController()
+        calendarDaysSelectionModalVC.delegate = self
+        return calendarDaysSelectionModalVC
     }()
     
     var removeCalendarCVButton: UIButton!
@@ -69,6 +71,12 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         return true
     }
     
+}
+
+//MARK: Output
+
+extension CreateContestSummaryViewController {
+    
     func didSelectNextButton(_ sender: UIButton) {
         router?.routeToMainMovieList()
     }
@@ -77,9 +85,48 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         engine?.fetchSelectedMoviesFromDatabase()
     }
     
+    @objc fileprivate func didSelectDateButton() {
+        calendarDaysSelectionModalVC.modalPresentationStyle = .overCurrentContext
+        self.present(self.calendarDaysSelectionModalVC, animated: true, completion: nil)
+    }
+    
+    fileprivate func displayTextFieldAlert(for alertType: Alert) {
+        let alertController = UIAlertController(title: alertType.title, message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        var submitAction: UIAlertAction
+        switch alertType {
+        case .price:
+            submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+                let textField = alertController.textFields![0]
+                textField.keyboardType = .decimalPad
+                guard let price = textField.text, price != "" else { return }
+                self.engine?.updateTicketPrice(to: price)
+            }
+        case .votes:
+            submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
+                let textField = alertController.textFields![0]
+                textField.keyboardType = .decimalPad
+                guard let voteNumber = textField.text, voteNumber != "" else { return }
+                self.engine?.updateVotesRequired(to: voteNumber)
+            }
+        }
+        alertController.addAction(submitAction)
+        self.showDetailViewController(alertController, sender: nil)
+    }
+    
+}
+
+//MARK: Input
+
+extension CreateContestSummaryViewController: CalendarDaySelectionModalViewControllerDelegate {
+    
     func displaySelectedMovies(viewModel: SelectMovies.ViewModel) {
         self.selectedMoviesCollectionViewController.displayedMovies = viewModel.displayedMovies
         self.selectedMoviesCollectionViewController.collectionView.reloadData()
+    }
+    
+    func displayUpdatedDate() {
+        self.tableView.reloadRows(at: [IndexPath(row: Cell.date.rawValue, section: 0)], with: .none)
     }
     
     func displayUpdatedPrice() {
@@ -88,6 +135,10 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
     
     func displayUpdatedVotesRequired() {
         self.tableView.reloadRows(at: [IndexPath(row: Cell.votes.rawValue, section: 0)], with: .none)
+    }
+    
+    func didSelectDate(_ dateString: String) {
+        self.engine?.updateDate(to: dateString)
     }
     
 }
@@ -126,8 +177,8 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         guard let cellType = Cell.init(rawValue: indexPath.row) else { fatalError("Unexpected Table View Cell") }
         switch cellType {
         case .date:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DateCell.reuseIdentifier, for: indexPath) as? DateCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateContestSummaryDateCell.reuseIdentifier, for: indexPath) as? CreateContestSummaryDateCell else { fatalError("Unexpected Table View Cell") }
+            cell.configure(with: engine?.date)
             cell.dateButton.addTarget(self, action: #selector(didSelectDateButton), for: .touchUpInside)
             return cell
         case .price:
@@ -145,6 +196,7 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         guard let cellType = Cell.init(rawValue: indexPath.row) else { fatalError("Unexpected Table View Cell") }
         switch cellType {
         case .date:
+            //Date selection handled by button in cell. See func didSelectDateButton(:_).
             break
         case .price:
             displayTextFieldAlert(for: .price)
@@ -155,37 +207,6 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 85.0
-    }
-    
-    @objc fileprivate func didSelectDateButton() {
-        self.view.addSubview(removeCalendarCVButton)
-        self.modalPresentationStyle = .overCurrentContext
-        self.present(self.calendarDaysCollectionViewController, animated: true, completion: nil)
-        //self.addChildViewController(self.calendarDaysCollectionViewController, frame: nil, animated: false)
-    }
-    
-    fileprivate func displayTextFieldAlert(for alertType: Alert) {
-        let alertController = UIAlertController(title: alertType.title, message: nil, preferredStyle: .alert)
-        alertController.addTextField()
-        var submitAction: UIAlertAction
-        switch alertType {
-        case .price:
-            submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
-                let textField = alertController.textFields![0]
-                textField.keyboardType = .decimalPad
-                guard let price = textField.text, price != "" else { return }
-                self.engine?.updateTicketPrice(to: price)
-            }
-        case .votes:
-            submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
-                let textField = alertController.textFields![0]
-                textField.keyboardType = .decimalPad
-                guard let voteNumber = textField.text, voteNumber != "" else { return }
-                self.engine?.updateVotesRequired(to: voteNumber)
-            }
-        }
-        alertController.addAction(submitAction)
-        self.showDetailViewController(alertController, sender: nil)
     }
     
 }
@@ -200,7 +221,7 @@ extension CreateContestSummaryViewController {
     fileprivate func setupTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
-        tableView.register(DateCell.self, forCellReuseIdentifier: DateCell.reuseIdentifier)
+        tableView.register(CreateContestSummaryDateCell.self, forCellReuseIdentifier: CreateContestSummaryDateCell.reuseIdentifier)
         tableView.keyboardDismissMode = .interactive
         tableView.delegate = self
         tableView.dataSource = self

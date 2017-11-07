@@ -4,6 +4,7 @@ import UIKit
 
 protocol CreateContestSummaryPresentationLogic {
     func formatMovies(response: CreateContestSummary.SelectedMovies.Response)
+    func displayUpdatedDate()
     func displayUpdatedPrice()
     func displayUpdatedVotesRequired()
 }
@@ -16,6 +17,10 @@ final class CreateContestSummaryPresenter: CreateContestSummaryPresentationLogic
         let formattedMovies = formatMoviesForDisplay(response.movies)
         let viewModel = SelectMovies.ViewModel(displayedMovies: formattedMovies)
         viewController?.displaySelectedMovies(viewModel: viewModel)
+    }
+    
+    func displayUpdatedDate() {
+        viewController?.displayUpdatedDate()
     }
     
     func displayUpdatedPrice() {

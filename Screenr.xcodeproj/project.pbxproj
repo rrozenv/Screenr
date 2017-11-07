@@ -17,6 +17,9 @@
 		98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */; };
 		981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */; };
 		981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580821FA3BAD200B4EDB5 /* LocationService.swift */; };
+		981669E81FB2027F002E76C1 /* FontBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669E71FB2027F002E76C1 /* FontBook.swift */; };
+		981669EA1FB20693002E76C1 /* CreateContestSummaryDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */; };
+		981669EC1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */; };
 		98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A6D1FAA6335005A838F /* OMDbAPI.swift */; };
 		98174A701FAA6A19005A838F /* MovieSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A6F1FAA6A19005A838F /* MovieSearchViewController.swift */; };
 		98174A731FAA6A4B005A838F /* MovieSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98174A721FAA6A4B005A838F /* MovieSearchEngine.swift */; };
@@ -98,6 +101,9 @@
 		98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedMovieSearchCell.swift; sourceTree = "<group>"; };
 		981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		981580821FA3BAD200B4EDB5 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		981669E71FB2027F002E76C1 /* FontBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontBook.swift; sourceTree = "<group>"; };
+		981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryDateCell.swift; sourceTree = "<group>"; };
+		981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDaySelectionModalViewController.swift; sourceTree = "<group>"; };
 		98174A6D1FAA6335005A838F /* OMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OMDbAPI.swift; sourceTree = "<group>"; };
 		98174A6F1FAA6A19005A838F /* MovieSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewController.swift; sourceTree = "<group>"; };
 		98174A721FAA6A4B005A838F /* MovieSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchEngine.swift; sourceTree = "<group>"; };
@@ -249,6 +255,7 @@
 				98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */,
 				98DF9AF61F927E0500DBAD5E /* DateExtensions.swift */,
 				98CA6B3E1F9945F300CF312D /* StringExtensions.swift */,
+				981669E71FB2027F002E76C1 /* FontBook.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -378,6 +385,8 @@
 		986F31D41FB0E029009D4571 /* Create Contest Summary */ = {
 			isa = PBXGroup;
 			children = (
+				981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */,
+				981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */,
 				986F31D21FB0E024009D4571 /* CreateContestSummaryViewController.swift */,
 				986F31D51FB0E044009D4571 /* CreateContestSummaryEngine.swift */,
 				986F31D71FB0E054009D4571 /* CreateContestSummaryPresenter.swift */,
@@ -604,6 +613,7 @@
 			files = (
 				9840E2F81F968C2300423C09 /* MainMovieListCell.swift in Sources */,
 				98587D501FAFCBAA005313E7 /* SelectMoviesPresenter.swift in Sources */,
+				981669EC1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift in Sources */,
 				98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */,
 				9828E4171F96E61800B8D921 /* ListShowTimesRouter.swift in Sources */,
 				98D3D81B1F95AFB0000A9F0B /* Resource.swift in Sources */,
@@ -637,6 +647,7 @@
 				98DF9AF51F927DC500DBAD5E /* Movie.swift in Sources */,
 				9827EED41FAB840C00D30BA9 /* Throttler.swift in Sources */,
 				98DF9AD11F924E0000DBAD5E /* MainMovieListViewController.swift in Sources */,
+				981669E81FB2027F002E76C1 /* FontBook.swift in Sources */,
 				98CA6B411F99487600CF312D /* TheatreTableViewCell.swift in Sources */,
 				986F31CB1FB0C1E3009D4571 /* SelectTheatreEngine.swift in Sources */,
 				9855EDD81FA0CED200225E05 /* SettingsPresenter.swift in Sources */,
@@ -648,6 +659,7 @@
 				980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */,
 				9803463A1F93D479003F2E48 /* MovieWorker.swift in Sources */,
 				983185801F9BE07500BAF81A /* CalendarDaysPresenter.swift in Sources */,
+				981669EA1FB20693002E76C1 /* CreateContestSummaryDateCell.swift in Sources */,
 				980346381F93CF46003F2E48 /* Webservice.swift in Sources */,
 				98174A751FAA6A5F005A838F /* MovieSearchPresenter.swift in Sources */,
 				986F31D11FB0C2A0009D4571 /* SelectTheatresRouter.swift in Sources */,

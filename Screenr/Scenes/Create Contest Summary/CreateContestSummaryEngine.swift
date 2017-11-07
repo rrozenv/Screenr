@@ -17,6 +17,7 @@ final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContest
     
     var selectedMovies = [Movie_R]()
     var presenter: CreateContestSummaryPresentationLogic?
+    var date: String = Date().yearMonthDayString
     var ticketPrice: String = TextFieldCell.Style.price.defaultValue
     var votesRequired: String = TextFieldCell.Style.votes.defaultValue
     
@@ -39,6 +40,11 @@ final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContest
                     print(error.localizedDescription)
                 }
             }
+    }
+    
+    func updateDate(to dateString: String) {
+        self.date = dateString
+        self.presenter?.displayUpdatedDate()
     }
     
     func updateTicketPrice(to price: String) {
