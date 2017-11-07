@@ -4,12 +4,14 @@ import UIKit
 
 final class CreateContestSummaryViewController: UIViewController, ChildViewControllerManager {
     
+    lazy var calendarDaysCollectionViewController: CalendarDayCollectionViewController = {
+        return CalendarDayCollectionViewController()
+    }()
+    
+    var removeCalendarCVButton: UIButton!
     var tableView: UITableView!
     var selectedMoviesCollectionViewController: DisplayMoviesCollectionViewController!
     var nextButton: UIButton!
-    
-    var currentTicketPrice: String = TextFieldCell.Style.price.defaultValue
-    var currentVotesRequired: String = TextFieldCell.Style.votes.defaultValue
     
     var engine: CreateContestSummaryEngine?
     var router:
@@ -47,6 +49,7 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         setupChildSelectedMoviesViewController()
         setupTableView()
         setupNextButton()
+        setupRemoveCalendarCVButton()
         fetchSelectedMoviesFromDatabase()
     }
     
@@ -77,6 +80,14 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
     func displaySelectedMovies(viewModel: SelectMovies.ViewModel) {
         self.selectedMoviesCollectionViewController.displayedMovies = viewModel.displayedMovies
         self.selectedMoviesCollectionViewController.collectionView.reloadData()
+    }
+    
+    func displayUpdatedPrice() {
+        self.tableView.reloadRows(at: [IndexPath(row: Cell.price.rawValue, section: 0)], with: .none)
+    }
+    
+    func displayUpdatedVotesRequired() {
+        self.tableView.reloadRows(at: [IndexPath(row: Cell.votes.rawValue, section: 0)], with: .none)
     }
     
 }
@@ -115,16 +126,17 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         guard let cellType = Cell.init(rawValue: indexPath.row) else { fatalError("Unexpected Table View Cell") }
         switch cellType {
         case .date:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .price, inputValue: nil)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DateCell.reuseIdentifier, for: indexPath) as? DateCell else { fatalError("Unexpected Table View Cell") }
+            cell.configure()
+            cell.dateButton.addTarget(self, action: #selector(didSelectDateButton), for: .touchUpInside)
             return cell
         case .price:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .price, inputValue: currentTicketPrice)
+            cell.configure(with: .price, inputValue: engine?.ticketPrice)
             return cell
         case .votes:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldCell.reuseIdentifier, for: indexPath) as? TextFieldCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: .votes, inputValue: currentVotesRequired)
+            cell.configure(with: .votes, inputValue: engine?.votesRequired)
             return cell
         }
     }
@@ -133,7 +145,6 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         guard let cellType = Cell.init(rawValue: indexPath.row) else { fatalError("Unexpected Table View Cell") }
         switch cellType {
         case .date:
-            //TODO
             break
         case .price:
             displayTextFieldAlert(for: .price)
@@ -146,6 +157,13 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         return 85.0
     }
     
+    @objc fileprivate func didSelectDateButton() {
+        self.view.addSubview(removeCalendarCVButton)
+        self.modalPresentationStyle = .overCurrentContext
+        self.present(self.calendarDaysCollectionViewController, animated: true, completion: nil)
+        //self.addChildViewController(self.calendarDaysCollectionViewController, frame: nil, animated: false)
+    }
+    
     fileprivate func displayTextFieldAlert(for alertType: Alert) {
         let alertController = UIAlertController(title: alertType.title, message: nil, preferredStyle: .alert)
         alertController.addTextField()
@@ -155,17 +173,15 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
             submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
                 let textField = alertController.textFields![0]
                 textField.keyboardType = .decimalPad
-                guard let priceUpdate = textField.text, priceUpdate != "" else { return }
-                self.currentTicketPrice = priceUpdate
-                self.tableView.reloadRows(at: [IndexPath(row: Cell.price.rawValue, section: 0)], with: .none)
+                guard let price = textField.text, price != "" else { return }
+                self.engine?.updateTicketPrice(to: price)
             }
         case .votes:
             submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned alertController] _ in
                 let textField = alertController.textFields![0]
                 textField.keyboardType = .decimalPad
-                guard let voteUpdate = textField.text, voteUpdate != "" else { return }
-                self.currentVotesRequired = voteUpdate
-                self.tableView.reloadRows(at: [IndexPath(row: Cell.votes.rawValue, section: 0)], with: .none)
+                guard let voteNumber = textField.text, voteNumber != "" else { return }
+                self.engine?.updateVotesRequired(to: voteNumber)
             }
         }
         alertController.addAction(submitAction)
@@ -184,7 +200,7 @@ extension CreateContestSummaryViewController {
     fileprivate func setupTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.register(TextFieldCell.self, forCellReuseIdentifier: TextFieldCell.reuseIdentifier)
-        tableView.register(DisplayedTheatreSearchCell.self, forCellReuseIdentifier: DisplayedTheatreSearchCell.reuseIdentifier)
+        tableView.register(DateCell.self, forCellReuseIdentifier: DateCell.reuseIdentifier)
         tableView.keyboardDismissMode = .interactive
         tableView.delegate = self
         tableView.dataSource = self
@@ -196,6 +212,13 @@ extension CreateContestSummaryViewController {
         nextButton.backgroundColor = UIColor.yellow
         nextButton.addTarget(self, action: #selector(didSelectNextButton), for: .touchUpInside)
         nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)
+    }
+    
+    fileprivate func setupRemoveCalendarCVButton() {
+        removeCalendarCVButton = UIButton()
+        removeCalendarCVButton.backgroundColor = UIColor.black
+        removeCalendarCVButton.alpha = 0.6
+        removeCalendarCVButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
     }
     
 }
