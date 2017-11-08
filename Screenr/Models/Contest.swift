@@ -26,6 +26,10 @@ class Contest_R: Object {
         }
     }
     
+    static func createValueDictionary(theatre: Theatre_R, calendarDate: Date, movies: [ContestMovie_R], ticketPrice: String, votesRequired: String) -> [String: Any] {
+        return ["theatre": theatre, "calendarDate": calendarDate, "movies": movies, "ticketPrice": ticketPrice, "votesRequired": votesRequired]
+    }
+    
 }
 
 class ContestMovie_R: Object {

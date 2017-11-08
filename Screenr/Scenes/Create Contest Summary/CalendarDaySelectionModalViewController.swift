@@ -12,7 +12,7 @@ extension UIView {
 }
 
 protocol CalendarDaySelectionModalViewControllerDelegate: class {
-    func didSelectDate(_ dateString: String)
+    func didSelectDate(_ date: Date)
 }
 
 final class CalendarDaySelectionModalViewController: UIViewController, ChildViewControllerManager {
@@ -20,7 +20,7 @@ final class CalendarDaySelectionModalViewController: UIViewController, ChildView
     fileprivate var opaqueButtonView: UIButton!
     fileprivate var calendarDaysCollectionViewController: CalendarDayCollectionViewController!
     weak var delegate: CalendarDaySelectionModalViewControllerDelegate?
-    var didSelectDate: ((String) -> ())?
+    var didSelectDate: ((Date) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +41,8 @@ final class CalendarDaySelectionModalViewController: UIViewController, ChildView
     }
     
     func setupDidSelectCalendarDateCallback() {
-        self.calendarDaysCollectionViewController.didSelectDate = { [weak self] (dateString) in
-            self?.delegate?.didSelectDate(dateString)
-            //self?.didSelectDate?(dateString)
+        self.calendarDaysCollectionViewController.didSelectDate = { [weak self] (date) in
+            self?.delegate?.didSelectDate(date)
             self?.dismiss(animated: true, completion: nil)
         }
     }
@@ -64,7 +63,7 @@ extension CalendarDaySelectionModalViewController {
     }
     
     fileprivate func setupChildCalendarDaysCVControllerProperties() {
-        calendarDaysCollectionViewController = CalendarDayCollectionViewController(nibName: nil, bundle: nil)
+        calendarDaysCollectionViewController = CalendarDayCollectionViewController(numberOfDays: 30)
         self.addChildViewController(calendarDaysCollectionViewController, frame: nil, animated: false)
     }
     

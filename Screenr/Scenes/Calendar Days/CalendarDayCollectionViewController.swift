@@ -3,22 +3,23 @@ import UIKit
 
 class CalendarDayCollectionViewController: UIViewController {
     
+    var numberOfDays: Int
     var collectionView: UICollectionView!
     var collectionViewGridLayout: CalendarDaysGridLayout!
     var displayedDates: [DisplayedDate]?
     var displayedDatesStates: [Bool]!
     
     var engine: CalendarDaysBusinessLogic?
-    var didSelectDate: ((String) -> ())?
+    var didSelectDate: ((Date) -> ())?
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    init(numberOfDays: Int) {
+        self.numberOfDays = numberOfDays
+        super.init(nibName: nil, bundle: nil)
         setup()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setup() {
@@ -42,7 +43,7 @@ class CalendarDayCollectionViewController: UIViewController {
     }
     
     fileprivate func getCalanderDays() {
-        let request = CalendarDays.GetCalanderDays.Request()
+        let request = CalendarDays.GetCalanderDays.Request(numberOfDays: numberOfDays)
         engine?.getCalendarDays(request: request)
     }
     
@@ -80,7 +81,7 @@ extension CalendarDayCollectionViewController: UICollectionViewDataSource, UICol
         self.displayedDatesStates[indexPath.item] = true
         collectionView.reloadItems(at: [indexPath])
         let selectedDate = self.displayedDates![indexPath.item]
-        self.didSelectDate?(selectedDate.fullDateString)
+        self.didSelectDate?(selectedDate.date)
     }
     
     private func deselectPreviousCell() {

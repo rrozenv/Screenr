@@ -6,6 +6,7 @@ protocol CreateContestSummaryLogic {
     func updateTicketPrice(to price: String)
     func updateVotesRequired(to numberOfVotes: String)
     func createContestInDatabase()
+    func deleteAllObjectsInTemporaryRealm()
 }
 
 protocol CreateContestSummaryDataStore {
@@ -20,7 +21,7 @@ final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContest
     var selectedMovies = [ContestMovie_R]()
     var theatre: Theatre_R?
     var presenter: CreateContestSummaryPresentationLogic?
-    var date: String = Date().yearMonthDayString
+    var date: Date = Date()
     var ticketPrice: String = TextFieldCell.Style.price.defaultValue
     var votesRequired: String = TextFieldCell.Style.votes.defaultValue
     
@@ -67,7 +68,7 @@ final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContest
     }
     
     func createContestInDatabase() {
-        let value: [String: Any] = ["theatre": self.theatre!, "calendarDate": self.date.convertToDate ?? Date(), "movies": self.selectedMovies, "ticketPrice": self.ticketPrice, "votesRequired": self.votesRequired]
+        let value = Contest_R.createValueDictionary(theatre: theatre!, calendarDate: date, movies: selectedMovies, ticketPrice: ticketPrice, votesRequired: votesRequired)
         self.commonRealm
             .create(Contest_R.self, value: value)
             .then { (_) in
@@ -82,8 +83,20 @@ final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContest
             }
     }
     
-    func updateDate(to dateString: String) {
-        self.date = dateString
+    func deleteAllObjectsInTemporaryRealm() {
+        self.temporaryRealm
+            .deleteAll()
+            .catch { (error) in
+                if let realmError = error as? RealmError {
+                    print(realmError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
+            }
+    }
+    
+    func updateDate(to date: Date) {
+        self.date = date
         self.presenter?.displayUpdatedDate()
     }
     

@@ -10,18 +10,14 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         return calendarDaysSelectionModalVC
     }()
     
-    var removeCalendarCVButton: UIButton!
     var tableView: UITableView!
     var selectedMoviesCollectionViewController: DisplayMoviesCollectionViewController!
-    var nextButton: UIButton!
+    var createButton: UIButton!
     
     var engine: CreateContestSummaryEngine?
     var router:
     (CreateContestSummaryRoutingLogic &
     NSObjectProtocol)?
-    
-    var postalCodeButton: UIBarButtonItem!
-    var locationDidChange = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -50,8 +46,7 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         self.view.backgroundColor = UIColor.red
         setupChildSelectedMoviesViewController()
         setupTableView()
-        setupNextButton()
-        setupRemoveCalendarCVButton()
+        setupCreateButton()
         fetchSelectedMoviesFromDatabase()
         fetchSelectedTheatreFromDatabase()
     }
@@ -64,7 +59,7 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
     
     override var inputAccessoryView: UIView? {
         get {
-            return nextButton
+            return createButton
         }
     }
     
@@ -78,7 +73,7 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
 
 extension CreateContestSummaryViewController {
     
-    func didSelectNextButton(_ sender: UIButton) {
+    func didSelectCreateButton(_ sender: UIButton) {
         engine?.createContestInDatabase()
     }
     
@@ -135,12 +130,13 @@ extension CreateContestSummaryViewController: CalendarDaySelectionModalViewContr
     }
     
     func displayDidCreateContestConfirmation() {
-        self.showConfirmationAlert(title: "Contest Created Successfully", message: "Woo!")
+        self.showContestCreatedConfirmation(title: "Contest Created Successfully", message: "Woo!")
     }
     
-    fileprivate func showConfirmationAlert(title: String, message: String) {
+    fileprivate func showContestCreatedConfirmation(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction.init(title: "OK", style: .default) { [weak self] _ in
+            self?.engine?.deleteAllObjectsInTemporaryRealm()
             self?.router?.routeToMainMovieList()
         }
         alertController.addAction(alertAction)
@@ -159,8 +155,8 @@ extension CreateContestSummaryViewController: CalendarDaySelectionModalViewContr
         self.tableView.reloadRows(at: [IndexPath(row: Cell.votes.rawValue, section: 0)], with: .none)
     }
     
-    func didSelectDate(_ dateString: String) {
-        self.engine?.updateDate(to: dateString)
+    func didSelectDate(_ date: Date) {
+        self.engine?.updateDate(to: date)
     }
     
 }
@@ -200,7 +196,7 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
         switch cellType {
         case .date:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CreateContestSummaryDateCell.reuseIdentifier, for: indexPath) as? CreateContestSummaryDateCell else { fatalError("Unexpected Table View Cell") }
-            cell.configure(with: engine?.date)
+            cell.configure(with: engine?.date.yearMonthDayString)
             cell.dateButton.addTarget(self, action: #selector(didSelectDateButton), for: .touchUpInside)
             return cell
         case .price:
@@ -250,18 +246,11 @@ extension CreateContestSummaryViewController {
         self.view.addSubview(tableView)
     }
     
-    fileprivate func setupNextButton() {
-        nextButton = UIButton()
-        nextButton.backgroundColor = UIColor.yellow
-        nextButton.addTarget(self, action: #selector(didSelectNextButton), for: .touchUpInside)
-        nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)
-    }
-    
-    fileprivate func setupRemoveCalendarCVButton() {
-        removeCalendarCVButton = UIButton()
-        removeCalendarCVButton.backgroundColor = UIColor.black
-        removeCalendarCVButton.alpha = 0.6
-        removeCalendarCVButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    fileprivate func setupCreateButton() {
+        createButton = UIButton()
+        createButton.backgroundColor = UIColor.yellow
+        createButton.addTarget(self, action: #selector(didSelectCreateButton), for: .touchUpInside)
+        createButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)
     }
     
 }

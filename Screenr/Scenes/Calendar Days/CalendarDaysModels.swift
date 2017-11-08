@@ -5,7 +5,9 @@ enum CalendarDays {
     
     enum GetCalanderDays {
         //User Input -> Interactor Input
-        struct Request { }
+        struct Request {
+            let numberOfDays: Int
+        }
         
         //Interactor Output -> Presenter Input
         struct Response {
@@ -15,6 +17,7 @@ enum CalendarDays {
         //Presenter Output -> View Controller Input
         struct ViewModel {
             struct DisplayedDate {
+                let date: Date
                 let fullDateString: String
                 let calendarDay: String
                 let month: String

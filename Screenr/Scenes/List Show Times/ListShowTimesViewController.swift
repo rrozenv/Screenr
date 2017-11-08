@@ -76,9 +76,9 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     }
     
     func setupDidSelectCalendarDateCallback() {
-        self.calendarDaysCollectionViewController.didSelectDate = { [weak self] (dateString) in
-            print("Selected date \(dateString)")
-            self?.getMovieShowtimesFor(date: dateString)
+        self.calendarDaysCollectionViewController.didSelectDate = { [weak self] (date) in
+            print("Selected date \(date.yearMonthDayString)")
+            self?.getMovieShowtimesFor(date: date.yearMonthDayString)
         }
     }
     
@@ -99,7 +99,7 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     }
     
     fileprivate func setupChildCalendarDaysCollectionViewController() {
-        calendarDaysCollectionViewController = CalendarDayCollectionViewController(nibName: nil, bundle: nil)
+        calendarDaysCollectionViewController = CalendarDayCollectionViewController(numberOfDays: 14)
         self.addChildViewController(calendarDaysCollectionViewController, frame: nil, animated: false)
     }
     
