@@ -19,7 +19,6 @@ final class MainMovieListViewController: UIViewController, ChildViewControllerMa
          NSObjectProtocol)?
     
     var postalCodeButton: UIBarButtonItem!
-    var locationDidChange = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -43,6 +42,10 @@ final class MainMovieListViewController: UIViewController, ChildViewControllerMa
         router.viewController = viewController
         router.dataStore = interactor
     }
+    
+    deinit {
+        print("Main Movie list is deiniting")
+    }
   
 }
 
@@ -53,25 +56,20 @@ extension MainMovieListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.red
-        setupNavigationButtons()
         setupChildSelectedMoviesViewController()
         setupMovieSearchButtonProperties()
         loadCachedMovies()
-        fetchUsersCurrentLocation()
+        addLocationChangedNotificationObserver()
     }
     
-    fileprivate func setupNavigationButtons() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didSelectSettingsButton))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "No Location", style: .plain, target: self, action: #selector(self.didSelectPostalCode))
+    func addLocationChangedNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(locationDidChange), name: .locationChanged, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard locationDidChange else { return }
-        if let location =  DefaultsProperty<String>.init(.currentLocation).value {
+    func locationDidChange() {
+        if let location = DefaultsProperty<String>.init(.currentLocation).value {
             self.loadMoviesFromNetwork(for: location)
         }
-        locationDidChange = false
     }
     
     override func viewWillLayoutSubviews() {
@@ -84,53 +82,6 @@ extension MainMovieListViewController {
         moviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: MainMovieListGridLayout())
         moviesCollectionViewController.delegate = self
         self.addChildViewController(moviesCollectionViewController, frame: nil, animated: false)
-    }
-    
-    func didSelectSettingsButton(_ sender: UIBarButtonItem) {
-        router?.routeToSettings()
-    }
-    
-    func didSelectPostalCode(_ sender: UIBarButtonItem) {
-        print("Postal Code Selected")
-        router?.routeToLocationSearch()
-    }
-    
-    func didSelectMovieSearchButton(_ sender: UIButton) {
-        router?.routeToMovieSearch()
-    }
-    
-}
-
-extension MainMovieListViewController: LocationServiceDelegate {
-    
-    fileprivate func fetchUsersCurrentLocation() {
-        //tracingLocation(currentLocation:) will be called after inital location is found
-        LocationService.shared.delegate = self
-    }
-    
-    func tracingLocation(currentLocation: CLLocation) {
-        fetchPostalCodeAndRequestMovies(location: currentLocation)
-    }
-    
-    func tracingLocationDidFailWithError(error: NSError) {
-        if let lastLocation = LocationService.shared.lastLocation {
-            fetchPostalCodeAndRequestMovies(location: lastLocation)
-        }
-        print("Fetching location failed: \(error.localizedDescription)")
-    }
-    
-    func fetchPostalCodeAndRequestMovies(location: CLLocation) {
-        LocationService.shared
-            .fetchPostalCodeFor(location)
-            .then { [weak self] (postalCode) -> Void in
-                guard let postalCode = postalCode else { return }
-                self?.loadMoviesFromNetwork(for: postalCode)
-                self?.displayUpdatedLocation(location: postalCode)
-                print("Fetched zip: \(String(describing: postalCode))")
-            }
-            .catch { (error) in
-                print(error.localizedDescription)
-        }
     }
     
 }
@@ -152,6 +103,10 @@ extension MainMovieListViewController {
         self.navigationItem.leftBarButtonItem?.title = "\(location)"
     }
     
+    func didSelectMovieSearchButton(_ sender: UIButton) {
+        router?.routeToMovieSearch()
+    }
+    
 }
 
 // MARK: - Presenter Input
@@ -171,7 +126,6 @@ extension MainMovieListViewController {
     
     fileprivate func handleMoviesFetchedSuccess(viewModel: MainMovieList.ViewModel) {
         moviesCollectionViewController.displayedMovies = viewModel.movies!
-        //displayedMovies = viewModel.movies!
     }
     
     fileprivate func handleCreateMoviesFailure() {

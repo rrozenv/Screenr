@@ -73,6 +73,7 @@
 		986F31DC1FB0E081009D4571 /* CreateContestSummaryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
+		98B5BC3F1FB3590400A41342 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5BC3E1FB3590400A41342 /* HomeRouter.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
 		98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531561F9E8CBE0063D8A0 /* RealmLoginManager.swift */; };
 		98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */; };
@@ -160,6 +161,7 @@
 		986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryRouter.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
+		98B5BC3E1FB3590400A41342 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98C531561F9E8CBE0063D8A0 /* RealmLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLoginManager.swift; sourceTree = "<group>"; };
 		98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewControllerManagerProtocol.swift; sourceTree = "<group>"; };
@@ -226,9 +228,8 @@
 		9803463D1F93D79E003F2E48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				981375281FB2969300B8E17B /* TabBarView.swift */,
-				981375261FB2946900B8E17B /* MasterTabBarController.swift */,
 				98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */,
+				98B5BC401FB35D7200A41342 /* Home */,
 				986F31D41FB0E029009D4571 /* Create Contest Summary */,
 				986F31C91FB0C1C7009D4571 /* Select Theatre */,
 				98587D551FAFDB90005313E7 /* Select Movies */,
@@ -429,6 +430,16 @@
 				981580821FA3BAD200B4EDB5 /* LocationService.swift */,
 			);
 			path = "Location Service";
+			sourceTree = "<group>";
+		};
+		98B5BC401FB35D7200A41342 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				981375261FB2946900B8E17B /* MasterTabBarController.swift */,
+				98B5BC3E1FB3590400A41342 /* HomeRouter.swift */,
+				981375281FB2969300B8E17B /* TabBarView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		98CA6B421F9948A200CF312D /* Views */ = {
@@ -693,6 +704,7 @@
 				9827EED61FAB849900D30BA9 /* SearchTextField.swift in Sources */,
 				98587D4C1FAFCB74005313E7 /* SelectMoviesViewController.swift in Sources */,
 				986F31DA1FB0E06E009D4571 /* CreateContestSummaryModels.swift in Sources */,
+				98B5BC3F1FB3590400A41342 /* HomeRouter.swift in Sources */,
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
 				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,

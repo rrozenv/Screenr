@@ -30,3 +30,21 @@ extension ChildViewControllerManager where Self: UIViewController {
     }
     
 }
+
+//fileprivate func add(asChildViewController viewController: UIViewController) {
+//    addChildViewController(viewController)
+//    view.addSubview(viewController.view)
+//    viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//    viewController.view.translatesAutoresizingMaskIntoConstraints = false
+//    viewController.view.bottomAnchor.constraint(equalTo: tabBarView.topAnchor).isActive = true
+//    viewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//    viewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//    viewController.didMove(toParentViewController: self)
+//}
+//
+//fileprivate func remove(asChildViewController viewController: UIViewController) {
+//    viewController.willMove(toParentViewController: nil)
+//    viewController.view.removeFromSuperview()
+//    viewController.removeFromParentViewController()
+//}
+

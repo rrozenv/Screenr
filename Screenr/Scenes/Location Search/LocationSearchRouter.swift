@@ -3,7 +3,7 @@ import Foundation
 import UIKit
 
 @objc protocol LocationSearchRoutingLogic {
-    func routeToMainMovieList()
+    func routeToHome()
 }
 
 protocol LocationSearchDataPassing {
@@ -16,12 +16,12 @@ class LocationSearchRouter: NSObject, LocationSearchRoutingLogic, LocationSearch
     var dataStore: LocationSearchDataStore?
     
     // MARK: Routing
-    func routeToMainMovieList() {
+    func routeToHome() {
         let index = viewController!.navigationController!.viewControllers.count - 2
-        let destinationVC = viewController?.navigationController?.viewControllers[index] as! MainMovieListViewController
+        let destinationVC = viewController?.navigationController?.viewControllers[index] as! MasterTabBarController
         //var destinationDS = destinationVC.router!.dataStore!
         //passDataToMainMovieList(source: dataStore!, destination: &destinationDS)
-        navigateToMainMovieList(source: viewController!, destination: destinationVC)
+        navigateToHome(source: viewController!, destination: destinationVC)
     }
     
     // MARK: Passing data
@@ -30,8 +30,8 @@ class LocationSearchRouter: NSObject, LocationSearchRoutingLogic, LocationSearch
         
     }
     
-    func navigateToMainMovieList(source: LocationSearchViewController, destination: MainMovieListViewController) {
-        destination.locationDidChange = true
+    func navigateToHome(source: LocationSearchViewController, destination: MasterTabBarController) {
+        
         source.navigationController?.popViewController(animated: true)
     }
 

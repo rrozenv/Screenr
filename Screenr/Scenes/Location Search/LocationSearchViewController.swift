@@ -106,7 +106,8 @@ final class LocationSearchViewController: UIViewController {
     fileprivate func showConfirmationAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction.init(title: "OK", style: .default) { [weak self] _ in
-            self?.router?.routeToMainMovieList()
+            NotificationCenter.default.post(name: .locationChanged, object: nil)
+            self?.router?.routeToHome()
         }
         alertController.addAction(alertAction)
         self.showDetailViewController(alertController, sender: nil)
