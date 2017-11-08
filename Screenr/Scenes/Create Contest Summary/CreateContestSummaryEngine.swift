@@ -3,10 +3,10 @@ import Foundation
 
 protocol CreateContestSummaryLogic {
     func fetchSelectedMoviesFromDatabase()
-    func updateTicketPrice(to price: String)
-    func updateVotesRequired(to numberOfVotes: String)
     func createContestInDatabase()
     func deleteAllObjectsInTemporaryRealm()
+    func updateTicketPrice(to price: String)
+    func updateVotesRequired(to numberOfVotes: String)
 }
 
 protocol CreateContestSummaryDataStore {
@@ -18,13 +18,6 @@ protocol CreateContestSummaryDataStore {
 
 final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContestSummaryDataStore {
     
-    var selectedMovies = [ContestMovie_R]()
-    var theatre: Theatre_R?
-    var presenter: CreateContestSummaryPresentationLogic?
-    var date: Date = Date()
-    var ticketPrice: String = TextFieldCell.Style.price.defaultValue
-    var votesRequired: String = TextFieldCell.Style.votes.defaultValue
-    
     lazy var temporaryRealm: RealmStorageContext = {
         return RealmStorageContext(configuration: RealmConfig.temporary)
     }()
@@ -32,6 +25,13 @@ final class CreateContestSummaryEngine: CreateContestSummaryLogic, CreateContest
     lazy var commonRealm: RealmStorageContext = {
         return RealmStorageContext(configuration: RealmConfig.common)
     }()
+    
+    var selectedMovies = [ContestMovie_R]()
+    var theatre: Theatre_R?
+    var presenter: CreateContestSummaryPresentationLogic?
+    var date: Date = Date()
+    var ticketPrice: String = TextFieldCell.Style.price.defaultValue
+    var votesRequired: String = TextFieldCell.Style.votes.defaultValue
     
     func fetchSelectedMoviesFromDatabase() {
         self.temporaryRealm

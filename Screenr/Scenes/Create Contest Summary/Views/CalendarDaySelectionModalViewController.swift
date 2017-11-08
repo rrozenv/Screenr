@@ -2,15 +2,6 @@
 import Foundation
 import UIKit
 
-extension UIView {
-    func constrainEdges(to view: UIView) {
-        self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    }
-}
-
 protocol CalendarDaySelectionModalViewControllerDelegate: class {
     func didSelectDate(_ date: Date)
 }
@@ -78,10 +69,7 @@ extension CalendarDaySelectionModalViewController {
     }
     
     fileprivate func setupChildCalendarDaysCVControllerConstraints() {
-        //calendarDaysCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
         calendarDaysCollectionViewController.view.frame = CGRect(x: 0, y: 400, width: self.view.frame.size.width, height: 150)
-        //        calendarDaysCollectionViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        //        calendarDaysCollectionViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
 }

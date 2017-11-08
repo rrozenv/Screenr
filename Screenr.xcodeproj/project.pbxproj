@@ -274,6 +274,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		981375251FB2855700B8E17B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */,
+				981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		98174A711FAA6A27005A838F /* Movie Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,8 +397,7 @@
 		986F31D41FB0E029009D4571 /* Create Contest Summary */ = {
 			isa = PBXGroup;
 			children = (
-				981669E91FB20693002E76C1 /* CreateContestSummaryDateCell.swift */,
-				981669EB1FB2098D002E76C1 /* CalendarDaySelectionModalViewController.swift */,
+				981375251FB2855700B8E17B /* Views */,
 				986F31D21FB0E024009D4571 /* CreateContestSummaryViewController.swift */,
 				986F31D51FB0E044009D4571 /* CreateContestSummaryEngine.swift */,
 				986F31D71FB0E054009D4571 /* CreateContestSummaryPresenter.swift */,

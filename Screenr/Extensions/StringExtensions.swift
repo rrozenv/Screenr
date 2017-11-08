@@ -1,5 +1,6 @@
 
 import Foundation
+import UIKit
 
 extension String {
     
@@ -11,6 +12,17 @@ extension String {
         let components = calendar.dateComponents([.hour, .minute], from: date)
         let finalDate = calendar.date(from:components)
         return finalDate
+    }
+    
+}
+
+extension UIView {
+    
+    func constrainEdges(to view: UIView) {
+        self.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        self.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
     
 }
