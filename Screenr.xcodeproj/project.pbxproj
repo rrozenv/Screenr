@@ -15,6 +15,8 @@
 		980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346431F93E9B6003F2E48 /* MainMovieListModels.swift */; };
 		980346461F93E9E4003F2E48 /* MainMovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */; };
 		98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */; };
+		981375271FB2946900B8E17B /* MasterTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981375261FB2946900B8E17B /* MasterTabBarController.swift */; };
+		981375291FB2969300B8E17B /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981375281FB2969300B8E17B /* TabBarView.swift */; };
 		981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */; };
 		981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981580821FA3BAD200B4EDB5 /* LocationService.swift */; };
 		981669E81FB2027F002E76C1 /* FontBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981669E71FB2027F002E76C1 /* FontBook.swift */; };
@@ -100,6 +102,8 @@
 		980346431F93E9B6003F2E48 /* MainMovieListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListModels.swift; sourceTree = "<group>"; };
 		980346451F93E9E4003F2E48 /* MainMovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListPresenter.swift; sourceTree = "<group>"; };
 		98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedMovieSearchCell.swift; sourceTree = "<group>"; };
+		981375261FB2946900B8E17B /* MasterTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterTabBarController.swift; sourceTree = "<group>"; };
+		981375281FB2969300B8E17B /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		981580801FA3742B00B4EDB5 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		981580821FA3BAD200B4EDB5 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		981669E71FB2027F002E76C1 /* FontBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontBook.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 		9803463D1F93D79E003F2E48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				981375281FB2969300B8E17B /* TabBarView.swift */,
+				981375261FB2946900B8E17B /* MasterTabBarController.swift */,
 				98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */,
 				986F31D41FB0E029009D4571 /* Create Contest Summary */,
 				986F31C91FB0C1C7009D4571 /* Select Theatre */,
@@ -677,6 +683,7 @@
 				986F31D11FB0C2A0009D4571 /* SelectTheatresRouter.swift in Sources */,
 				9835A3501FA0CD730028BD9C /* SettingsViewController.swift in Sources */,
 				98174A701FAA6A19005A838F /* MovieSearchViewController.swift in Sources */,
+				981375291FB2969300B8E17B /* TabBarView.swift in Sources */,
 				9831857D1F9BE01700BAF81A /* CalendarDaysEngine.swift in Sources */,
 				98280DD51FA2609000D45C59 /* User.swift in Sources */,
 				98591F961FA3DAE50077E40C /* LocationSearchSharedObjects.swift in Sources */,
@@ -689,6 +696,7 @@
 				98D3D8181F959E80000A9F0B /* Cache.swift in Sources */,
 				981580811FA3742B00B4EDB5 /* RealmConfiguration.swift in Sources */,
 				98591F941FA3DAC50077E40C /* LocationSearchPresenter.swift in Sources */,
+				981375271FB2946900B8E17B /* MasterTabBarController.swift in Sources */,
 				980200251FA8223C001334ED /* RealmStorageContext.swift in Sources */,
 				984988AA1F97F9F1009C55AF /* ListShowTimesPresenter.swift in Sources */,
 				980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */,
