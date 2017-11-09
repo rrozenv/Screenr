@@ -1,5 +1,4 @@
 
-
 import Foundation
 import UIKit
 import CoreLocation
@@ -18,6 +17,8 @@ class HomeViewController: UIViewController {
         }
     }
     
+    fileprivate var backgroundViewForStatusBar: UIView!
+    fileprivate var customNavBar: CustomNavigationBar!
     fileprivate var tabBarView: TabBarView!
     
     fileprivate lazy var mainMovieListViewController: MainMovieListViewController = {
@@ -49,6 +50,9 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
+        self.navigationController?.isNavigationBarHidden = true
+        setupBackgroundViewForStatusBar()
+        setupCustomNavigationBar()
         setupTabBarView()
         setCurrentViewController()
         setupNavigationButtons()
@@ -114,7 +118,7 @@ extension HomeViewController: LocationServiceDelegate {
     }
     
     func displayUpdatedLocation(location: String) {
-        self.navigationItem.leftBarButtonItem?.title = "\(location)"
+        self.customNavBar.locationLabel.text = "\(location)"
     }
     
     fileprivate func saveCurrentLocationToDefaults(location: String) {
@@ -194,17 +198,40 @@ extension HomeViewController {
 
 extension HomeViewController {
     
+    func setupBackgroundViewForStatusBar() {
+        backgroundViewForStatusBar = UIView()
+        backgroundViewForStatusBar.backgroundColor = UIColor.white
+        
+        view.addSubview(backgroundViewForStatusBar)
+        backgroundViewForStatusBar.translatesAutoresizingMaskIntoConstraints = false
+        backgroundViewForStatusBar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        backgroundViewForStatusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        backgroundViewForStatusBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        backgroundViewForStatusBar.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    func setupCustomNavigationBar() {
+        customNavBar = CustomNavigationBar(leftImage: #imageLiteral(resourceName: "IC_Search"), centerImage: #imageLiteral(resourceName: "IC_ClapBoard"), rightImage: #imageLiteral(resourceName: "IC_Profile"))
+        
+        view.insertSubview(customNavBar, belowSubview: backgroundViewForStatusBar)
+        customNavBar.translatesAutoresizingMaskIntoConstraints = false
+        customNavBar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        customNavBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        customNavBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.112).isActive = true
+    }
+    
     func setupTabBarView() {
         tabBarView = TabBarView(leftTitle: "In Theatres", rightTitle: "Contests")
         tabBarView.didSelect(tabButtonType: currentTabButton)
         tabBarView.leftButton.addTarget(self, action: #selector(didSelectLeftButton), for: .touchUpInside)
         tabBarView.rightButton.addTarget(self, action: #selector(didSelectRightButton), for: .touchUpInside)
         
-        view.addSubview(tabBarView)
+        view.insertSubview(tabBarView, belowSubview: customNavBar)
         tabBarView.translatesAutoresizingMaskIntoConstraints = false
         tabBarView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tabBarView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
+        tabBarView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 2).isActive = true
 //        if #available(iOS 11, *) {
 //            let guide = view.safeAreaLayoutGuide
 //            tabBarView.topAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true

@@ -4,14 +4,16 @@ import UIKit
 
 class MainMovieListGridLayout: UICollectionViewFlowLayout {
     
-    let itemSpacing: CGFloat = 15.0
+    let itemSpacing: CGFloat = 20
     let itemsPerRow: CGFloat = 2
+    let inset: CGFloat = 20
     
     override init() {
         super.init()
-        self.minimumLineSpacing = itemSpacing
-        self.minimumInteritemSpacing = itemSpacing
+        self.minimumLineSpacing = inset
+        self.minimumInteritemSpacing = itemSpacing / 2
         self.scrollDirection = .vertical
+        self.sectionInset = UIEdgeInsetsMake(0, inset, 0, inset)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,7 +22,7 @@ class MainMovieListGridLayout: UICollectionViewFlowLayout {
     }
     
     func itemWidth() -> CGFloat {
-        return (collectionView!.frame.size.width/self.itemsPerRow) - self.itemSpacing
+        return (collectionView!.frame.size.width/self.itemsPerRow) - (self.itemSpacing / 2) - self.inset
     }
     
     override var itemSize: CGSize {
