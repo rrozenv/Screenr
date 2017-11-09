@@ -21,6 +21,17 @@ final class TabBarView: UIView {
         setupLeftButton(with: leftTitle)
         setupRightButton(with: rightTitle)
     }
+    
+    func didSelect(tabButtonType: HomeViewController.TabButtonType) {
+        switch tabButtonType {
+        case .mainMovieList:
+            leftButton.backgroundColor = UIColor.black
+            rightButton.backgroundColor = UIColor.gray
+        case .contests:
+            leftButton.backgroundColor = UIColor.gray
+            rightButton.backgroundColor = UIColor.black
+        }
+    }
 
 }
 

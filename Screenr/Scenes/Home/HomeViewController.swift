@@ -12,7 +12,12 @@ class HomeViewController: UIViewController {
     }
     
     fileprivate var currentViewController: UIViewController!
-    fileprivate var currentTabButton: TabButtonType
+    fileprivate var currentTabButton: TabButtonType {
+        didSet {
+            tabBarView.didSelect(tabButtonType: currentTabButton)
+        }
+    }
+    
     fileprivate var tabBarView: TabBarView!
     
     fileprivate lazy var mainMovieListViewController: MainMovieListViewController = {
@@ -191,6 +196,7 @@ extension HomeViewController {
     
     func setupTabBarView() {
         tabBarView = TabBarView(leftTitle: "In Theatres", rightTitle: "Contests")
+        tabBarView.didSelect(tabButtonType: currentTabButton)
         tabBarView.leftButton.addTarget(self, action: #selector(didSelectLeftButton), for: .touchUpInside)
         tabBarView.rightButton.addTarget(self, action: #selector(didSelectRightButton), for: .touchUpInside)
         
