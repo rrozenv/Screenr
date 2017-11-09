@@ -45,7 +45,7 @@ extension AppController {
         switch UserState.currentState {
         case .loggedIn(_):
             Realm.Configuration.defaultConfiguration = RealmConfig.common.configuration
-            self.actingVC = UINavigationController(rootViewController: MasterTabBarController(currentTabButton: .mainMovieList))
+            self.actingVC = UINavigationController(rootViewController: HomeViewController(currentTabButton: .mainMovieList))
         case .loggedOut:
             self.actingVC = LoginViewController()
         }
@@ -75,7 +75,7 @@ extension AppController {
     @objc func switchViewController(with notification: Notification) {
         switch notification.name {
         case Notification.Name.closeLoginVC:
-            let mainMovieListVC = UINavigationController(rootViewController: MasterTabBarController(currentTabButton: .mainMovieList))
+            let mainMovieListVC = UINavigationController(rootViewController: HomeViewController(currentTabButton: .mainMovieList))
             switchToViewController(mainMovieListVC)
         case Notification.Name.closeOnboardingVC:
             let masterTabBarVC = UINavigationController(rootViewController: UIViewController())

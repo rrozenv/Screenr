@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MasterTabBarController: UIViewController {
+class HomeViewController: UIViewController {
     
     enum TabButtonType {
         case mainMovieList
@@ -19,16 +19,13 @@ class MasterTabBarController: UIViewController {
         return MainMovieListViewController()
     }()
     
-    fileprivate lazy var contestsViewController: MovieSearchViewController = {
-        return MovieSearchViewController(searchType: .contestMovies)
+    fileprivate lazy var contestsViewController: ListContestsViewController = {
+        return ListContestsViewController()
     }()
     
-    var router:
-        (HomeRoutingLogic &
-         NSObjectProtocol)?
+    var router: (HomeRoutingLogic & NSObjectProtocol)?
     
-    
-    init(currentTabButton: MasterTabBarController.TabButtonType) {
+    init(currentTabButton: HomeViewController.TabButtonType) {
         self.currentTabButton = currentTabButton
         super.init(nibName: nil, bundle: nil)
         setup()
@@ -54,16 +51,6 @@ class MasterTabBarController: UIViewController {
         addLocationChangedNotificationObserver()
     }
     
-    func addLocationChangedNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(locationDidChange), name: .locationChanged, object: nil)
-    }
-    
-    func locationDidChange() {
-        if let location = DefaultsProperty<String>.init(.currentLocation).value {
-            self.displayUpdatedLocation(location: location)
-        }
-    }
-    
     fileprivate func setCurrentViewController() {
         switch currentTabButton {
         case .mainMovieList:
@@ -76,7 +63,9 @@ class MasterTabBarController: UIViewController {
  
 }
 
-extension MasterTabBarController: LocationServiceDelegate {
+//MARK: - Location Functions
+
+extension HomeViewController: LocationServiceDelegate {
     
     fileprivate func fetchUsersCurrentLocation() {
         //tracingLocation(currentLocation:) will be called after inital location is found
@@ -109,6 +98,16 @@ extension MasterTabBarController: LocationServiceDelegate {
             }
     }
     
+    fileprivate func addLocationChangedNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(locationDidChange), name: .locationChanged, object: nil)
+    }
+    
+    @objc fileprivate func locationDidChange() {
+        if let location = DefaultsProperty<String>.init(.currentLocation).value {
+            self.displayUpdatedLocation(location: location)
+        }
+    }
+    
     func displayUpdatedLocation(location: String) {
         self.navigationItem.leftBarButtonItem?.title = "\(location)"
     }
@@ -119,19 +118,13 @@ extension MasterTabBarController: LocationServiceDelegate {
     
 }
 
-extension MasterTabBarController {
+//MARK: - Tab Bar Item Selected Functions
+
+extension HomeViewController {
     
     fileprivate func setupNavigationButtons() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(didSelectSettingsButton))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "No Location", style: .plain, target: self, action: #selector(self.didSelectPostalCode))
-    }
-    
-    func didSelectSettingsButton(_ sender: UIBarButtonItem) {
-        router?.routeToSettings()
-    }
-    
-    func didSelectPostalCode(_ sender: UIBarButtonItem) {
-        router?.routeToLocationSearch()
     }
     
     @objc fileprivate func didSelectLeftButton(_ sender: UIButton) {
@@ -146,9 +139,19 @@ extension MasterTabBarController {
         self.switchViewController(for: self.currentTabButton)
     }
     
+    func didSelectSettingsButton(_ sender: UIBarButtonItem) {
+        router?.routeToSettings()
+    }
+    
+    func didSelectPostalCode(_ sender: UIBarButtonItem) {
+        router?.routeToLocationSearch()
+    }
+    
 }
 
-extension MasterTabBarController {
+//MARK: - Switch View Controller Functions
+
+extension HomeViewController {
     
     fileprivate func switchViewController(for tabBarItem: TabButtonType) {
         switch tabBarItem {
@@ -182,7 +185,9 @@ extension MasterTabBarController {
     
 }
 
-extension MasterTabBarController {
+//MARK: - View Setup
+
+extension HomeViewController {
     
     func setupTabBarView() {
         tabBarView = TabBarView(leftTitle: "In Theatres", rightTitle: "Contests")

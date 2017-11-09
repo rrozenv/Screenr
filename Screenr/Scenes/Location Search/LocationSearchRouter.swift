@@ -18,7 +18,7 @@ class LocationSearchRouter: NSObject, LocationSearchRoutingLogic, LocationSearch
     // MARK: Routing
     func routeToHome() {
         let index = viewController!.navigationController!.viewControllers.count - 2
-        let destinationVC = viewController?.navigationController?.viewControllers[index] as! MasterTabBarController
+        let destinationVC = viewController?.navigationController?.viewControllers[index] as! HomeViewController
         //var destinationDS = destinationVC.router!.dataStore!
         //passDataToMainMovieList(source: dataStore!, destination: &destinationDS)
         navigateToHome(source: viewController!, destination: destinationVC)
@@ -30,7 +30,7 @@ class LocationSearchRouter: NSObject, LocationSearchRoutingLogic, LocationSearch
         
     }
     
-    func navigateToHome(source: LocationSearchViewController, destination: MasterTabBarController) {
+    func navigateToHome(source: LocationSearchViewController, destination: HomeViewController) {
         
         source.navigationController?.popViewController(animated: true)
     }

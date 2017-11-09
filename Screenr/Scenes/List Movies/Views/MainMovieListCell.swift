@@ -21,6 +21,7 @@ class MainMovieListCell: UICollectionViewCell {
         label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

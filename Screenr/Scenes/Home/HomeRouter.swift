@@ -10,7 +10,7 @@ import UIKit
 
 class HomeRouter: NSObject, HomeRoutingLogic {
     
-    weak var viewController: MasterTabBarController?
+    weak var viewController: HomeViewController?
     
     // MARK: Routing
     func routeToSettings() {
@@ -31,11 +31,11 @@ class HomeRouter: NSObject, HomeRoutingLogic {
 //    
     // MARK: Navigation
     
-    func navigateToSettings(source: MasterTabBarController, destination: SettingsViewController) {
+    func navigateToSettings(source: HomeViewController, destination: SettingsViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
-    func navigateToLocationSearch(source: MasterTabBarController, destination: LocationSearchViewController) {
+    func navigateToLocationSearch(source: HomeViewController, destination: LocationSearchViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
     
