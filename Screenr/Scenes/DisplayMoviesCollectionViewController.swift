@@ -49,7 +49,7 @@ extension DisplayMoviesCollectionViewController {
     fileprivate func setupCollectionViewProperties(with gridLayout: UICollectionViewFlowLayout) {
         collectionViewGridLayout = gridLayout
         collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: collectionViewGridLayout)
-        collectionView.backgroundColor = UIColor.orange
+        collectionView.backgroundColor = UIColor.white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self

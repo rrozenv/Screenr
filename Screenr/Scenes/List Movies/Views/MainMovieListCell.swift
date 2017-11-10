@@ -10,6 +10,8 @@ class MainMovieListCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = UIColor.blue
+        contentView.layer.cornerRadius = 2.0
+        contentView.layer.masksToBounds = true
         label = UILabel()
         label.numberOfLines = 0
         contentView.addSubview(label)

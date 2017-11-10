@@ -1,5 +1,6 @@
 
 import Foundation
+import CoreLocation
 
 protocol SettingsBusinessLogic {
     func createSettingsOptions()

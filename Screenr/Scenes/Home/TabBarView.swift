@@ -2,12 +2,21 @@
 import Foundation
 import UIKit
 
+struct Screen {
+    static let height = UIScreen.main.bounds.height
+    static let width = UIScreen.main.bounds.width
+}
+
 final class TabBarView: UIView {
     
     //MARK: View Properties
+    private let height1X: CGFloat = 50.0
     var containerView: UIView!
     var leftButton: UIButton!
     var rightButton: UIButton!
+    var height: CGFloat {
+        return Screen.height * (height1X / Screen.height)
+    }
     
     //MARK: Initalizer Setup
     required init?(coder aDecoder: NSCoder) {
@@ -49,6 +58,7 @@ extension TabBarView {
     fileprivate func setupLeftButton(with title: String) {
         leftButton = UIButton()
         leftButton.setTitle(title, for: .normal)
+        leftButton.titleLabel?.font = FontBook.AvenirHeavy.of(size: 13)
         leftButton.backgroundColor = UIColor.black
        
         containerView.addSubview(leftButton)
@@ -62,6 +72,7 @@ extension TabBarView {
     fileprivate func setupRightButton(with title: String) {
         rightButton = UIButton()
         rightButton.setTitle(title, for: .normal)
+        rightButton.titleLabel?.font = FontBook.AvenirHeavy.of(size: 13)
         rightButton.backgroundColor = UIColor.black
         
         containerView.addSubview(rightButton)
@@ -77,11 +88,15 @@ extension TabBarView {
 final class CustomNavigationBar: UIView {
     
     //MARK: View Properties
+    private let height1X: CGFloat = 75.0
     var containerView: UIView!
     var leftButton: UIButton!
     var centerButton: UIButton!
     var rightButton: UIButton!
     var locationLabel: UILabel!
+    var height: CGFloat {
+        return Screen.height * (height1X / Screen.height)
+    }
     
     //MARK: Initalizer Setup
     required init?(coder aDecoder: NSCoder) {

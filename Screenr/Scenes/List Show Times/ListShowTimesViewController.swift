@@ -44,7 +44,7 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = false
         self.view.backgroundColor = UIColor.red
         setupTableView()
         setupChildCalendarDaysCollectionViewController()
@@ -53,13 +53,18 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        setupCalendarCollectionViewConstraints()
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        calendarDaysCollectionViewController.view.frame = CGRect(x: 0, y: 100, width: self.view.frame.size.width, height: 150)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMovieShowtimesForCurrentDate()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     //MARK: Output
@@ -95,6 +100,7 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
         tableView.dataSource = self
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
     }
     
@@ -129,6 +135,18 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
         try! realm.write {
             realm.add(theatre)
         }
+    }
+    
+}
+
+extension ListShowTimesViewController {
+    
+    fileprivate func setupCalendarCollectionViewConstraints() {
+        calendarDaysCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        calendarDaysCollectionViewController.view.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+        calendarDaysCollectionViewController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        calendarDaysCollectionViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        calendarDaysCollectionViewController.view.heightAnchor.constraint(equalToConstant: calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height).isActive = true
     }
     
 }

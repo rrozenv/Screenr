@@ -9,6 +9,7 @@ import PromiseKit
 
 final class MainMovieListViewController: UIViewController, ChildViewControllerManager {
     
+    var collectionViewTopInset: CGFloat?
     var moviesCollectionViewController: DisplayMoviesCollectionViewController!
     var movieSearchButton: UIButton!
 
@@ -62,6 +63,11 @@ extension MainMovieListViewController {
         addLocationChangedNotificationObserver()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     func addLocationChangedNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(locationDidChange), name: .locationChanged, object: nil)
     }
@@ -79,7 +85,13 @@ extension MainMovieListViewController {
     }
     
     fileprivate func setupChildSelectedMoviesViewController() {
-        moviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: MainMovieListGridLayout())
+        var gridLayout: MainMovieListGridLayout
+        if let collectionViewTopInset = collectionViewTopInset {
+            gridLayout = MainMovieListGridLayout(topInset: collectionViewTopInset)
+        } else {
+            gridLayout = MainMovieListGridLayout(topInset: nil)
+        }
+        moviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: gridLayout)
         moviesCollectionViewController.delegate = self
         self.addChildViewController(moviesCollectionViewController, frame: nil, animated: false)
     }
@@ -168,8 +180,8 @@ extension MainMovieListViewController {
     fileprivate func setupMovieSearchButtonProperties() {
         movieSearchButton = UIButton()
         movieSearchButton.backgroundColor = UIColor.red
+        movieSearchButton.setTitle("Create Contest", for: .normal)
         movieSearchButton.addTarget(self, action: #selector(didSelectMovieSearchButton), for: .touchUpInside)
-        self.view.addSubview(movieSearchButton)
     }
     
 }
@@ -183,7 +195,12 @@ extension MainMovieListViewController {
     }
     
     fileprivate func setupMovieSearchButtonConstrains() {
-        movieSearchButton.frame = CGRect(x: 0, y: 600, width: self.view.frame.size.width, height: 50)
+        self.view.addSubview(movieSearchButton)
+        movieSearchButton.translatesAutoresizingMaskIntoConstraints = false
+        movieSearchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        movieSearchButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        movieSearchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        movieSearchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
 }

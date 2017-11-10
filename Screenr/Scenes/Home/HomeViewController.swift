@@ -22,7 +22,9 @@ class HomeViewController: UIViewController {
     fileprivate var tabBarView: TabBarView!
     
     fileprivate lazy var mainMovieListViewController: MainMovieListViewController = {
-        return MainMovieListViewController()
+        let vc = MainMovieListViewController()
+        vc.collectionViewTopInset = self.customNavBar.height + self.tabBarView.height + 20
+        return vc
     }()
     
     fileprivate lazy var contestsViewController: ListContestsViewController = {
@@ -148,7 +150,7 @@ extension HomeViewController {
         self.switchViewController(for: self.currentTabButton)
     }
     
-    func didSelectSettingsButton(_ sender: UIBarButtonItem) {
+    func didSelectSettingsButton(_ sender: UIButton) {
         router?.routeToSettings()
     }
     
@@ -212,13 +214,15 @@ extension HomeViewController {
     
     func setupCustomNavigationBar() {
         customNavBar = CustomNavigationBar(leftImage: #imageLiteral(resourceName: "IC_Search"), centerImage: #imageLiteral(resourceName: "IC_ClapBoard"), rightImage: #imageLiteral(resourceName: "IC_Profile"))
+        customNavBar.rightButton.addTarget(self, action: #selector(didSelectSettingsButton), for: .touchUpInside)
+        customNavBar.centerButton.addTarget(self, action: #selector(didSelectPostalCode), for: .touchUpInside)
         
         view.insertSubview(customNavBar, belowSubview: backgroundViewForStatusBar)
         customNavBar.translatesAutoresizingMaskIntoConstraints = false
         customNavBar.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         customNavBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        customNavBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.112).isActive = true
+        customNavBar.heightAnchor.constraint(equalToConstant: customNavBar.height).isActive = true
     }
     
     func setupTabBarView() {
@@ -232,13 +236,7 @@ extension HomeViewController {
         tabBarView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tabBarView.topAnchor.constraint(equalTo: customNavBar.bottomAnchor, constant: 2).isActive = true
-//        if #available(iOS 11, *) {
-//            let guide = view.safeAreaLayoutGuide
-//            tabBarView.topAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true
-//        } else {
-//            tabBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-//        }
-        tabBarView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        tabBarView.heightAnchor.constraint(equalToConstant: tabBarView.height).isActive = true
     }
     
 }

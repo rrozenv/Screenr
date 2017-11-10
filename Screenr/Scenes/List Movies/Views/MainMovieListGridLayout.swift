@@ -8,12 +8,12 @@ class MainMovieListGridLayout: UICollectionViewFlowLayout {
     let itemsPerRow: CGFloat = 2
     let inset: CGFloat = 20
     
-    override init() {
+    init(topInset: CGFloat?) {
         super.init()
         self.minimumLineSpacing = inset
         self.minimumInteritemSpacing = itemSpacing / 2
         self.scrollDirection = .vertical
-        self.sectionInset = UIEdgeInsetsMake(0, inset, 0, inset)
+        self.sectionInset = UIEdgeInsetsMake(topInset ?? 0, inset, 0, inset)
     }
     
     required init?(coder aDecoder: NSCoder) {

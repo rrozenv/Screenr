@@ -2,6 +2,15 @@
 import Foundation
 import UIKit
 
+extension Int {
+    
+    func isOdd() -> Bool {
+        guard self % 2 == 1 else { return false }
+        return true
+    }
+    
+}
+
 extension String {
     
     var convertToDate: Date? {
