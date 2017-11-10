@@ -66,7 +66,7 @@ final class LocationSearchViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = false
         self.view.backgroundColor = UIColor.red
         setupTableView()
         fetchSavedLocations()
@@ -80,6 +80,11 @@ final class LocationSearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupSearchController()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     //MARK: Output
@@ -106,7 +111,8 @@ final class LocationSearchViewController: UIViewController {
     fileprivate func showConfirmationAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction.init(title: "OK", style: .default) { [weak self] _ in
-            self?.router?.routeToMainMovieList()
+            NotificationCenter.default.post(name: .locationChanged, object: nil)
+            self?.router?.routeToHome()
         }
         alertController.addAction(alertAction)
         self.showDetailViewController(alertController, sender: nil)
@@ -154,6 +160,10 @@ extension LocationSearchViewController: UISearchResultsUpdating, UISearchBarDele
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request = LocationSearch.SaveLocation.Request(zipCode: searchBar.text!)
         engine?.didSelectLocation(request: request)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        router?.routeToHome()
     }
     
 }

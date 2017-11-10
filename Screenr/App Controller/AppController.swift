@@ -38,10 +38,6 @@ extension AppController {
     
 }
 
-struct UserDefaultsKeys {
-    static let sources = "sources"
-}
-
 // MARK: - Loading VC's
 extension AppController {
     
@@ -49,7 +45,7 @@ extension AppController {
         switch UserState.currentState {
         case .loggedIn(_):
             Realm.Configuration.defaultConfiguration = RealmConfig.common.configuration
-            self.actingVC = UINavigationController(rootViewController: MainMovieListViewController())
+            self.actingVC = UINavigationController(rootViewController: HomeViewController(currentTabButton: .mainMovieList))
         case .loggedOut:
             self.actingVC = LoginViewController()
         }
@@ -79,7 +75,7 @@ extension AppController {
     @objc func switchViewController(with notification: Notification) {
         switch notification.name {
         case Notification.Name.closeLoginVC:
-            let mainMovieListVC = UINavigationController(rootViewController: MainMovieListViewController())
+            let mainMovieListVC = UINavigationController(rootViewController: HomeViewController(currentTabButton: .mainMovieList))
             switchToViewController(mainMovieListVC)
         case Notification.Name.closeOnboardingVC:
             let masterTabBarVC = UINavigationController(rootViewController: UIViewController())
@@ -115,5 +111,6 @@ extension Notification.Name {
     static let closeOnboardingVC = Notification.Name("close-onboarding-view-controller")
     static let closeLoginVC = Notification.Name("close-login-view-controller")
     static let logout = Notification.Name("logout")
+    static let locationChanged = Notification.Name("locationChanged")
 }
 

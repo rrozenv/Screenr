@@ -17,6 +17,9 @@ extension Resource {
     }
 }
 
+
+
+
 struct OMDBResource<A> {
     let target: OMDbAPI
     let parse: (Data) -> A?

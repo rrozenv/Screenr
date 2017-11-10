@@ -73,26 +73,4 @@ final class WebService {
     
 }
 
-//final class CachedWebservice {
-//
-//    let webservice = WebService.shared
-//    let cache = Cache()
-//
-//    func load<T>(_ resource:  Resource<T>) -> Promise<T> {
-//        return Promise { fulfill, reject in
-//            if let objects = self.cache.load(resource) {
-//                fulfill(objects)
-//            }
-//
-//            webservice.fetch(resource).then { (objects) in
-//                self.cache.
-//                fulfill(objects)
-//                }.catch(execute: { (error) in
-//                    reject(error)
-//                })
-//        }
-//    }
-//
-//}
-
 

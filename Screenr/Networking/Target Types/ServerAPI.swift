@@ -34,7 +34,6 @@ extension ServerAPI: TargetType {
         default:
             return URL(string: "https://data.tmsapi.com/v1.1")!
         }
-        
     }
     
     // 4:

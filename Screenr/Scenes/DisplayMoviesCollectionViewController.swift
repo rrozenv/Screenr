@@ -49,7 +49,7 @@ extension DisplayMoviesCollectionViewController {
     fileprivate func setupCollectionViewProperties(with gridLayout: UICollectionViewFlowLayout) {
         collectionViewGridLayout = gridLayout
         collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: collectionViewGridLayout)
-        collectionView.backgroundColor = UIColor.orange
+        collectionView.backgroundColor = UIColor.white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.dataSource = self
@@ -76,7 +76,7 @@ extension DisplayMoviesCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainMovieListCell.reuseIdentifier, for: indexPath) as! MainMovieListCell
-        cell.label.text = displayedMovies[indexPath.item].title
+        cell.titleLabel.text = displayedMovies[indexPath.item].title
         return cell
     }
     

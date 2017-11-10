@@ -23,3 +23,9 @@ final class Theatre_R: Object {
         self.name = name
     }
 }
+
+extension Theatre_R {
+    static var defaultTheatre: Theatre_R {
+        return Theatre_R(theatreID: "0", name: "Default Theatre")
+    }
+}

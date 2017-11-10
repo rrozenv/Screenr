@@ -6,11 +6,11 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
     
     var movieSearchViewController: MovieSearchViewController!
     var selectedMoviesCollectionViewController: DisplayMoviesCollectionViewController!
+    var nextButton: UIButton!
     
     var engine: SelectMoviesLogic?
     var router:
-    (MainMovieListRoutingLogic &
-    MainMovieListDataPassing &
+    (SelectMoviesRoutingLogic &
     NSObjectProtocol)?
     
     var postalCodeButton: UIBarButtonItem!
@@ -30,13 +30,12 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
         let viewController = self
         let engine = SelectMoviesEngine()
         let presenter = SelectMoviesPresenter()
-        //let router = MainMovieListRouter()
+        let router = SelectMoviesRouter()
         viewController.engine = engine
-        //viewController.router = router
+        viewController.router = router
         engine.presenter = presenter
         presenter.viewController = viewController
-        //router.viewController = viewController
-        //router.dataStore = interactor
+        router.viewController = viewController
     }
     
     override func viewDidLoad() {
@@ -44,6 +43,7 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
         self.view.backgroundColor = UIColor.red
         setupChildSelectedMoviesViewController()
         setupChildMovieSearchViewController()
+        setupNextButton()
     }
     
     override func viewWillLayoutSubviews() {
@@ -52,11 +52,26 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
         selectedMoviesCollectionViewController.view.frame = CGRect(x: 0, y: 10, width: self.view.frame.size.width, height: 150)
     }
     
+    override var inputAccessoryView: UIView? {
+        get {
+            return nextButton
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    func didSelectNextButton(_ sender: UIButton) {
+        engine?.saveSelectedMoviesToDatabase()
+        router?.routeToSelectTheatre()
+    }
+    
 }
 
 extension SelectMoviesViewController: MovieSearchControllerDelegate {
     
-    func didSelectMovie(_ movie: Movie_R) {
+    func didSelectMovie(_ movie: ContestMovie_R) {
         let request = SelectMovies.Request(movie: movie)
         engine?.saveSelectedMovie(request: request)
     }
@@ -71,7 +86,7 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
 extension SelectMoviesViewController {
     
     fileprivate func setupChildMovieSearchViewController() {
-        movieSearchViewController = MovieSearchViewController(nibName: nil, bundle: nil)
+        movieSearchViewController = MovieSearchViewController(searchType: .contestMovies)
         movieSearchViewController.delegate = self
         self.addChildViewController(movieSearchViewController, frame: nil, animated: false)
     }
@@ -81,5 +96,12 @@ extension SelectMoviesViewController {
         self.addChildViewController(selectedMoviesCollectionViewController, frame: nil, animated: false)
     }
     
+    fileprivate func setupNextButton() {
+        nextButton = UIButton()
+        nextButton.backgroundColor = UIColor.yellow
+        nextButton.addTarget(self, action: #selector(didSelectNextButton), for: .touchUpInside)
+        nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)
+    }
+
 }
 
