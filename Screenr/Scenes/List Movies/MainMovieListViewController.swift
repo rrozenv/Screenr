@@ -179,7 +179,9 @@ extension MainMovieListViewController {
 
     fileprivate func setupMovieSearchButtonProperties() {
         movieSearchButton = UIButton()
-        movieSearchButton.backgroundColor = UIColor.red
+        movieSearchButton.dropShadow()
+        movieSearchButton.backgroundColor = UIColor.black
+        movieSearchButton.titleLabel?.font = FontBook.AvenirHeavy.of(size: 13)
         movieSearchButton.setTitle("Create Contest", for: .normal)
         movieSearchButton.addTarget(self, action: #selector(didSelectMovieSearchButton), for: .touchUpInside)
     }
@@ -200,7 +202,7 @@ extension MainMovieListViewController {
         movieSearchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         movieSearchButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         movieSearchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        movieSearchButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        movieSearchButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
 }

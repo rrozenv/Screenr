@@ -76,7 +76,7 @@ extension DisplayMoviesCollectionViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainMovieListCell.reuseIdentifier, for: indexPath) as! MainMovieListCell
-        cell.label.text = displayedMovies[indexPath.item].title
+        cell.titleLabel.text = displayedMovies[indexPath.item].title
         return cell
     }
     

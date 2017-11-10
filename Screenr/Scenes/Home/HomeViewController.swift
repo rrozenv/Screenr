@@ -52,7 +52,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = UIColor.white
-        self.navigationController?.isNavigationBarHidden = true
         setupBackgroundViewForStatusBar()
         setupCustomNavigationBar()
         setupTabBarView()
@@ -60,6 +59,11 @@ class HomeViewController: UIViewController {
         setupNavigationButtons()
         fetchUsersCurrentLocation()
         addLocationChangedNotificationObserver()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     fileprivate func setCurrentViewController() {
@@ -79,7 +83,10 @@ class HomeViewController: UIViewController {
 extension HomeViewController: LocationServiceDelegate {
     
     fileprivate func fetchUsersCurrentLocation() {
-        //tracingLocation(currentLocation:) will be called after inital location is found
+        if let location = DefaultsProperty<String>(.currentLocation).value {
+            displayUpdatedLocation(location: location)
+        }
+        //tracingLocation(currentLocation:) will be called after inital loca tion is found
         LocationService.shared.delegate = self
     }
     

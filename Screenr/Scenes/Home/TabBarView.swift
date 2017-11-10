@@ -26,6 +26,7 @@ final class TabBarView: UIView {
     init(leftTitle: String, rightTitle: String) {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.clear
+        self.dropShadow()
         setupBackgroundView()
         setupLeftButton(with: leftTitle)
         setupRightButton(with: rightTitle)
@@ -120,6 +121,7 @@ extension CustomNavigationBar {
     fileprivate func setupBackgroundView() {
         containerView = UIView()
         containerView.backgroundColor = UIColor.white
+        containerView.layer.masksToBounds = true
         
         self.addSubview(containerView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -149,7 +151,7 @@ extension CustomNavigationBar {
         centerButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.2267).isActive = true
         centerButton.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.1786).isActive = true
         centerButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        centerButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        centerButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 3).isActive = true
     }
     
     fileprivate func setupRightButton(with image: UIImage) {
@@ -168,11 +170,11 @@ extension CustomNavigationBar {
     fileprivate func setupLocationLabel() {
         locationLabel = UILabel()
         locationLabel.textColor = UIColor.yellow
-        locationLabel.font = FontBook.AvenirHeavy.of(size: 12)
+        locationLabel.font = FontBook.AvenirHeavy.of(size: 13)
         
         containerView.insertSubview(locationLabel, aboveSubview: centerButton)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        locationLabel.centerXAnchor.constraint(equalTo: centerButton.centerXAnchor, constant: 6).isActive = true
+        locationLabel.centerXAnchor.constraint(equalTo: centerButton.centerXAnchor, constant: 5).isActive = true
         locationLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -6).isActive = true
     }
     
