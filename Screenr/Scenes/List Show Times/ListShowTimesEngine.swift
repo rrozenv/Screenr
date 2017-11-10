@@ -7,6 +7,7 @@ protocol ListShowtimesDataStore {
 
 protocol ListShowtimesBusinessLogic {
     func getMovieShowtimes(request: ListShowtimes.GetShowtimes.Request)
+    var movieTitle: String { get }
 }
 
 final class ListShowtimesEngine: ListShowtimesDataStore, ListShowtimesBusinessLogic {
@@ -14,6 +15,9 @@ final class ListShowtimesEngine: ListShowtimesDataStore, ListShowtimesBusinessLo
     var movie: Movie_R! //Data is passed from MainMovieList Scene
     var presenter: ListShowtimesPresentationLogic?
     var moviesWorker = MovieWorker()
+    var movieTitle: String {
+        return movie.title
+    }
     
     func getMovieShowtimes(request: ListShowtimes.GetShowtimes.Request) {
         

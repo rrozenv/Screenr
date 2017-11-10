@@ -5,11 +5,12 @@ import RealmSwift
 
 final class ListShowTimesViewController: UIViewController, ChildViewControllerManager {
     
+    var movieHeaderView = MovieHeaderView()
     var calendarDaysCollectionViewController: CalendarDayCollectionViewController!
     var tableView: UITableView!
     var displayedTheatres: [DisplayedTheatre]!
     
-    var router: (NSObjectProtocol & ListShowtimesDataPassing)?
+    var router: (NSObjectProtocol & ListShowtimesDataPassing & ListShowtimesRoutingLogic)?
     var engine: ListShowtimesBusinessLogic?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -44,7 +45,7 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor.red
         setupTableView()
         setupChildCalendarDaysCollectionViewController()
@@ -53,6 +54,7 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        setupMovieHeaderViewConstraints()
         setupCalendarCollectionViewConstraints()
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
     }
@@ -60,6 +62,8 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMovieShowtimesForCurrentDate()
+        movieHeaderView.titleLabel.text = engine?.movieTitle.uppercased()
+        setTableViewContentInset()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,6 +91,10 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
         }
     }
     
+    func didTapBackButton(_ sender: UIButton) {
+        router?.routeToHome()
+    }
+    
     //MARK: Input
     func displayMovieShowtimes(viewModel: ListShowtimes.GetShowtimes.ViewModel) {
         self.displayedTheatres = viewModel.displayedTheaters
@@ -102,6 +110,11 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         self.view.addSubview(tableView)
+    }
+    
+    fileprivate func setTableViewContentInset() {
+        let toppInset = movieHeaderView.height + calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height
+        tableView.contentInset = UIEdgeInsetsMake(toppInset, 0, 0, 0)
     }
     
     fileprivate func setupChildCalendarDaysCollectionViewController() {
@@ -141,12 +154,79 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
 
 extension ListShowTimesViewController {
     
+    fileprivate func setupMovieHeaderViewConstraints() {
+        movieHeaderView.backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        
+        self.view.addSubview(movieHeaderView)
+        movieHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        movieHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        movieHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        movieHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        movieHeaderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.23).isActive = true
+    }
+    
     fileprivate func setupCalendarCollectionViewConstraints() {
         calendarDaysCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        calendarDaysCollectionViewController.view.topAnchor.constraint(equalTo: self.topLayoutGuide.bottomAnchor).isActive = true
+        calendarDaysCollectionViewController.view.topAnchor.constraint(equalTo: self.movieHeaderView.bottomAnchor).isActive = true
         calendarDaysCollectionViewController.view.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         calendarDaysCollectionViewController.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         calendarDaysCollectionViewController.view.heightAnchor.constraint(equalToConstant: calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height).isActive = true
+    }
+    
+}
+
+final class MovieHeaderView: UIView {
+    
+    private let height1X: CGFloat = 154.0
+    var containerView: UIView!
+    var backButton: UIButton!
+    var titleLabel: UILabel!
+    var height: CGFloat {
+        return Screen.height * (height1X / Screen.height)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        self.backgroundColor = UIColor.clear
+        setupContainerView()
+        setupBackButton()
+        setupTitleLabel()
+    }
+    
+    fileprivate func setupContainerView() {
+        containerView = UIView()
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        
+        self.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.constrainEdges(to: self)
+    }
+    
+    fileprivate func setupBackButton() {
+        backButton = UIButton()
+        backButton.backgroundColor = UIColor.red
+        
+        containerView.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.053).isActive = true
+        backButton.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.043).isActive = true
+        backButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 22).isActive = true
+        backButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20).isActive = true
+    }
+    
+    fileprivate func setupTitleLabel() {
+        titleLabel = UILabel()
+        titleLabel.font = FontBook.AvenirHeavy.of(size: 13)
+        titleLabel.textColor = UIColor.white
+        
+        containerView.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20).isActive = true
     }
     
 }
