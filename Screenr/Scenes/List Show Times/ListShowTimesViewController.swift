@@ -47,29 +47,32 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor.red
-        setupTableView()
+        setupMovieHeaderViewConstraints()
         setupChildCalendarDaysCollectionViewController()
+        setupCalendarCollectionViewConstraints()
+        setupTableView()
+        setupTableViewConstraints()
         setupDidSelectCalendarDateCallback()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        setupMovieHeaderViewConstraints()
-        setupCalendarCollectionViewConstraints()
-        tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMovieShowtimesForCurrentDate()
         movieHeaderView.titleLabel.text = engine?.movieTitle.uppercased()
-        setTableViewContentInset()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = true
     }
+    
+}
+
+extension ListShowTimesViewController {
     
     //MARK: Output
     func getMovieShowtimesForCurrentDate() {
@@ -79,14 +82,16 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     }
     
     func getMovieShowtimesFor(date: String) {
-        //Used to get showtimes for future dates
-        let request = ListShowtimes.GetShowtimes.Request(location: "10016", date: date)
-        engine?.getMovieShowtimes(request: request)
+        if let location = DefaultsProperty<String>(.currentLocation).value {
+            let request = ListShowtimes.GetShowtimes.Request(location: location, date: date)
+            engine?.getMovieShowtimes(request: request)
+        } else {
+            //TODO: Can't get location
+        }
     }
     
     func setupDidSelectCalendarDateCallback() {
         self.calendarDaysCollectionViewController.didSelectDate = { [weak self] (date) in
-            print("Selected date \(date.yearMonthDayString)")
             self?.getMovieShowtimesFor(date: date.yearMonthDayString)
         }
     }
@@ -99,27 +104,6 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     func displayMovieShowtimes(viewModel: ListShowtimes.GetShowtimes.ViewModel) {
         self.displayedTheatres = viewModel.displayedTheaters
         self.tableView.reloadData()
-    }
-    
-    fileprivate func setupTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .grouped)
-        tableView.register(TheatreTableViewCell.self, forCellReuseIdentifier: TheatreTableViewCell.reuseIdentifier)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.estimatedRowHeight = 200
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = .none
-        self.view.addSubview(tableView)
-    }
-    
-    fileprivate func setTableViewContentInset() {
-        let toppInset = movieHeaderView.height + calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height
-        tableView.contentInset = UIEdgeInsetsMake(toppInset, 0, 0, 0)
-    }
-    
-    fileprivate func setupChildCalendarDaysCollectionViewController() {
-        calendarDaysCollectionViewController = CalendarDayCollectionViewController(numberOfDays: 14)
-        self.addChildViewController(calendarDaysCollectionViewController, frame: nil, animated: false)
     }
     
 }
@@ -154,6 +138,28 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
 
 extension ListShowTimesViewController {
     
+    fileprivate func setupTableView() {
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView.register(TheatreTableViewCell.self, forCellReuseIdentifier: TheatreTableViewCell.reuseIdentifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = .none
+        let toppInset = movieHeaderView.height + calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height
+        tableView.contentInset = UIEdgeInsetsMake(toppInset, 0, 0, 0)
+        self.view.insertSubview(tableView, belowSubview: movieHeaderView)
+    }
+    
+    fileprivate func setupChildCalendarDaysCollectionViewController() {
+        calendarDaysCollectionViewController = CalendarDayCollectionViewController(numberOfDays: 14)
+        self.addChildViewController(calendarDaysCollectionViewController, frame: nil, animated: false)
+    }
+    
+}
+
+extension ListShowTimesViewController {
+    
     fileprivate func setupMovieHeaderViewConstraints() {
         movieHeaderView.backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         
@@ -173,61 +179,10 @@ extension ListShowTimesViewController {
         calendarDaysCollectionViewController.view.heightAnchor.constraint(equalToConstant: calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height).isActive = true
     }
     
+    fileprivate func setupTableViewConstraints() {
+        tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+    }
+    
 }
 
-final class MovieHeaderView: UIView {
-    
-    private let height1X: CGFloat = 154.0
-    var containerView: UIView!
-    var backButton: UIButton!
-    var titleLabel: UILabel!
-    var height: CGFloat {
-        return Screen.height * (height1X / Screen.height)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    init() {
-        super.init(frame: .zero)
-        self.backgroundColor = UIColor.clear
-        setupContainerView()
-        setupBackButton()
-        setupTitleLabel()
-    }
-    
-    fileprivate func setupContainerView() {
-        containerView = UIView()
-        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        
-        self.addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.constrainEdges(to: self)
-    }
-    
-    fileprivate func setupBackButton() {
-        backButton = UIButton()
-        backButton.backgroundColor = UIColor.red
-        
-        containerView.addSubview(backButton)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.053).isActive = true
-        backButton.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.043).isActive = true
-        backButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 22).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20).isActive = true
-    }
-    
-    fileprivate func setupTitleLabel() {
-        titleLabel = UILabel()
-        titleLabel.font = FontBook.AvenirHeavy.of(size: 13)
-        titleLabel.textColor = UIColor.white
-        
-        containerView.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20).isActive = true
-    }
-    
-}
 
