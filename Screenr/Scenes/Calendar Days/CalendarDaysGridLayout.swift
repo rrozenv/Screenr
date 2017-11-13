@@ -20,7 +20,7 @@ class CalendarDaysGridLayout: UICollectionViewFlowLayout {
     }
     
     func itemWidth() -> CGFloat {
-        return (collectionView!.frame.size.width/self.itemsPerRow) - self.itemSpacing
+        return (Screen.width/self.itemsPerRow) - self.itemSpacing
     }
     
     override var itemSize: CGSize {

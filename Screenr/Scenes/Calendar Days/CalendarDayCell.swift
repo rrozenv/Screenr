@@ -48,7 +48,7 @@ class CalendarDayCell: UICollectionViewCell {
     private func setupStackViewConstraints() {
         let labels: [UILabel] = [weekDaylabel, calendarDayLabel]
         stackView = UIStackView(arrangedSubviews: labels)
-        stackView.spacing = 2
+        stackView.spacing = 1
         stackView.alignment = .center
         stackView.axis = .vertical
         
