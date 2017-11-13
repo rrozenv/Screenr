@@ -79,6 +79,7 @@
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		98828C061FB4CC6900559932 /* ContestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98828C051FB4CC6900559932 /* ContestTableViewCell.swift */; };
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
+		98AD64011FB7B86D00B26F2B /* MovieHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */; };
 		98B5BC3F1FB3590400A41342 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5BC3E1FB3590400A41342 /* HomeRouter.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
 		98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531561F9E8CBE0063D8A0 /* RealmLoginManager.swift */; };
@@ -173,6 +174,7 @@
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		98828C051FB4CC6900559932 /* ContestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestTableViewCell.swift; sourceTree = "<group>"; };
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
+		98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHeaderView.swift; sourceTree = "<group>"; };
 		98B5BC3E1FB3590400A41342 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98C531561F9E8CBE0063D8A0 /* RealmLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLoginManager.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				98CA6B401F99487600CF312D /* TheatreTableViewCell.swift */,
+				98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				98587D541FAFCBDB005313E7 /* SelectMoviesRouter.swift in Sources */,
 				98EA3A6C1FA02D800070F459 /* LoginRouter.swift in Sources */,
 				984988AC1F97FA08009C55AF /* ListShowTimesModels.swift in Sources */,
+				98AD64011FB7B86D00B26F2B /* MovieHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
