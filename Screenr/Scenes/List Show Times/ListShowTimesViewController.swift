@@ -139,7 +139,11 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
+        let alert = CustomAlertViewController(header: "Single Alert") {
+            print("Single button tapped")
+        }
+        alert.modalPresentationStyle = .overCurrentContext
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
@@ -232,5 +236,66 @@ extension ListShowTimesViewController {
     }
     
 }
+
+final class CustomAlertViewController: UIViewController {
+    
+    var customAlertView = CustomAlertView()
+    var okAction: (() -> ())?
+    var cancelAction: (() -> ())?
+
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    convenience init(header: String, okAction: @escaping () -> Void) {
+        self.init(nibName: nil, bundle: nil)
+        self.okAction = okAction
+    }
+    
+    convenience init?(header: String, okAction: (() -> Void)?, cancelAction: (() -> Void)?) {
+        self.init(coder: NSCoder())
+        self.okAction = okAction
+        self.cancelAction = cancelAction
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        print("deinit of custom contorl")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        setupCustomAlertView()
+        customAlertView.headerLabel.text = "Hey there"
+    }
+    
+    func didSelectFuckingButton(_ sender: UIButton) {
+        if let okAction = self.okAction { okAction() }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func didSelectCancelButton(_ sender: UIButton) {
+        self.cancelAction?()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func setupCustomAlertView() {
+        customAlertView = CustomAlertView()
+        customAlertView.okButton.addTarget(self, action: #selector(didSelectFuckingButton(_:)), for: .touchUpInside)
+        customAlertView.cancelButton.addTarget(self, action: #selector(didSelectCancelButton(_:)), for: .touchUpInside)
+        
+        self.view.addSubview(customAlertView)
+        customAlertView.translatesAutoresizingMaskIntoConstraints = false
+        customAlertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        customAlertView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        customAlertView.widthAnchor.constraint(equalToConstant: Screen.width * 0.6).isActive = true
+    }
+    
+}
+
 
 
