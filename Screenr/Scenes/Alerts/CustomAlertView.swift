@@ -5,26 +5,38 @@ import UIKit
 final class CustomAlertView: UIView {
     
     var containerView: UIView!
+    
     var headerLabel: UILabel!
     var messageLabel: UILabel!
+    var labelStackView: UIStackView!
+    
     var okButton: UIButton!
     var cancelButton: UIButton!
     var stackView: UIStackView!
+    
     var singleButton: UIButton!
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init() {
+    init(buttonCount: CustomAlertViewController.ButtonCount) {
         super.init(frame: .zero)
         self.backgroundColor = UIColor.yellow
         setupContainerView()
-        //setupSingleButton()
-        setupOkButton()
-        setupCancelButton()
-        setupButtonStackView()
-        setupTitleLabel()
+       
+        switch buttonCount {
+        case .one:
+            setupSingleButton()
+        case .two:
+            setupOkButton()
+            setupCancelButton()
+            setupButtonStackView()
+        }
+        
+        setupHeaderLabel()
+        setupMessageLabel()
+        setupLabelStackView(given: buttonCount)
     }
     
     fileprivate func setupContainerView() {
@@ -38,13 +50,11 @@ final class CustomAlertView: UIView {
     
     fileprivate func setupOkButton() {
         okButton = UIButton()
-        okButton.setTitle("OK", for: .normal)
         okButton.backgroundColor = UIColor.red
     }
     
     fileprivate func setupCancelButton() {
         cancelButton = UIButton()
-        cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.backgroundColor = UIColor.orange
     }
     
@@ -61,21 +71,39 @@ final class CustomAlertView: UIView {
         stackView.heightAnchor.constraint(equalToConstant: Screen.height * 0.09).isActive = true
     }
     
-    fileprivate func setupTitleLabel() {
+    fileprivate func setupHeaderLabel() {
         headerLabel = UILabel()
         headerLabel.font = FontBook.AvenirHeavy.of(size: 13)
         headerLabel.textColor = UIColor.black
+    }
+    
+    fileprivate func setupMessageLabel() {
+        messageLabel = UILabel()
+        messageLabel.font = FontBook.AvenirHeavy.of(size: 13)
+        messageLabel.textColor = UIColor.black
+    }
+    
+    fileprivate func setupLabelStackView(given buttonCount: CustomAlertViewController.ButtonCount) {
+        labelStackView = UIStackView(arrangedSubviews: [headerLabel, messageLabel])
+        labelStackView.axis = .vertical
+        labelStackView.spacing = 2.0
+        labelStackView.alignment = .center
         
-        containerView.addSubview(headerLabel)
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        headerLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
-        headerLabel.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -10).isActive = true
+        containerView.addSubview(labelStackView)
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelStackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        labelStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0).isActive = true
+        switch buttonCount {
+        case .one:
+            labelStackView.bottomAnchor.constraint(equalTo: singleButton.topAnchor, constant: -10).isActive = true
+        case .two:
+            labelStackView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -10).isActive = true
+        }
     }
     
     fileprivate func setupSingleButton() {
         singleButton = UIButton()
-        singleButton.setTitle("Single Button", for: .normal)
+        singleButton.backgroundColor = UIColor.gray
         
         containerView.addSubview(singleButton)
         singleButton.translatesAutoresizingMaskIntoConstraints = false

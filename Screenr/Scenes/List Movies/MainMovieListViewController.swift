@@ -141,7 +141,7 @@ extension MainMovieListViewController {
     }
     
     fileprivate func handleCreateMoviesFailure() {
-        showFailureAlert(title: "Oops! Couldn't fetch movies.", message: "Please check your network connection and try again.")
+        showFailureAlert()
     }
     
 }
@@ -164,10 +164,9 @@ extension MainMovieListViewController: DisplayMoviesCollectionViewControllerDele
 
 extension MainMovieListViewController {
     
-    fileprivate func showFailureAlert(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(alertAction)
+    fileprivate func showFailureAlert() {
+        let alertInfo = MainMovieList.Alert.failedFetchingMovies()
+        let alertController = CustomAlertViewController(alertInfo: alertInfo, okAction: nil)
         self.showDetailViewController(alertController, sender: nil)
     }
     

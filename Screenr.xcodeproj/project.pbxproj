@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5B6FE0E27DCC9EDD95A5CDC3 /* Pods_Screenr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7734059D4AE9BA7C3DE07AD /* Pods_Screenr.framework */; };
 		980200251FA8223C001334ED /* RealmStorageContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980200241FA8223C001334ED /* RealmStorageContext.swift */; };
+		9802AFC11FBC9F7C0040474D /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9802AFC01FBC9F7C0040474D /* CustomAlertViewController.swift */; };
 		980346381F93CF46003F2E48 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346371F93CF46003F2E48 /* Webservice.swift */; };
 		9803463A1F93D479003F2E48 /* MovieWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346391F93D479003F2E48 /* MovieWorker.swift */; };
 		980346421F93DDFC003F2E48 /* MainMovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */; };
@@ -105,6 +106,7 @@
 /* Begin PBXFileReference section */
 		011B987782B75D26055D7492 /* Pods-Screenr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Screenr/Pods-Screenr.debug.xcconfig"; sourceTree = "<group>"; };
 		980200241FA8223C001334ED /* RealmStorageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorageContext.swift; sourceTree = "<group>"; };
+		9802AFC01FBC9F7C0040474D /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		980346371F93CF46003F2E48 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		980346391F93D479003F2E48 /* MovieWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieWorker.swift; sourceTree = "<group>"; };
 		980346411F93DDFC003F2E48 /* MainMovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListInteractor.swift; sourceTree = "<group>"; };
@@ -222,6 +224,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9802AFC21FBC9FD40040474D /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				98775A611FBB9C3D007DA32C /* CustomAlertView.swift */,
+				9802AFC01FBC9F7C0040474D /* CustomAlertViewController.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
 		9803463B1F93D76D003F2E48 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,7 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				98587D561FAFF3D8005313E7 /* DisplayMoviesCollectionViewController.swift */,
-				98775A611FBB9C3D007DA32C /* CustomAlertView.swift */,
+				9802AFC21FBC9FD40040474D /* Alerts */,
 				98B5BC401FB35D7200A41342 /* Home */,
 				9817691A1FB4C18C007DF7A5 /* List Contests */,
 				986F31D41FB0E029009D4571 /* Create Contest Summary */,
@@ -712,6 +723,7 @@
 				983185821F9BE08A00BAF81A /* CalendarDaysModels.swift in Sources */,
 				98174A731FAA6A4B005A838F /* MovieSearchEngine.swift in Sources */,
 				981769111FB4C12F007DF7A5 /* ListContestsViewController.swift in Sources */,
+				9802AFC11FBC9F7C0040474D /* CustomAlertViewController.swift in Sources */,
 				9828E4121F96E47000B8D921 /* ListShowTimesViewController.swift in Sources */,
 				98587D4E1FAFCB92005313E7 /* SelectMoviesEngine.swift in Sources */,
 				9840E2F61F9689E900423C09 /* MainMovieListGridLayout.swift in Sources */,
