@@ -25,7 +25,7 @@ enum CreateContestStage: CGFloat {
     var messageLabel: String {
         switch self {
         case .selectMovies:
-            return "Select movies which will be voted on."
+            return "Choose the list of movies that will be voted on."
         case .selectTheatre:
             return "Where will this contest take place?"
         case .summary:
@@ -84,8 +84,14 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
         setupNextButton()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
     }
     
     override var inputAccessoryView: UIView? {
@@ -104,6 +110,7 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
     }
     
     func didTapBackButton(_ sender: UIButton) {
+        engine?.deleteAllObjectsInTemporaryRealm()
         router?.routeToHome()
     }
     
@@ -120,13 +127,16 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
         engine?.saveSelectedMovie(request: request)
     }
     
+    func didDeselectMovie(_ movie: ContestMovie_R) {
+        self.removeMovieFromSelectedList(movieID: movie.movieID)
+    }
+    
     func removeMovieFromSelectedList(movieID: String) {
         let request = SelectMovies.RemoveSelectedMovie.Request(movieID: movieID)
         engine?.removeSelectedMovie(request: request)
     }
     
     func displaySelectedMovies(viewModel: SelectMovies.ViewModel) {
-        print("is empty: \(viewModel.displayedMovies.isEmpty)")
         self.selectedMoviesCollectionViewController.collectionView.isHidden =
             viewModel.displayedMovies.isEmpty ? true : false
         self.nextButton.isHidden = viewModel.displayedMovies.isEmpty ? true : false
@@ -154,13 +164,13 @@ extension SelectMoviesViewController {
     fileprivate func setupChildMovieSearchViewController() {
         movieSearchViewController = MovieSearchViewController(searchType: .contestMovies)
         movieSearchViewController.delegate = self
-        self.add(asChildViewController: movieSearchViewController)
+        self.addMovieSearch(asChildViewController: movieSearchViewController)
     }
     
     fileprivate func setupChildSelectedMoviesViewController() {
         selectedMoviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: SelectedMoviesGridLayout())
         selectedMoviesCollectionViewController.delegate = self
-        self.add(asChildViewController: selectedMoviesCollectionViewController)
+        self.addSelectedMovies(asChildViewController: selectedMoviesCollectionViewController)
     }
     
     fileprivate func setupNextButton() {
@@ -169,13 +179,6 @@ extension SelectMoviesViewController {
         nextButton.addTarget(self, action: #selector(didSelectNextButton), for: .touchUpInside)
         nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50)
         nextButton.isHidden = true
-    }
-    
-    fileprivate func add(asChildViewController viewController: UIViewController) {
-        addChildViewController(viewController)
-        view.insertSubview(viewController.view, aboveSubview: headerView)
-        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        viewController.didMove(toParentViewController: self)
     }
     
     fileprivate func setupHeaderView() {
@@ -194,10 +197,11 @@ extension SelectMoviesViewController {
     
     fileprivate func setupSelectedMoviesCollectionViewConstraints() {
         selectedMoviesCollectionViewController.collectionView.isHidden = true
+        selectedMoviesCollectionViewController.collectionView.backgroundColor = Palette.darkGrey.color
         selectedMoviesCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
         selectedMoviesCollectionViewController.view.leadingAnchor.constraint(equalTo: headerView.labelStackView.leadingAnchor).isActive = true
         selectedMoviesCollectionViewController.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
-        selectedMoviesCollectionViewController.view.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
+        selectedMoviesCollectionViewController.view.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: 5).isActive = true
         selectedMoviesCollectionViewController.view.heightAnchor.constraint(equalToConstant: selectedMoviesCollectionViewController.collectionViewGridLayout.itemSize.height).isActive = true
     }
     
@@ -209,5 +213,23 @@ extension SelectMoviesViewController {
         movieSearchViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
+}
+
+extension SelectMoviesViewController {
+    
+    fileprivate func addSelectedMovies(asChildViewController viewController: UIViewController) {
+        addChildViewController(viewController)
+        view.insertSubview(viewController.view, aboveSubview: headerView)
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.didMove(toParentViewController: self)
+    }
+    
+    fileprivate func addMovieSearch(asChildViewController viewController: UIViewController) {
+        addChildViewController(viewController)
+        view.insertSubview(viewController.view, belowSubview: headerView)
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.didMove(toParentViewController: self)
+    }
+    
 }
 

@@ -58,9 +58,9 @@ extension LocationSearchEngine {
         //let backgroundQ = DispatchQueue.global(qos: .background)
         privateRealm
             .create(Location_R.self, value: value)
-            .then { newLocation -> Void in
+            .then { [weak self] (newLocation) -> Void in
                 let response = LocationSearch.SaveLocation.Response(location: newLocation)
-                self.presenter?.presentConfirmation(response: response)
+                self?.presenter?.presentConfirmation(response: response)
             }
             .catch { (error) in
                 if let realmError = error as? RealmError {

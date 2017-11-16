@@ -4,6 +4,7 @@ import UIKit
 
 @objc protocol SelectTheatreRoutingLogic {
     func routeToCreateContestSummary()
+    func routeToSelectMovies()
 }
 
 class SelectTheatreRouter: NSObject, SelectTheatreRoutingLogic {
@@ -16,8 +17,13 @@ class SelectTheatreRouter: NSObject, SelectTheatreRoutingLogic {
         navigateToMainMovieList(source: viewController!, destination: destinationVC)
     }
     
+    func routeToSelectMovies() {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
+    
     func navigateToMainMovieList(source: SelectTheatreViewController, destination: CreateContestSummaryViewController) {
         source.navigationController?.pushViewController(destination, animated: true)
     }
+    
     
 }

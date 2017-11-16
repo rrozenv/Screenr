@@ -12,14 +12,13 @@ final class MainMovieListViewController: UIViewController, ChildViewControllerMa
     var collectionViewTopInset: CGFloat?
     var moviesCollectionViewController: DisplayMoviesCollectionViewController!
     var movieSearchButton: UIButton!
+    let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     var interactor: MainMovieListBusinessLogic?
     var router:
         (MainMovieListRoutingLogic &
          MainMovieListDataPassing &
          NSObjectProtocol)?
-    
-    var postalCodeButton: UIBarButtonItem!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -59,6 +58,7 @@ extension MainMovieListViewController {
         self.view.backgroundColor = UIColor.red
         setupChildSelectedMoviesViewController()
         setupMovieSearchButtonProperties()
+        setupLoadingIndicator()
         loadCachedMovies()
         addLocationChangedNotificationObserver()
     }
@@ -108,11 +108,8 @@ extension MainMovieListViewController {
     }
     
     func loadMoviesFromNetwork(for location: String) {
+        loadingIndicator.startAnimating()
         interactor?.loadMoviesFromNetwork(for: location)
-    }
-    
-    func displayUpdatedLocation(location: String) {
-        self.navigationItem.leftBarButtonItem?.title = "\(location)"
     }
     
     func didSelectMovieSearchButton(_ sender: UIButton) {
@@ -126,6 +123,7 @@ extension MainMovieListViewController {
 extension MainMovieListViewController {
     
     func displayMoviesFromNetwork(viewModel: MainMovieList.ViewModel) {
+        loadingIndicator.stopAnimating()
         isValidMovieList(viewModel: viewModel) ? handleMoviesFetchedSuccess(viewModel: viewModel) : handleCreateMoviesFailure()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         moviesCollectionViewController.collectionView.reloadData()
@@ -196,12 +194,22 @@ extension MainMovieListViewController {
     }
     
     fileprivate func setupMovieSearchButtonConstrains() {
-        self.view.addSubview(movieSearchButton)
+        view.addSubview(movieSearchButton)
         movieSearchButton.translatesAutoresizingMaskIntoConstraints = false
         movieSearchButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         movieSearchButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         movieSearchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         movieSearchButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    fileprivate func setupLoadingIndicator() {
+        loadingIndicator.hidesWhenStopped = true
+        view.insertSubview(loadingIndicator, aboveSubview: movieSearchButton)
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
     
 }

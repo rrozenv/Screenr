@@ -82,6 +82,7 @@
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
 		98AD64011FB7B86D00B26F2B /* MovieHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */; };
 		98B5BC3F1FB3590400A41342 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5BC3E1FB3590400A41342 /* HomeRouter.swift */; };
+		98C2D7061FBDFDE700506046 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C2D7051FBDFDE700506046 /* Colors.swift */; };
 		98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */; };
 		98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C531561F9E8CBE0063D8A0 /* RealmLoginManager.swift */; };
 		98C9C9511F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */; };
@@ -180,6 +181,7 @@
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
 		98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHeaderView.swift; sourceTree = "<group>"; };
 		98B5BC3E1FB3590400A41342 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		98C2D7051FBDFDE700506046 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		98C531541F9E8BDC0063D8A0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		98C531561F9E8CBE0063D8A0 /* RealmLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmLoginManager.swift; sourceTree = "<group>"; };
 		98C9C9501F9BF0A000673FDF /* ChildViewControllerManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildViewControllerManagerProtocol.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				98DF9ACE1F924D1300DBAD5E /* AppController.swift */,
+				98C2D7051FBDFDE700506046 /* Colors.swift */,
 			);
 			path = "App Controller";
 			sourceTree = "<group>";
@@ -426,7 +429,7 @@
 		98587D551FAFDB90005313E7 /* Select Movies */ = {
 			isa = PBXGroup;
 			children = (
-				98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */,
+				98C2D7041FBDF02600506046 /* Views */,
 				98587D4B1FAFCB74005313E7 /* SelectMoviesViewController.swift */,
 				98587D4D1FAFCB92005313E7 /* SelectMoviesEngine.swift */,
 				98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */,
@@ -493,6 +496,14 @@
 				981375281FB2969300B8E17B /* TabBarView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		98C2D7041FBDF02600506046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		98CA6B421F9948A200CF312D /* Views */ = {
@@ -760,6 +771,7 @@
 				98280DD51FA2609000D45C59 /* User.swift in Sources */,
 				98591F961FA3DAE50077E40C /* LocationSearchSharedObjects.swift in Sources */,
 				98DF9ACF1F924D1300DBAD5E /* AppController.swift in Sources */,
+				98C2D7061FBDFDE700506046 /* Colors.swift in Sources */,
 				9828E4101F96E35600B8D921 /* MainMovieListRouter.swift in Sources */,
 				98C531571F9E8CBE0063D8A0 /* RealmLoginManager.swift in Sources */,
 				9827EED61FAB849900D30BA9 /* SearchTextField.swift in Sources */,

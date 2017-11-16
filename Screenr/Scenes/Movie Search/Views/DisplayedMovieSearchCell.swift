@@ -35,13 +35,14 @@ final class DisplayedTheatreSearchCell: UITableViewCell {
         setupNameLabel()
     }
     
-    func configure(with displayedTheatre: MoviesSearch.Theatres.ViewModel.DisplayedTheatre) {
+    func configure(with displayedTheatre: MoviesSearch.Theatres.ViewModel.DisplayedTheatre, isSelected: Bool) {
         self.selectionStyle = .none
         nameLabel.text = displayedTheatre.name
         addressLabel.text = "284 Main St., New York 10016"
 //        if let posterURL = URL(string: displayedMovie.posterURL) {
 //            posterImageView.kf.setImage(with: posterURL)
 //        }
+        containerView.backgroundColor = isSelected ? UIColor.yellow : UIColor.white
     }
     
     override func prepareForReuse() {
@@ -128,13 +129,14 @@ final class DisplayedMovieSearchCell: UITableViewCell {
         setupNameLabel()
     }
     
-    func configure(with displayedMovie: DisplayedMovieInSearch) {
+    func configure(with displayedMovie: DisplayedMovieInSearch, isSelected: Bool) {
         self.selectionStyle = .none
         nameLabel.text = displayedMovie.title
         yearLabel.text = displayedMovie.year
         if let posterURL = URL(string: displayedMovie.posterURL) {
             posterImageView.kf.setImage(with: posterURL)
         }
+        containerView.backgroundColor = isSelected ? UIColor.yellow : UIColor.white
     }
     
     override func prepareForReuse() {

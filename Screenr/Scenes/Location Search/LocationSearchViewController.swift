@@ -66,7 +66,6 @@ final class LocationSearchViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
         self.view.backgroundColor = UIColor.red
         setupTableView()
         fetchSavedLocations()
@@ -79,12 +78,17 @@ final class LocationSearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
         setupSearchController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.isNavigationBarHidden = true
+    }
+    
+    deinit {
+        print("Location deinit")
     }
     
     //MARK: Output
@@ -158,12 +162,14 @@ extension LocationSearchViewController: UISearchResultsUpdating, UISearchBarDele
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let request = LocationSearch.SaveLocation.Request(zipCode: searchBar.text!)
+        guard let searchText = searchBar.text, searchText != "" else { return }
+        searchController.isActive = false
+        let request = LocationSearch.SaveLocation.Request(zipCode: searchText)
         engine?.didSelectLocation(request: request)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        router?.routeToHome()
+        searchController.isActive = false
     }
     
 }

@@ -4,6 +4,7 @@ import Foundation
 protocol SelectMoviesLogic {
     func saveSelectedMovie(request: SelectMovies.Request)
     func saveSelectedMoviesToDatabase()
+    func deleteAllObjectsInTemporaryRealm()
     func removeSelectedMovie(request: SelectMovies.RemoveSelectedMovie.Request)
 }
 
@@ -13,28 +14,27 @@ protocol SelectMoviesDataStore {
 
 final class SelectMoviesEngine: SelectMoviesLogic, SelectMoviesDataStore {
     
+    //MARK: - Properties
+    
     var selectedMovies = [ContestMovie_R]()
     var presenter: SelectMoviesPresentationLogic?
     lazy var temporaryRealm: RealmStorageContext = {
         return RealmStorageContext(configuration: RealmConfig.temporary)
     }()
     
+    //MARK: - Logic Methods
+    
     func saveSelectedMovie(request: SelectMovies.Request) {
         guard !isMovieSelected(movieID: request.movie.movieID) else { return }
         self.selectedMovies.append(request.movie)
-        self.passSelectedMoviesToPresenter()
+        self.passMoviesToPresenter()
     }
     
     func removeSelectedMovie(request: SelectMovies.RemoveSelectedMovie.Request) {
         if let index = selectedMovies.index(where: { $0.movieID == request.movieID }) {
             self.selectedMovies.remove(at: index)
         }
-        self.passSelectedMoviesToPresenter()
-    }
-    
-    private func passSelectedMoviesToPresenter() {
-        let response = SelectMovies.Response(movies: selectedMovies)
-        self.presenter?.formatMovies(response: response)
+        self.passMoviesToPresenter()
     }
     
     func saveSelectedMoviesToDatabase() {
@@ -49,7 +49,30 @@ final class SelectMoviesEngine: SelectMoviesLogic, SelectMoviesDataStore {
             }
     }
     
-    private func isMovieSelected(movieID: String) -> Bool {
+    func deleteAllObjectsInTemporaryRealm() {
+        self.temporaryRealm
+            .deleteAll()
+            .catch { (error) in
+                if let realmError = error as? RealmError {
+                    print(realmError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
+        }
+    }
+    
+}
+
+//MARK: - Private Methods
+
+extension SelectMoviesEngine {
+    
+    fileprivate func passMoviesToPresenter() {
+        let response = SelectMovies.Response(movies: self.selectedMovies)
+        self.presenter?.formatMovies(response: response)
+    }
+    
+    fileprivate func isMovieSelected(movieID: String) -> Bool {
         return selectedMovies.contains { $0.movieID == movieID }
     }
     

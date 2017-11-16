@@ -4,6 +4,8 @@ import UIKit
 
 final class SelectTheatreViewController: UIViewController, ChildViewControllerManager {
     
+    let stage = CreateContestStage.selectTheatre
+    var headerView: CreateContestHeaderView!
     var theatreSearchViewController: MovieSearchViewController!
     var nextButton: UIButton!
     
@@ -37,13 +39,20 @@ final class SelectTheatreViewController: UIViewController, ChildViewControllerMa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.red
-        setupChildMovieSearchViewController()
+        setupHeaderView()
+        setupChildTheatreSearchViewController()
+        setupTheatreSearchTableViewConstraints()
         setupNextButton()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        theatreSearchViewController.view.frame = CGRect(x: 0, y: 160, width: self.view.frame.size.width, height: 400)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
     }
     
     override var inputAccessoryView: UIView? {
@@ -61,6 +70,10 @@ final class SelectTheatreViewController: UIViewController, ChildViewControllerMa
         router?.routeToCreateContestSummary()
     }
     
+    func didTapBackButton(_ sender: UIButton) {
+        router?.routeToSelectMovies()
+    }
+    
 }
 
 extension SelectTheatreViewController: MovieSearchControllerDelegate {
@@ -73,10 +86,32 @@ extension SelectTheatreViewController: MovieSearchControllerDelegate {
 
 extension SelectTheatreViewController {
     
-    fileprivate func setupChildMovieSearchViewController() {
+    fileprivate func setupHeaderView() {
+        headerView = CreateContestHeaderView(currentStage: stage.rawValue, totalStages: CreateContestStage.totalStages)
+        headerView.backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        headerView.headerLabel.text = stage.headerLabel
+        headerView.messageLabel.text = stage.messageLabel
+        
+        self.view.addSubview(headerView)
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.195).isActive = true
+    }
+    
+    fileprivate func setupChildTheatreSearchViewController() {
         theatreSearchViewController = MovieSearchViewController(searchType: .theatres)
         theatreSearchViewController.delegate = self
-        self.addChildViewController(theatreSearchViewController, frame: nil, animated: false)
+        self.addTheatreSearch(asChildViewController: theatreSearchViewController)
+    }
+    
+    fileprivate func setupTheatreSearchTableViewConstraints() {
+        theatreSearchViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        theatreSearchViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        theatreSearchViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        theatreSearchViewController.view.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        theatreSearchViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     fileprivate func setupNextButton() {
@@ -84,6 +119,13 @@ extension SelectTheatreViewController {
         nextButton.backgroundColor = UIColor.yellow
         nextButton.addTarget(self, action: #selector(didSelectNextButton), for: .touchUpInside)
         nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)
+    }
+    
+    fileprivate func addTheatreSearch(asChildViewController viewController: UIViewController) {
+        addChildViewController(viewController)
+        view.insertSubview(viewController.view, belowSubview: headerView)
+        viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        viewController.didMove(toParentViewController: self)
     }
     
 }

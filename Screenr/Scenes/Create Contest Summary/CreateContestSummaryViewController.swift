@@ -10,6 +10,8 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
         return calendarDaysSelectionModalVC
     }()
     
+    let stage = CreateContestStage.summary
+    var headerView: CreateContestHeaderView!
     var tableView: UITableView!
     var selectedMoviesCollectionViewController: DisplayMoviesCollectionViewController!
     var createButton: UIButton!
@@ -44,8 +46,10 @@ final class CreateContestSummaryViewController: UIViewController, ChildViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.red
+        setupHeaderView()
         setupChildSelectedMoviesViewController()
         setupTableView()
+        setupTableViewConstraints()
         setupCreateButton()
         fetchSelectedMoviesFromDatabase()
         fetchSelectedTheatreFromDatabase()
@@ -83,6 +87,10 @@ extension CreateContestSummaryViewController {
     
     func fetchSelectedTheatreFromDatabase() {
         engine?.fetchSelectedTheatreFromDatabase()
+    }
+    
+    func didTapBackButton(_ sender: UIButton) {
+        router?.routeToSelectTheatre()
     }
     
     @objc fileprivate func didSelectDateButton() {
@@ -231,9 +239,28 @@ extension CreateContestSummaryViewController: UITableViewDataSource, UITableView
 
 extension CreateContestSummaryViewController {
     
+    fileprivate func setupHeaderView() {
+        headerView = CreateContestHeaderView(currentStage: stage.rawValue, totalStages: CreateContestStage.totalStages)
+        headerView.backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        headerView.headerLabel.text = stage.headerLabel
+        headerView.messageLabel.text = stage.messageLabel
+        
+        self.view.addSubview(headerView)
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        headerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.195).isActive = true
+    }
+    
     fileprivate func setupChildSelectedMoviesViewController() {
         selectedMoviesCollectionViewController = DisplayMoviesCollectionViewController(gridLayout: SelectedMoviesGridLayout())
         self.addChildViewController(selectedMoviesCollectionViewController, frame: nil, animated: false)
+        selectedMoviesCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        selectedMoviesCollectionViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        selectedMoviesCollectionViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        selectedMoviesCollectionViewController.view.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        selectedMoviesCollectionViewController.view.heightAnchor.constraint(equalToConstant: selectedMoviesCollectionViewController.collectionViewGridLayout.itemSize.height).isActive = true
     }
     
     fileprivate func setupTableView() {
@@ -244,6 +271,14 @@ extension CreateContestSummaryViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.view.addSubview(tableView)
+    }
+    
+    fileprivate func setupTableViewConstraints() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: selectedMoviesCollectionViewController.view.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     fileprivate func setupCreateButton() {

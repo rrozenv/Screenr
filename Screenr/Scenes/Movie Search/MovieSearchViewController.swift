@@ -10,6 +10,7 @@ enum SearchType {
 
 @objc protocol MovieSearchControllerDelegate: class {
     @objc optional func didSelectMovie(_ movie: ContestMovie_R)
+    @objc optional func didDeselectMovie(_ movie: ContestMovie_R)
     @objc optional func didSelectTheatre(_ theatre: Theatre_R)
 }
 
@@ -17,10 +18,13 @@ final class MovieSearchViewController: UIViewController {
     
     var searchType: SearchType
     var searchTextField: SearchTextField!
+    var searchIcon: UIImageView!
+    var clearSearchButton: UIButton!
     var tableView: UITableView!
     
     var displayedMovies = [MoviesSearch.ContestMovies.ViewModel.DisplayedMovie]()
     var displayedTheatres = [MoviesSearch.Theatres.ViewModel.DisplayedTheatre]()
+    var displayedStates: [Bool] = []
     
     var engine: MovieSearchLogic?
     weak var delegate: MovieSearchControllerDelegate?
@@ -51,12 +55,18 @@ final class MovieSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.navigationController?.isNavigationBarHidden = true
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.white
         setupSearchTextfield()
         setupSearchTextFieldCallback()
         setupSearchTextFieldConstraints()
+        setupSearchIcon()
+        setupClearSearchButton()
         setupTableView()
         setupTableViewConstraints()
+    }
+    
+    deinit {
+        print("Search Controller deinit")
     }
     
     override func viewWillLayoutSubviews() {
@@ -75,7 +85,8 @@ final class MovieSearchViewController: UIViewController {
     }
     
     fileprivate func setupSearchTextFieldCallback() {
-        searchTextField.onSearch = { searchText in
+        searchTextField.onSearch = { [unowned self] searchText in
+            self.shouldDisplayClearSearchButton(searchText)
             let shouldNotSearch = (0...3).contains(searchText.count)
             //let shouldNotSearch = 0...3 ~= searchText.characters.count
             switch self.searchType {
@@ -96,6 +107,7 @@ final class MovieSearchViewController: UIViewController {
             case .theatres:
                 if shouldNotSearch {
                     let theatre = [MoviesSearch.Theatres.ViewModel.DisplayedTheatre(id: "testId", name: "TEST THETRE AMC 25")]
+                    self.displayedStates = Array(repeating: false, count: 1)
                     self.displayedTheatres = theatre
                     self.tableView.reloadData()
                 }
@@ -106,9 +118,25 @@ final class MovieSearchViewController: UIViewController {
         }
     }
     
+    fileprivate func shouldDisplayClearSearchButton(_ searchText: String) {
+        guard !searchText.isEmpty && searchText != "" else {
+            clearSearchButton.isHidden = true
+            return
+        }
+        clearSearchButton.isHidden = false
+    }
+    
+    func didTapClearSearch(_ sender: UIButton) {
+        self.searchTextField.text = nil
+        self.shouldDisplayClearSearchButton("")
+        self.displayedMovies = [DisplayedMovieInSearch]()
+        self.tableView.reloadData()
+    }
+    
     //MARK: Input
     
     func displayMovies(viewModel: MoviesSearch.ContestMovies.ViewModel) {
+        self.displayedStates = Array(repeating: false, count: viewModel.displayedMovies.count)
         self.displayedMovies = viewModel.displayedMovies
         self.tableView.reloadData()
     }
@@ -137,12 +165,14 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
         case .movies, .contestMovies:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DisplayedMovieSearchCell.reuseIdentifier, for: indexPath) as? DisplayedMovieSearchCell else { fatalError("Unexpected Table View Cell") }
             let displayedMovie = self.displayedMovies[indexPath.row]
-            cell.configure(with: displayedMovie)
+            let selectedState = displayedStates[indexPath.row]
+            cell.configure(with: displayedMovie, isSelected: selectedState)
             return cell
         case .theatres:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DisplayedTheatreSearchCell.reuseIdentifier, for: indexPath) as? DisplayedTheatreSearchCell else { fatalError("Unexpected Table View Cell") }
             let displayedTheatre = self.displayedTheatres[indexPath.row]
-            cell.configure(with: displayedTheatre)
+            let selectedState = displayedStates[indexPath.row]
+            cell.configure(with: displayedTheatre, isSelected: selectedState)
             return cell
         }
     }
@@ -151,12 +181,15 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
         switch searchType {
         case .movies, .contestMovies:
             guard let movie = engine?.getMovieAtIndex(indexPath.row) else { print("No movie at index: \(indexPath.row)"); return }
+//            self.displayedStates[indexPath.row] = !self.displayedStates[indexPath.row]
+//            tableView.reloadRows(at: [indexPath], with: .none)
             delegate?.didSelectMovie?(movie)
         case .theatres:
             let displayedTheatre = self.displayedTheatres[indexPath.row]
             let theatre = Theatre_R(theatreID: displayedTheatre.id, name: displayedTheatre.name)
+            self.displayedStates[indexPath.row] = !self.displayedStates[indexPath.row]
+            tableView.reloadRows(at: [indexPath], with: .none)
             delegate?.didSelectTheatre?(theatre)
-            print("Theatre was selected")
         }
     }
     
@@ -171,7 +204,7 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44.0
+        return 38.0
     }
     
 }
@@ -191,11 +224,11 @@ extension MovieSearchViewController {
     fileprivate func setupSearchTextfield() {
         searchTextField = SearchTextField()
         searchTextField.throttlingInterval = 0.5
-        searchTextField.placeholder = "Email"
-        searchTextField.backgroundColor = UIColor.gray
+        searchTextField.placeholder = "Search movies..."
+        searchTextField.backgroundColor = UIColor.white
         searchTextField.layer.cornerRadius = 4.0
         searchTextField.layer.masksToBounds = true
-        searchTextField.font = UIFont(name: "Avenir-Medium", size: 14.0)
+        searchTextField.font = FontBook.AvenirMedium.of(size: 14)
         searchTextField.textColor = UIColor.black
     }
     
@@ -203,9 +236,34 @@ extension MovieSearchViewController {
         self.view.addSubview(searchTextField)
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         searchTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        searchTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
+        searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65).isActive = true
+        searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
+        searchTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.11).isActive = true
+    }
+    
+    fileprivate func setupSearchIcon() {
+        searchIcon = UIImageView(image: #imageLiteral(resourceName: "IC_Search"))
+        
+        self.view.addSubview(searchIcon)
+        searchIcon.translatesAutoresizingMaskIntoConstraints = false
+        searchIcon.widthAnchor.constraint(equalToConstant: Screen.width * 0.048).isActive = true
+        searchIcon.heightAnchor.constraint(equalToConstant: Screen.width * 0.048).isActive = true
+        searchIcon.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        searchIcon.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor, constant: -2).isActive = true
+    }
+    
+    fileprivate func setupClearSearchButton() {
+        clearSearchButton = UIButton()
+        clearSearchButton.addTarget(self, action: #selector(didTapClearSearch), for: .touchUpInside)
+        clearSearchButton.backgroundColor = UIColor.brown
+        clearSearchButton.isHidden = true
+        
+        self.view.addSubview(clearSearchButton)
+        clearSearchButton.translatesAutoresizingMaskIntoConstraints = false
+        clearSearchButton.widthAnchor.constraint(equalToConstant: Screen.width * 0.064).isActive = true
+        clearSearchButton.heightAnchor.constraint(equalToConstant: Screen.width * 0.064).isActive = true
+        clearSearchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        clearSearchButton.centerYAnchor.constraint(equalTo: searchTextField.centerYAnchor).isActive = true
     }
     
     fileprivate func setupTableViewConstraints() {

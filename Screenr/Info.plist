@@ -41,5 +41,7 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need Location please</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

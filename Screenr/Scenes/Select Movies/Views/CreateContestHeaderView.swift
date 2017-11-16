@@ -20,6 +20,7 @@ final class CreateContestHeaderView: UIView {
         self.totalStages = totalStages
         super.init(frame: .zero)
         self.backgroundColor = UIColor.clear
+        self.dropShadow()
         setupContainerView()
         setupHeaderLabel()
         setupMessageLabel()
@@ -30,7 +31,7 @@ final class CreateContestHeaderView: UIView {
     
     fileprivate func setupContainerView() {
         containerView = UIView()
-        containerView.backgroundColor = UIColor.gray
+        containerView.backgroundColor = Palette.darkGrey.color
         
         self.addSubview(containerView)
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,13 +40,13 @@ final class CreateContestHeaderView: UIView {
     
     fileprivate func setupHeaderLabel() {
         headerLabel = UILabel()
-        headerLabel.font = FontBook.AvenirHeavy.of(size: 13)
+        headerLabel.font = FontBook.AvenirHeavy.of(size: 17)
         headerLabel.textColor = UIColor.yellow
     }
     
     fileprivate func setupMessageLabel() {
         messageLabel = UILabel()
-        messageLabel.font = FontBook.AvenirHeavy.of(size: 13)
+        messageLabel.font = FontBook.AvenirMedium.of(size: 14)
         messageLabel.textColor = UIColor.white
         messageLabel.numberOfLines = 0
     }
@@ -58,21 +59,21 @@ final class CreateContestHeaderView: UIView {
         
         containerView.addSubview(labelStackView)
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
-        labelStackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        labelStackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: 4).isActive = true
         labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 65).isActive = true
         labelStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -35).isActive = true
     }
     
     fileprivate func setupBackButton() {
         backButton = UIButton()
-        backButton.setImage(#imageLiteral(resourceName: "IC_Back Arrow"), for: .normal)
+        backButton.setImage(#imageLiteral(resourceName: "IC_SmallBackButton"), for: .normal)
         
         containerView.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.064).isActive = true
-        backButton.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.064).isActive = true
-        backButton.trailingAnchor.constraint(equalTo: labelStackView.leadingAnchor, constant: -20).isActive = true
-        backButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -10).isActive = true
+        backButton.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.0267).isActive = true
+        backButton.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.0453).isActive = true
+        backButton.trailingAnchor.constraint(equalTo: labelStackView.leadingAnchor, constant: -24).isActive = true
+        backButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -15).isActive = true
     }
     
     fileprivate func setupProgressView(for currentStage: CGFloat) {

@@ -20,7 +20,7 @@ final class MovieSearchTableHeaderView: UIView {
     
     fileprivate func setupContainerView() {
         containerView = UIView()
-        containerView.backgroundColor = UIColor.lightGray
+        containerView.backgroundColor = Palette.lightGrey.color
         
         self.addSubview(containerView)
         containerView.translatesAutoresizingMaskIntoConstraints = false

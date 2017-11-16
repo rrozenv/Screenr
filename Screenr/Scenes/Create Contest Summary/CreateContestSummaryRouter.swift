@@ -4,6 +4,7 @@ import UIKit
 
 @objc protocol CreateContestSummaryRoutingLogic {
     func routeToMainMovieList()
+    func routeToSelectTheatre()
 }
 
 class CreateContestSummaryRouter: NSObject, CreateContestSummaryRoutingLogic {
@@ -13,6 +14,10 @@ class CreateContestSummaryRouter: NSObject, CreateContestSummaryRoutingLogic {
     // MARK: Routing
     func routeToMainMovieList() {
         navigateToMainMovieList(source: viewController!)
+    }
+    
+    func routeToSelectTheatre() {
+        viewController?.navigationController?.popViewController(animated: true)
     }
     
     func navigateToMainMovieList(source: CreateContestSummaryViewController) {

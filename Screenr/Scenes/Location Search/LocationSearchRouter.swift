@@ -17,11 +17,12 @@ class LocationSearchRouter: NSObject, LocationSearchRoutingLogic, LocationSearch
     
     // MARK: Routing
     func routeToHome() {
-        let index = viewController!.navigationController!.viewControllers.count - 2
-        let destinationVC = viewController?.navigationController?.viewControllers[index] as! HomeViewController
-        //var destinationDS = destinationVC.router!.dataStore!
-        //passDataToMainMovieList(source: dataStore!, destination: &destinationDS)
-        navigateToHome(source: viewController!, destination: destinationVC)
+        viewController?.navigationController?.popViewController(animated: true)
+//        let index = viewController!.navigationController!.viewControllers.count - 2
+//        let destinationVC = viewController?.navigationController?.viewControllers[index] as! HomeViewController
+//        //var destinationDS = destinationVC.router!.dataStore!
+//        //passDataToMainMovieList(source: dataStore!, destination: &destinationDS)
+//        navigateToHome(source: viewController!, destination: destinationVC)
     }
     
     // MARK: Passing data
