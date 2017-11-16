@@ -78,7 +78,6 @@
 		986F31DA1FB0E06E009D4571 /* CreateContestSummaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31D91FB0E06E009D4571 /* CreateContestSummaryModels.swift */; };
 		986F31DC1FB0E081009D4571 /* CreateContestSummaryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
-		98775A621FBB9C3D007DA32C /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98775A611FBB9C3D007DA32C /* CustomAlertView.swift */; };
 		98828C061FB4CC6900559932 /* ContestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98828C051FB4CC6900559932 /* ContestTableViewCell.swift */; };
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
 		98AD64011FB7B86D00B26F2B /* MovieHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */; };
@@ -97,6 +96,8 @@
 		98DF9AD11F924E0000DBAD5E /* MainMovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */; };
 		98DF9AF51F927DC500DBAD5E /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF9AF41F927DC500DBAD5E /* Movie.swift */; };
 		98DF9AF71F927E0500DBAD5E /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF9AF61F927E0500DBAD5E /* DateExtensions.swift */; };
+		98EA38C11FBD01AE002D7C9C /* CreateContestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */; };
+		98EA38C31FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA38C21FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift */; };
 		98EA3A681FA02AD10070F459 /* LoginViewControllerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A671FA02AD10070F459 /* LoginViewControllerEngine.swift */; };
 		98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A691FA02B500070F459 /* LoginModels.swift */; };
 		98EA3A6C1FA02D800070F459 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A6B1FA02D800070F459 /* LoginRouter.swift */; };
@@ -175,7 +176,6 @@
 		986F31D91FB0E06E009D4571 /* CreateContestSummaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryModels.swift; sourceTree = "<group>"; };
 		986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryRouter.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		98775A611FBB9C3D007DA32C /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		98828C051FB4CC6900559932 /* ContestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestTableViewCell.swift; sourceTree = "<group>"; };
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
 		98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHeaderView.swift; sourceTree = "<group>"; };
@@ -196,6 +196,8 @@
 		98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListViewController.swift; sourceTree = "<group>"; };
 		98DF9AF41F927DC500DBAD5E /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		98DF9AF61F927E0500DBAD5E /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestHeaderView.swift; sourceTree = "<group>"; };
+		98EA38C21FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchTableHeaderView.swift; sourceTree = "<group>"; };
 		98EA3A671FA02AD10070F459 /* LoginViewControllerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerEngine.swift; sourceTree = "<group>"; };
 		98EA3A691FA02B500070F459 /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
 		98EA3A6B1FA02D800070F459 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
@@ -227,7 +229,6 @@
 		9802AFC21FBC9FD40040474D /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				98775A611FBB9C3D007DA32C /* CustomAlertView.swift */,
 				9802AFC01FBC9F7C0040474D /* CustomAlertViewController.swift */,
 			);
 			path = Alerts;
@@ -350,6 +351,7 @@
 			children = (
 				9827EED51FAB849900D30BA9 /* SearchTextField.swift */,
 				98133A901FAB7C9300F0288E /* DisplayedMovieSearchCell.swift */,
+				98EA38C21FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -424,6 +426,7 @@
 		98587D551FAFDB90005313E7 /* Select Movies */ = {
 			isa = PBXGroup;
 			children = (
+				98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */,
 				98587D4B1FAFCB74005313E7 /* SelectMoviesViewController.swift */,
 				98587D4D1FAFCB92005313E7 /* SelectMoviesEngine.swift */,
 				98587D4F1FAFCBAA005313E7 /* SelectMoviesPresenter.swift */,
@@ -715,7 +718,6 @@
 				98133A911FAB7C9300F0288E /* DisplayedMovieSearchCell.swift in Sources */,
 				98174A6E1FAA6335005A838F /* OMDbAPI.swift in Sources */,
 				986F31D81FB0E054009D4571 /* CreateContestSummaryPresenter.swift in Sources */,
-				98775A621FBB9C3D007DA32C /* CustomAlertView.swift in Sources */,
 				981769191FB4C186007DF7A5 /* ListContestsRouter.swift in Sources */,
 				986F31C81FB0C1C1009D4571 /* SelectTheatreViewController.swift in Sources */,
 				98EA3A6E1FA02DB60070F459 /* LoginPresenter.swift in Sources */,
@@ -727,6 +729,7 @@
 				9828E4121F96E47000B8D921 /* ListShowTimesViewController.swift in Sources */,
 				98587D4E1FAFCB92005313E7 /* SelectMoviesEngine.swift in Sources */,
 				9840E2F61F9689E900423C09 /* MainMovieListGridLayout.swift in Sources */,
+				98EA38C11FBD01AE002D7C9C /* CreateContestHeaderView.swift in Sources */,
 				9855EDDA1FA0CF7E00225E05 /* SettingsSharedObjects.swift in Sources */,
 				98C531551F9E8BDC0063D8A0 /* LoginViewController.swift in Sources */,
 				98DF9AF51F927DC500DBAD5E /* Movie.swift in Sources */,
@@ -744,6 +747,7 @@
 				981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */,
 				980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */,
 				9803463A1F93D479003F2E48 /* MovieWorker.swift in Sources */,
+				98EA38C31FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift in Sources */,
 				983185801F9BE07500BAF81A /* CalendarDaysPresenter.swift in Sources */,
 				981669EA1FB20693002E76C1 /* CreateContestSummaryDateCell.swift in Sources */,
 				980346381F93CF46003F2E48 /* Webservice.swift in Sources */,
