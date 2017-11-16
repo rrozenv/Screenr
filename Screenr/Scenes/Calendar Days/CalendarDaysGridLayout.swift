@@ -56,10 +56,10 @@ class SelectedMoviesGridLayout: UICollectionViewFlowLayout {
     
     override var itemSize: CGSize {
         get {
-            return CGSize(width: itemWidth(), height: itemWidth())
+            return CGSize(width: itemWidth(), height: itemWidth() * 1.2)
         }
         set {
-            self.itemSize = CGSize(width: itemWidth(), height: itemWidth() * 1.1)
+            self.itemSize = CGSize(width: itemWidth(), height: itemWidth() * 1.2)
         }
     }
     

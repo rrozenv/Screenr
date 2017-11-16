@@ -10,6 +10,28 @@ enum CreateContestStage: CGFloat {
     static var totalStages: CGFloat {
         return self.summary.rawValue
     }
+    
+    var headerLabel: String {
+        switch self {
+        case .selectMovies:
+            return "Select Movies"
+        case .selectTheatre:
+            return "Select Theatre"
+        case .summary:
+            return "Final Details"
+        }
+    }
+    
+    var messageLabel: String {
+        switch self {
+        case .selectMovies:
+            return "Select movies which will be voted on."
+        case .selectTheatre:
+            return "Where will this contest take place?"
+        case .summary:
+            return "Please enter final details."
+        }
+    }
 }
 
 final class SelectMoviesViewController: UIViewController, ChildViewControllerManager {
@@ -81,6 +103,14 @@ final class SelectMoviesViewController: UIViewController, ChildViewControllerMan
         router?.routeToSelectTheatre()
     }
     
+    func didTapBackButton(_ sender: UIButton) {
+        router?.routeToHome()
+    }
+    
+    deinit {
+        print("Selected Movies View Controller deinit")
+    }
+    
 }
 
 extension SelectMoviesViewController: MovieSearchControllerDelegate {
@@ -109,10 +139,10 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
 extension SelectMoviesViewController: DisplayMoviesCollectionViewControllerDelegate {
     
     func didSelectMovie(_ movie: DisplayedMovie, at index: Int) {
-        let removeMovieAction = { [unowned self] in
+        let alertInfo = SelectMovies.Alert.removeSelectedMovie(movie.title)
+        let alertVC = CustomAlertViewController(alertInfo: alertInfo, okAction: {
             self.removeMovieFromSelectedList(movieID: movie.id)
-        }
-        let alertVC = CustomAlertViewController(alertInfo: SelectMovies.Alert.removeSelectedMovie(movie.title), okAction: removeMovieAction, cancelAction: nil)
+        }, cancelAction: nil)
         alertVC.modalPresentationStyle = .overCurrentContext
         self.present(alertVC, animated: true, completion: nil)
     }
@@ -150,8 +180,9 @@ extension SelectMoviesViewController {
     
     fileprivate func setupHeaderView() {
         headerView = CreateContestHeaderView(currentStage: stage.rawValue, totalStages: CreateContestStage.totalStages)
-        headerView.headerLabel.text = "Select Movies"
-        headerView.messageLabel.text = "Choose the list of movies that will be voted on."
+        headerView.backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        headerView.headerLabel.text = stage.headerLabel
+        headerView.messageLabel.text = stage.messageLabel
         
         self.view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
