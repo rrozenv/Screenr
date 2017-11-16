@@ -2,12 +2,12 @@
 import Foundation
 import UIKit
 
-enum CreateContestStage: Int {
+enum CreateContestStage: CGFloat {
     case selectMovies = 1
     case selectTheatre = 2
     case summary = 3
     
-    static var totalStages: Int {
+    static var totalStages: CGFloat {
         return self.summary.rawValue
     }
 }
@@ -96,6 +96,10 @@ extension SelectMoviesViewController: MovieSearchControllerDelegate {
     }
     
     func displaySelectedMovies(viewModel: SelectMovies.ViewModel) {
+        print("is empty: \(viewModel.displayedMovies.isEmpty)")
+        self.selectedMoviesCollectionViewController.collectionView.isHidden =
+            viewModel.displayedMovies.isEmpty ? true : false
+        self.nextButton.isHidden = viewModel.displayedMovies.isEmpty ? true : false
         self.selectedMoviesCollectionViewController.displayedMovies = viewModel.displayedMovies
         self.selectedMoviesCollectionViewController.collectionView.reloadData()
     }
@@ -133,7 +137,8 @@ extension SelectMoviesViewController {
         nextButton = UIButton()
         nextButton.backgroundColor = UIColor.yellow
         nextButton.addTarget(self, action: #selector(didSelectNextButton), for: .touchUpInside)
-        nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44)
+        nextButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50)
+        nextButton.isHidden = true
     }
     
     fileprivate func add(asChildViewController viewController: UIViewController) {
@@ -141,12 +146,6 @@ extension SelectMoviesViewController {
         view.insertSubview(viewController.view, aboveSubview: headerView)
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         viewController.didMove(toParentViewController: self)
-    }
-    
-    fileprivate func remove(asChildViewController viewController: UIViewController) {
-        viewController.willMove(toParentViewController: nil)
-        viewController.view.removeFromSuperview()
-        viewController.removeFromParentViewController()
     }
     
     fileprivate func setupHeaderView() {
@@ -163,6 +162,7 @@ extension SelectMoviesViewController {
     }
     
     fileprivate func setupSelectedMoviesCollectionViewConstraints() {
+        selectedMoviesCollectionViewController.collectionView.isHidden = true
         selectedMoviesCollectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
         selectedMoviesCollectionViewController.view.leadingAnchor.constraint(equalTo: headerView.labelStackView.leadingAnchor).isActive = true
         selectedMoviesCollectionViewController.view.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true

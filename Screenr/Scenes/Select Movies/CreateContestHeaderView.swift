@@ -4,7 +4,7 @@ import UIKit
 
 final class CreateContestHeaderView: UIView {
     
-    var totalStages: Int
+    var totalStages: CGFloat
     var containerView: UIView!
     var headerLabel: UILabel!
     var messageLabel: UILabel!
@@ -16,7 +16,7 @@ final class CreateContestHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(currentStage: Int, totalStages: Int) {
+    init(currentStage: CGFloat, totalStages: CGFloat) {
         self.totalStages = totalStages
         super.init(frame: .zero)
         self.backgroundColor = UIColor.clear
@@ -47,18 +47,20 @@ final class CreateContestHeaderView: UIView {
         messageLabel = UILabel()
         messageLabel.font = FontBook.AvenirHeavy.of(size: 13)
         messageLabel.textColor = UIColor.white
+        messageLabel.numberOfLines = 0
     }
     
     fileprivate func setupLabelStackView() {
         labelStackView = UIStackView(arrangedSubviews: [headerLabel, messageLabel])
         labelStackView.axis = .vertical
         labelStackView.spacing = 2.0
-        labelStackView.alignment = .center
+        labelStackView.alignment = .leading
         
         containerView.addSubview(labelStackView)
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         labelStackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 65).isActive = true
+        labelStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -35).isActive = true
     }
     
     fileprivate func setupBackButton() {
@@ -73,7 +75,7 @@ final class CreateContestHeaderView: UIView {
         backButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -10).isActive = true
     }
     
-    fileprivate func setupProgressView(for currentStage: Int) {
+    fileprivate func setupProgressView(for currentStage: CGFloat) {
         progressView = UIView()
         progressView.backgroundColor = UIColor.yellow
         
@@ -82,7 +84,7 @@ final class CreateContestHeaderView: UIView {
         progressView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
         progressView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         progressView.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        progressView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: CGFloat(currentStage/totalStages)).isActive = true
+        progressView.widthAnchor.constraint(equalToConstant: Screen.width * currentStage/totalStages).isActive = true
     }
     
 }
