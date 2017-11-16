@@ -4,6 +4,7 @@ import Foundation
 protocol SelectMoviesLogic {
     func saveSelectedMovie(request: SelectMovies.Request)
     func saveSelectedMoviesToDatabase()
+    func removeSelectedMovie(request: SelectMovies.RemoveSelectedMovie.Request)
 }
 
 protocol SelectMoviesDataStore {
@@ -19,7 +20,19 @@ final class SelectMoviesEngine: SelectMoviesLogic, SelectMoviesDataStore {
     }()
     
     func saveSelectedMovie(request: SelectMovies.Request) {
+        guard !isMovieSelected(movieID: request.movie.movieID) else { return }
         self.selectedMovies.append(request.movie)
+        self.passSelectedMoviesToPresenter()
+    }
+    
+    func removeSelectedMovie(request: SelectMovies.RemoveSelectedMovie.Request) {
+        if let index = selectedMovies.index(where: { $0.movieID == request.movieID }) {
+            self.selectedMovies.remove(at: index)
+        }
+        self.passSelectedMoviesToPresenter()
+    }
+    
+    private func passSelectedMoviesToPresenter() {
         let response = SelectMovies.Response(movies: selectedMovies)
         self.presenter?.formatMovies(response: response)
     }
@@ -34,6 +47,10 @@ final class SelectMoviesEngine: SelectMoviesLogic, SelectMoviesDataStore {
                     print(error.localizedDescription)
                 }
             }
+    }
+    
+    private func isMovieSelected(movieID: String) -> Bool {
+        return selectedMovies.contains { $0.movieID == movieID }
     }
     
 }

@@ -6,9 +6,12 @@ import RealmSwift
 final class ListShowTimesViewController: UIViewController, ChildViewControllerManager {
     
     var movieHeaderView = MovieHeaderView()
+    var smallMovieHeaderView = SmallMovieHeaderView()
     var calendarDaysCollectionViewController: CalendarDayCollectionViewController!
+    
     var tableView: UITableView!
     var displayedTheatres: [DisplayedTheatre]!
+    var contentOffset: CGFloat = 0
     
     var router: (NSObjectProtocol & ListShowtimesDataPassing & ListShowtimesRoutingLogic)?
     var engine: ListShowtimesBusinessLogic?
@@ -46,23 +49,33 @@ final class ListShowTimesViewController: UIViewController, ChildViewControllerMa
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        self.view.backgroundColor = UIColor.red
+       
         setupMovieHeaderViewConstraints()
+        
         setupChildCalendarDaysCollectionViewController()
         setupCalendarCollectionViewConstraints()
+        setupDidSelectCalendarDateCallback()
+        
         setupTableView()
         setupTableViewConstraints()
-        setupDidSelectCalendarDateCallback()
+        
+        setupSmallMovieHeaderViewConstraints()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMovieShowtimesForCurrentDate()
         movieHeaderView.titleLabel.text = engine?.movieTitle.uppercased()
+        smallMovieHeaderView.titleLabel.text = engine?.movieTitle.uppercased()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,7 +118,7 @@ extension ListShowTimesViewController {
         self.displayedTheatres = viewModel.displayedTheaters
         self.tableView.reloadData()
     }
-    
+
 }
 
 extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -126,11 +139,45 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedTheatre = self.displayedTheatres[indexPath.row]
-        let theatre = Theatre_R(theatreID: selectedTheatre.theatreID, name: selectedTheatre.name)
-        let realm = try! Realm(configuration: RealmConfig.secret.configuration)
-        try! realm.write {
-            realm.add(theatre)
+        let alertInfo =
+            CustomAlertViewController.AlertInfo(header: "Header Title",
+                                                message: "This is the message",
+                                                okButtonTitle: "SAVE",
+                                                cancelButtonTitle: "BOOF")
+        let okButtonPressed = { print("OK button pressed") }
+        let cancelButtonPressed = { print("CANCEL button pressed") }
+        let alert = CustomAlertViewController(alertInfo: alertInfo,
+                                              okAction: okButtonPressed,
+                                              cancelAction: cancelButtonPressed)
+        alert.modalPresentationStyle = .overCurrentContext
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension ListShowTimesViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.contentOffset = self.tableView.contentOffset.y
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollPosition = self.tableView.contentOffset.y
+        print("SCROLL POS: \(scrollPosition)")
+        print("CONTENT OFF: \(self.contentOffset)")
+        if scrollPosition > self.contentOffset {
+            UIView.animate(withDuration: 0.7, animations: {
+                self.calendarDaysCollectionViewController.view.alpha = 0
+                self.movieHeaderView.alpha = 0
+                self.smallMovieHeaderView.isHidden = false
+                self.smallMovieHeaderView.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.7, animations: {
+                self.calendarDaysCollectionViewController.view.alpha = 1
+                self.movieHeaderView.alpha = 1
+                self.smallMovieHeaderView.alpha = 0
+            }, completion: nil)
         }
     }
     
@@ -139,7 +186,7 @@ extension ListShowTimesViewController: UITableViewDataSource, UITableViewDelegat
 extension ListShowTimesViewController {
     
     fileprivate func setupTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.register(TheatreTableViewCell.self, forCellReuseIdentifier: TheatreTableViewCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
@@ -147,8 +194,7 @@ extension ListShowTimesViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         let toppInset = movieHeaderView.height + calendarDaysCollectionViewController.collectionViewGridLayout.itemSize.height
-        tableView.contentInset = UIEdgeInsetsMake(toppInset, 0, 0, 0)
-        self.view.insertSubview(tableView, belowSubview: movieHeaderView)
+        tableView.contentInset = UIEdgeInsetsMake(toppInset, 0, 20, 0)
     }
     
     fileprivate func setupChildCalendarDaysCollectionViewController() {
@@ -180,9 +226,27 @@ extension ListShowTimesViewController {
     }
     
     fileprivate func setupTableViewConstraints() {
+        self.view.insertSubview(tableView, belowSubview: movieHeaderView)
         tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
     }
     
+    fileprivate func setupSmallMovieHeaderViewConstraints() {
+        smallMovieHeaderView.backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+        smallMovieHeaderView.isHidden = true
+        
+        self.view.addSubview(smallMovieHeaderView)
+        smallMovieHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        smallMovieHeaderView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        smallMovieHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        smallMovieHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        smallMovieHeaderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1).isActive = true
+    }
+    
 }
+
+
+
+
+
 
 

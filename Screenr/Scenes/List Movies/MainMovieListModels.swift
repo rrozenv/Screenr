@@ -28,5 +28,10 @@ enum MainMovieList {
         var movies: [DisplayedMovie]?
     }
     
+    struct Alert {
+        static func failedFetchingMovies() -> CustomAlertViewController.AlertInfo {
+            return CustomAlertViewController.AlertInfo(header: "Failed Fetching Movies", message: "Oops!", okButtonTitle: "OK", cancelButtonTitle: nil)
+        }
+    }
     
 }

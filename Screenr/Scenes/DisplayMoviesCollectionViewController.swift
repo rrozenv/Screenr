@@ -24,7 +24,7 @@ final class DisplayMoviesCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.clear
         self.setupCollectionViewProperties(with: self.collectionViewGridLayout)
     }
     

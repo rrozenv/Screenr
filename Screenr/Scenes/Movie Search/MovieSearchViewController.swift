@@ -52,15 +52,15 @@ final class MovieSearchViewController: UIViewController {
         super.viewDidLoad()
         //self.navigationController?.isNavigationBarHidden = true
         self.view.backgroundColor = UIColor.red
-        setupTableView()
         setupSearchTextfield()
         setupSearchTextFieldCallback()
+        setupSearchTextFieldConstraints()
+        setupTableView()
+        setupTableViewConstraints()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        searchTextField.frame = CGRect(x: 20, y: 40, width: self.view.frame.size.width * 0.8, height: 70)
-        tableView.frame = CGRect(x: 0, y: 50, width: self.view.frame.size.width, height: self.view.frame.size.height - 50)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,18 +164,28 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
         return 80.0
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = MovieSearchTableHeaderView()
+        header.titleLabel.text = "RESULTS"
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44.0
+    }
+    
 }
 
 extension MovieSearchViewController {
     
     fileprivate func setupTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.register(DisplayedMovieSearchCell.self, forCellReuseIdentifier: DisplayedMovieSearchCell.reuseIdentifier)
         tableView.register(DisplayedTheatreSearchCell.self, forCellReuseIdentifier: DisplayedTheatreSearchCell.reuseIdentifier)
         tableView.keyboardDismissMode = .interactive
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
-        self.view.addSubview(tableView)
     }
     
     fileprivate func setupSearchTextfield() {
@@ -187,7 +197,24 @@ extension MovieSearchViewController {
         searchTextField.layer.masksToBounds = true
         searchTextField.font = UIFont(name: "Avenir-Medium", size: 14.0)
         searchTextField.textColor = UIColor.black
+    }
+    
+    fileprivate func setupSearchTextFieldConstraints() {
         self.view.addSubview(searchTextField)
+        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        searchTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
+    }
+    
+    fileprivate func setupTableViewConstraints() {
+        self.view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
 }
