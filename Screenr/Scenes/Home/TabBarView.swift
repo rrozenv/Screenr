@@ -7,6 +7,11 @@ struct Screen {
     static let width = UIScreen.main.bounds.width
 }
 
+struct Device {
+    static let height = UIScreen.main.bounds.height
+    static let width = UIScreen.main.bounds.width
+}
+
 final class TabBarView: UIView {
     
     //MARK: View Properties

@@ -1,6 +1,5 @@
 
 import UIKit
-import RxSwift
 import RealmSwift
 
 enum UserState {
