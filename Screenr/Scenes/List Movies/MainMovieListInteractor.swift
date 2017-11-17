@@ -6,7 +6,6 @@ import PromiseKit
 protocol MainMovieListBusinessLogic {
     func loadMoviesFromNetwork(for location: String)
     func loadCachedMovies(request: MainMovieList.Request)
-    func getMovieAtIndex(_ index: Int) -> Movie_R?
 }
 
 protocol MainMovieListDataStore {
@@ -18,9 +17,6 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     var presenter: MainMovieListPresentationLogic?
     var moviesWorker = MovieWorker()
     var movies: [Movie_R]?
-    lazy var privateRealm: RealmStorageContext = {
-        return RealmStorageContext(configuration: RealmConfig.secret)
-    }()
     
     func loadCachedMovies(request: MainMovieList.Request) {
         let resource = Movie_R.moviesResource(for: request.location)
@@ -46,11 +42,6 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
                     print(error.localizedDescription)
                 }
             }
-    }
-    
-    func getMovieAtIndex(_ index: Int) -> Movie_R? {
-        guard let movies = movies, index < movies.count else { return nil }
-        return movies[index]
     }
 
 }

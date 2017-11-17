@@ -4,6 +4,7 @@ import Foundation
 protocol LocationSearchPresentationLogic {
     func presentSavedLocations(response: LocationSearch.Response)
     func presentConfirmation(response: LocationSearch.SaveLocation.Response)
+    func presentInvalidLocationEntry()
 }
 
 class LocationSearchPresenter: LocationSearchPresentationLogic {
@@ -22,6 +23,10 @@ class LocationSearchPresenter: LocationSearchPresentationLogic {
         let diplaydLocation = LocationSearch.DisplayedLocation(zipCode: response.location.code)
         let viewModel = LocationSearch.SaveLocation.ViewModel(displayedLocation: diplaydLocation)
         viewController?.displayDidChangeLocationConfirmation(viewModel: viewModel)
+    }
+    
+    func presentInvalidLocationEntry() {
+        viewController?.displayInvalidLocationEntry()
     }
     
 }

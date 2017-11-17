@@ -9,10 +9,24 @@ import PromiseKit
 
 final class MainMovieListViewController: UIViewController, ChildViewControllerManager {
     
+    struct State {
+        var isLoading: Bool = false
+        var selectedRow: Int?
+    }
+    
     var collectionViewTopInset: CGFloat?
     var moviesCollectionViewController: DisplayMoviesCollectionViewController!
     var movieSearchButton: UIButton!
     let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var state: State = State() {
+        didSet {
+            if state.isLoading {
+                loadingIndicator.startAnimating()
+            } else {
+                loadingIndicator.stopAnimating()
+            }
+        }
+    }
 
     var interactor: MainMovieListBusinessLogic?
     var router:
@@ -108,7 +122,7 @@ extension MainMovieListViewController {
     }
     
     func loadMoviesFromNetwork(for location: String) {
-        loadingIndicator.startAnimating()
+        state.isLoading = true
         interactor?.loadMoviesFromNetwork(for: location)
     }
     
@@ -123,7 +137,7 @@ extension MainMovieListViewController {
 extension MainMovieListViewController {
     
     func displayMoviesFromNetwork(viewModel: MainMovieList.ViewModel) {
-        loadingIndicator.stopAnimating()
+        state.isLoading = false
         isValidMovieList(viewModel: viewModel) ? handleMoviesFetchedSuccess(viewModel: viewModel) : handleCreateMoviesFailure()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         moviesCollectionViewController.collectionView.reloadData()
@@ -150,10 +164,8 @@ extension MainMovieListViewController {
 extension MainMovieListViewController: DisplayMoviesCollectionViewControllerDelegate {
     
     func didSelectMovie(_ movie: DisplayedMovie, at index: Int) {
-        guard let selectedMovie = interactor?.getMovieAtIndex(index) else { return }
-        if let router = router {
-            router.routeToShowMovieShowtimes(for: selectedMovie)
-        }
+        state.selectedRow = index
+        router?.routeToShowMovieShowtimes()
     }
     
 }

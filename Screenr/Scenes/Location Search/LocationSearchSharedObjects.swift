@@ -36,6 +36,12 @@ enum LocationSearch {
         struct ViewModel {
             var displayedLocation: DisplayedLocation
         }
+        
+        struct Alert {
+            static func invalidLocationEntry() -> CustomAlertViewController.AlertInfo {
+                return CustomAlertViewController.AlertInfo(header: "Invalid Postal Code", message: "Please enter a valid postal code.", okButtonTitle: "OK", cancelButtonTitle: nil)
+            }
+        }
     }
     
     //User Input -> Interactor Input

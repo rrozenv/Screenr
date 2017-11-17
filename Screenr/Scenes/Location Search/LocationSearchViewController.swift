@@ -108,6 +108,10 @@ final class LocationSearchViewController: UIViewController {
         self.tableView.reloadData()
     }
     
+    func displayInvalidLocationEntry() {
+        self.displayInvalidLocationEntryAlert()
+    }
+    
     func displayDidChangeLocationConfirmation(viewModel: LocationSearch.SaveLocation.ViewModel) {
         self.showConfirmationAlert(title: "Location Changed", message: "You successfully changed your preffered zip code to: \(viewModel.displayedLocation.zipCode)")
     }
@@ -120,6 +124,13 @@ final class LocationSearchViewController: UIViewController {
         }
         alertController.addAction(alertAction)
         self.showDetailViewController(alertController, sender: nil)
+    }
+    
+    fileprivate func displayInvalidLocationEntryAlert() {
+        let alertInfo = LocationSearch.SaveLocation.Alert.invalidLocationEntry()
+        let alertVC = CustomAlertViewController(alertInfo: alertInfo, okAction: nil)
+        alertVC.modalPresentationStyle = .overCurrentContext
+        self.present(alertVC, animated: true, completion: nil)
     }
     
     fileprivate func setupTableView() {
@@ -165,7 +176,7 @@ extension LocationSearchViewController: UISearchResultsUpdating, UISearchBarDele
         guard let searchText = searchBar.text, searchText != "" else { return }
         searchController.isActive = false
         let request = LocationSearch.SaveLocation.Request(zipCode: searchText)
-        engine?.didSelectLocation(request: request)
+        engine?.processNewLocation(request: request)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -197,9 +208,10 @@ extension LocationSearchViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         guard let zipcode = cell?.textLabel?.text else { return }
+        self.searchController.isActive = false
         self.deselectPreviousCell()
         let request = LocationSearch.SaveLocation.Request(zipCode: zipcode)
-        engine?.didSelectLocation(request: request)
+        engine?.fetchLocationFromSavedLocations(request: request)
     }
     
     private func deselectPreviousCell() {

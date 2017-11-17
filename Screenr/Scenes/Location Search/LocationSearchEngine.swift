@@ -4,7 +4,8 @@ import RealmSwift
 
 protocol LocationSearchLogic {
     func fetchSavedLocations()
-    func didSelectLocation(request: LocationSearch.SaveLocation.Request)
+    func fetchLocationFromSavedLocations(request: LocationSearch.SaveLocation.Request)
+    func processNewLocation(request: LocationSearch.SaveLocation.Request)
 }
 
 protocol LocationSearchDataStore {
@@ -35,13 +36,25 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
             }
     }
     
-    func didSelectLocation(request: LocationSearch.SaveLocation.Request) {
-        self.saveCurrentLocationToDefaults(location: request.zipCode)
+    func fetchLocationFromSavedLocations(request: LocationSearch.SaveLocation.Request) {
         if let index = locations.index(where: { $0.code == request.zipCode }) {
+            self.saveCurrentLocationToDefaults(location: locations[index].code)
             let response = LocationSearch.SaveLocation.Response(location: locations[index])
             presenter?.presentConfirmation(response: response)
         } else {
-            self.saveLocationToDatabase(location: request.zipCode)
+            print("Location not found in history.")
+        }
+    }
+    
+    func processNewLocation(request: LocationSearch.SaveLocation.Request) {
+        guard isValidLocation(request.zipCode) else {
+            self.presenter?.presentInvalidLocationEntry()
+            return
+        }
+        self.saveCurrentLocationToDefaults(location: request.zipCode)
+        self.saveLocationToDatabase(location: request.zipCode) { [weak self] (newLocation) in
+            let response = LocationSearch.SaveLocation.Response(location: newLocation!)
+            self?.presenter?.presentConfirmation(response: response)
         }
     }
     
@@ -49,20 +62,25 @@ final class LocationSearchEngine: LocationSearchLogic, LocationSearchDataStore {
 
 extension LocationSearchEngine {
     
+    fileprivate func isValidLocation(_ location: String) -> Bool {
+        return location.count == 5
+    }
+    
     fileprivate func saveCurrentLocationToDefaults(location: String) {
         DefaultsProperty<String>(.currentLocation).value = location
     }
     
-    fileprivate func saveLocationToDatabase(location: String) {
+    fileprivate func saveLocationToDatabase(location: String, completion: @escaping (Location_R?) -> Void) {
         let value = ["code": location]
         //let backgroundQ = DispatchQueue.global(qos: .background)
         privateRealm
             .create(Location_R.self, value: value)
-            .then { [weak self] (newLocation) -> Void in
-                let response = LocationSearch.SaveLocation.Response(location: newLocation)
-                self?.presenter?.presentConfirmation(response: response)
+            .then { (newLocation) -> Void in
+                print("Location: \(newLocation.code) saved successfully")
+                completion(newLocation)
             }
             .catch { (error) in
+                completion(nil)
                 if let realmError = error as? RealmError {
                     print(realmError.description)
                 } else {
