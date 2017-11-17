@@ -21,10 +21,10 @@ final class ListContestsEngine: ListContestsDataStore, ListContestsBusinessLogic
     func fetchContestsFromDataBase(request: ListContests.FetchContests.Request) {
         self.commonRealm
             .fetch(Contest_R.self)
-            .then { (contests) -> Void in
-                self.contests = contests
+            .then { [weak self] (contests) -> Void in
+                self?.contests = contests
                 let response = ListContests.FetchContests.Response(contests: contests)
-                self.presenter?.formatContests(response: response)
+                self?.presenter?.formatContests(response: response)
             }
             .catch { (error) in
                 if let realmError = error as? RealmError {
@@ -32,7 +32,7 @@ final class ListContestsEngine: ListContestsDataStore, ListContestsBusinessLogic
                 } else {
                     print(error.localizedDescription)
                 }
-        }
+            }
     }
     
 }
