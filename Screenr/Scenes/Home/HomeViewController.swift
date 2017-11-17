@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
     fileprivate var customNavBar: CustomNavigationBar!
     fileprivate var tabBarView: TabBarView!
     
-    fileprivate lazy var mainMovieListViewController: MainMovieListViewController = {
+    fileprivate lazy var mainMovieListViewController: MainMovieListViewController = { [unowned self] in
         let vc = MainMovieListViewController()
         vc.collectionViewTopInset = self.customNavBar.height + self.tabBarView.height + 20
         return vc
@@ -31,6 +31,7 @@ class HomeViewController: UIViewController {
         return ListContestsViewController()
     }()
     
+    var engine: HomeBusinessLogic?
     var router: (HomeRoutingLogic & NSObjectProtocol)?
     
     init(currentTabButton: HomeViewController.TabButtonType) {
@@ -45,7 +46,9 @@ class HomeViewController: UIViewController {
     
     private func setup() {
         let viewController = self
+        let engine = HomeEngine()
         let router = HomeRouter()
+        viewController.engine = engine
         viewController.router = router
         router.viewController = viewController
     }
@@ -83,10 +86,10 @@ class HomeViewController: UIViewController {
 extension HomeViewController: LocationServiceDelegate {
     
     fileprivate func fetchUsersCurrentLocation() {
-        if let location = DefaultsProperty<String>(.currentLocation).value {
-            displayUpdatedLocation(location: location)
+        if let oldLocation = DefaultsProperty<String>(.currentLocation).value {
+            displayUpdatedLocation(location: oldLocation)
         }
-        //tracingLocation(currentLocation:) will be called after inital loca tion is found
+        //tracingLocation(currentLocation:) will be called after inital location is found
         LocationService.shared.delegate = self
     }
     
@@ -106,7 +109,8 @@ extension HomeViewController: LocationServiceDelegate {
             .fetchPostalCodeFor(location)
             .then { [weak self] (postalCode) -> Void in
                 guard let postalCode = postalCode else { return }
-                self?.saveCurrentLocationToDefaults(location: postalCode)
+                self?.engine?.saveCurrentLocationToDefaults(postalCode)
+                self?.engine?.saveLocationInDatabase(postalCode)
                 self?.displayUpdatedLocation(location: postalCode)
                 NotificationCenter.default.post(name: .locationChanged, object: nil)
                 print("Fetched zip: \(String(describing: postalCode))")
@@ -128,10 +132,6 @@ extension HomeViewController: LocationServiceDelegate {
     
     func displayUpdatedLocation(location: String) {
         self.customNavBar.locationLabel.text = "\(location)"
-    }
-    
-    fileprivate func saveCurrentLocationToDefaults(location: String) {
-        DefaultsProperty<String>(.currentLocation).value = location
     }
     
 }

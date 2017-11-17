@@ -79,6 +79,7 @@
 		986F31DC1FB0E081009D4571 /* CreateContestSummaryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */; };
 		98713C471FA17F24003A71C4 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98713C461FA17F24003A71C4 /* Secrets.swift */; };
 		98828C061FB4CC6900559932 /* ContestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98828C051FB4CC6900559932 /* ContestTableViewCell.swift */; };
+		988CC64E1FBF4CE900284977 /* HomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988CC64D1FBF4CE900284977 /* HomeEngine.swift */; };
 		989A98091FA795FF004E8E56 /* LocationSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */; };
 		98AD64011FB7B86D00B26F2B /* MovieHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */; };
 		98B5BC3F1FB3590400A41342 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5BC3E1FB3590400A41342 /* HomeRouter.swift */; };
@@ -178,6 +179,7 @@
 		986F31DB1FB0E081009D4571 /* CreateContestSummaryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestSummaryRouter.swift; sourceTree = "<group>"; };
 		98713C461FA17F24003A71C4 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		98828C051FB4CC6900559932 /* ContestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestTableViewCell.swift; sourceTree = "<group>"; };
+		988CC64D1FBF4CE900284977 /* HomeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEngine.swift; sourceTree = "<group>"; };
 		989A98081FA795FF004E8E56 /* LocationSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchRouter.swift; sourceTree = "<group>"; };
 		98AD64001FB7B86D00B26F2B /* MovieHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieHeaderView.swift; sourceTree = "<group>"; };
 		98B5BC3E1FB3590400A41342 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				981375261FB2946900B8E17B /* HomeViewController.swift */,
+				988CC64D1FBF4CE900284977 /* HomeEngine.swift */,
 				98B5BC3E1FB3590400A41342 /* HomeRouter.swift */,
 				981375281FB2969300B8E17B /* TabBarView.swift */,
 			);
@@ -776,6 +779,7 @@
 				98591F921FA3DAAD0077E40C /* LocationSearchEngine.swift in Sources */,
 				9826A2561F9A7B3300C81F64 /* CalendarDayCell.swift in Sources */,
 				981580831FA3BAD200B4EDB5 /* LocationService.swift in Sources */,
+				988CC64E1FBF4CE900284977 /* HomeEngine.swift in Sources */,
 				980346441F93E9B6003F2E48 /* MainMovieListModels.swift in Sources */,
 				9803463A1F93D479003F2E48 /* MovieWorker.swift in Sources */,
 				98EA38C31FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift in Sources */,
