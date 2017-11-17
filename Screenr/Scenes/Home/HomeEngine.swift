@@ -1,22 +1,57 @@
 
 import Foundation
+import CoreLocation
 
 protocol HomeBusinessLogic {
-    func saveCurrentLocationToDefaults(_ location: String)
-    func saveLocationInDatabase(_ location: String)
+    func fetchCurrentLocation()
 }
 
-final class HomeEngine: HomeBusinessLogic {
+final class HomeEngine: HomeBusinessLogic, LocationServiceDelegate {
     
     lazy var privateRealm: RealmStorageContext = {
         return RealmStorageContext(configuration: RealmConfig.secret)
     }()
     
-    func saveCurrentLocationToDefaults(_ location: String) {
+    func fetchCurrentLocation() {
+        //tracingLocation(currentLocation:) will be called after inital location is found
+        LocationService.shared.delegate = self
+    }
+    
+    func tracingLocation(currentLocation: CLLocation) {
+        fetchPostalCode(for: currentLocation)
+    }
+    
+    func tracingLocationDidFailWithError(error: NSError) {
+        if let lastLocation = LocationService.shared.lastLocation {
+            fetchPostalCode(for: lastLocation)
+        }
+        print("Fetching location failed: \(error.localizedDescription)")
+    }
+    
+    func fetchPostalCode(for location: CLLocation) {
+        LocationService.shared
+            .fetchPostalCodeFor(location)
+            .then { [weak self] (postalCode) -> Void in
+                guard let postalCode = postalCode else { return }
+                self?.saveCurrentLocationToDefaults(postalCode)
+                self?.saveLocationInDatabase(postalCode)
+                NotificationCenter.default.post(name: .locationChanged, object: nil)
+                print("Fetched zip: \(String(describing: postalCode))")
+            }
+            .catch { (error) in
+                print(error.localizedDescription)
+        }
+    }
+    
+}
+
+extension HomeEngine {
+    
+    fileprivate func saveCurrentLocationToDefaults(_ location: String) {
         DefaultsProperty<String>(.currentLocation).value = location
     }
     
-    func saveLocationInDatabase(_ location: String) {
+    fileprivate func saveLocationInDatabase(_ location: String) {
         //Check if location is already saved first
         let predicate = NSPredicate(format: "code == %@", "\(location)")
         self.privateRealm
@@ -43,6 +78,5 @@ final class HomeEngine: HomeBusinessLogic {
                 }
         }
     }
-
     
 }

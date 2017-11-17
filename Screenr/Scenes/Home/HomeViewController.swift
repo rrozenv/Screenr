@@ -60,7 +60,8 @@ class HomeViewController: UIViewController {
         setupTabBarView()
         setCurrentViewController()
         setupNavigationButtons()
-        fetchUsersCurrentLocation()
+        fetchLastSavedLocation()
+        fetchCurrentLocation()
         addLocationChangedNotificationObserver()
     }
     
@@ -83,41 +84,16 @@ class HomeViewController: UIViewController {
 
 //MARK: - Location Functions
 
-extension HomeViewController: LocationServiceDelegate {
+extension HomeViewController {
     
-    fileprivate func fetchUsersCurrentLocation() {
-        if let oldLocation = DefaultsProperty<String>(.currentLocation).value {
-            displayUpdatedLocation(location: oldLocation)
+    fileprivate func fetchLastSavedLocation() {
+        if let lastLocation = DefaultsProperty<String>(.currentLocation).value {
+            displayUpdatedLocation(location: lastLocation)
         }
-        //tracingLocation(currentLocation:) will be called after inital location is found
-        LocationService.shared.delegate = self
     }
     
-    func tracingLocation(currentLocation: CLLocation) {
-        fetchPostalCodeAndRequestMovies(location: currentLocation)
-    }
-    
-    func tracingLocationDidFailWithError(error: NSError) {
-        if let lastLocation = LocationService.shared.lastLocation {
-            fetchPostalCodeAndRequestMovies(location: lastLocation)
-        }
-        print("Fetching location failed: \(error.localizedDescription)")
-    }
-    
-    func fetchPostalCodeAndRequestMovies(location: CLLocation) {
-        LocationService.shared
-            .fetchPostalCodeFor(location)
-            .then { [weak self] (postalCode) -> Void in
-                guard let postalCode = postalCode else { return }
-                self?.engine?.saveCurrentLocationToDefaults(postalCode)
-                self?.engine?.saveLocationInDatabase(postalCode)
-                self?.displayUpdatedLocation(location: postalCode)
-                NotificationCenter.default.post(name: .locationChanged, object: nil)
-                print("Fetched zip: \(String(describing: postalCode))")
-            }
-            .catch { (error) in
-                print(error.localizedDescription)
-            }
+    fileprivate func fetchCurrentLocation() {
+        engine?.fetchCurrentLocation()
     }
     
     fileprivate func addLocationChangedNotificationObserver() {

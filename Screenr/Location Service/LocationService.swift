@@ -3,7 +3,7 @@ import Foundation
 import CoreLocation
 import PromiseKit
 
-protocol LocationServiceDelegate {
+protocol LocationServiceDelegate: class {
     func tracingLocation(currentLocation: CLLocation)
     func tracingLocationDidFailWithError(error: NSError)
 }
@@ -13,7 +13,7 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     static let shared = LocationService()
     var locationManager: CLLocationManager?
     var lastLocation: CLLocation?
-    var delegate: LocationServiceDelegate?
+    weak var delegate: LocationServiceDelegate?
     
     override init() {
         super.init()
