@@ -17,12 +17,22 @@ class MovieWorker {
         return movies
     }
     
-    func fetchCurrentlyPlayingMovies(_ resource: Resource<[Movie_R]>) -> Promise<[Movie_R]> {
+    func fetchShowtimesForMovie(_ resource: Resource<Movie_R>) -> Promise<Movie_R> {
         return webservice.load(resource)
     }
     
-    func fetchShowtimesForMovie(_ resource: Resource<Movie_R>) -> Promise<Movie_R> {
-        return webservice.load(resource)
+    func fetchCurrentlyPlayingMovies(_ resource: Resource<[Movie_R]>, completion: @escaping ([Movie_R]?, Error?) -> Void) {
+        webservice.load(resource).then { (movies) -> Void in
+                completion(movies, nil)
+            }
+            .catch { (error) -> Void in
+                if let httpError = error as? HTTPError {
+                    print(httpError.description)
+                } else {
+                    print(error.localizedDescription)
+                }
+                completion(nil, error)
+            }
     }
     
 }

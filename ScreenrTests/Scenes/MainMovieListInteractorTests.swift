@@ -1,10 +1,3 @@
-//
-//  MainMovieListInteractorTests.swift
-//  ScreenrTests
-//
-//  Created by Robert Rozenvasser on 11/20/17.
-//  Copyright © 2017 GoKid. All rights reserved.
-//
 
 @testable import Screenr
 import XCTest
@@ -31,16 +24,20 @@ class MainMovieListInteractorTests: XCTestCase {
     
     class MainMovieListWorkerSpy: MovieWorker {
         var fetchCalled = false
+        let deferredPromise = Promise<[Movie_R]>.pending()
         
-        override func fetchCurrentlyPlayingMovies(_ resource: Resource<[Movie_R]>) -> Promise<[Movie_R]> {
-            let movie = Movie_R()
-            movie.movieID = "100"
-            movie.year = "1999"
-            let movies = [movie]
+        override func fetchCurrentlyPlayingMovies(_ resource: Resource<[Movie_R]>, completion: @escaping ([Movie_R], Error?) -> Void) {
+            let movies = MainMovieList.Seeds.genearteTestMovies()
             fetchCalled = true
-            return Promise { fullfill, _ in
-                fullfill(movies)
-            }
+            completion(movies, nil)
+        }
+    }
+    
+    class MainMovieListPresentationLogicSpy: MainMovieListPresentationLogic {
+        var presentMovieListCalled = false
+        
+        func presentMovieList(response: MainMovieList.Response) {
+            presentMovieListCalled = true
         }
     }
     
@@ -50,12 +47,26 @@ class MainMovieListInteractorTests: XCTestCase {
         // Given
         let mainMovieListWorkerSpy = MainMovieListWorkerSpy()
         testClass.moviesWorker = mainMovieListWorkerSpy
-        
+
         // When
-        testClass.loadMoviesFromNetwork(for: "10016")
+        testClass.fetchMoviesFromNetwork(for: "10016")
         
         // Then
         XCTAssertTrue(mainMovieListWorkerSpy.fetchCalled, "fetchGists(request:) should ask the worker to fetch gists")
+    }
+    
+    func testLoadMoviesShouldAskPresenterToFormatMovies() {
+        // Given
+        let mainMovieListWorkerSpy = MainMovieListWorkerSpy()
+        testClass.moviesWorker = mainMovieListWorkerSpy
+        let mainMovieListPresentationLogicSpy = MainMovieListPresentationLogicSpy()
+        testClass.presenter = mainMovieListPresentationLogicSpy
+        
+        // When
+        testClass.fetchMoviesFromNetwork(for: "10016")
+        
+        // Then
+        XCTAssertTrue(mainMovieListPresentationLogicSpy.presentMovieListCalled, "fetchGists(request:) should ask the presenter to format gists")
     }
     
 }

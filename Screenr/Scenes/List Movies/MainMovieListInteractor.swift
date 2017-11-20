@@ -4,8 +4,8 @@ import UIKit
 import PromiseKit
 
 protocol MainMovieListBusinessLogic {
-    func loadMoviesFromNetwork(for location: String)
     func loadCachedMovies(request: MainMovieList.Request)
+    func fetchMoviesFromNetwork(for location: String)
 }
 
 protocol MainMovieListDataStore {
@@ -26,21 +26,12 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         }
     }
     
-    func loadMoviesFromNetwork(for location: String) {
+    func fetchMoviesFromNetwork(for location: String) {
         let resource = Movie_R.moviesResource(for: location)
         self.moviesWorker
-            .fetchCurrentlyPlayingMovies(resource)
-            .then { [weak self] (movies) -> Void in
-                self?.movies = movies
+            .fetchCurrentlyPlayingMovies(resource) { [weak self] (movies, _) in
+                //movies = nil if error exists
                 self?.generateResponseForPresenter(with: movies)
-            }
-            .catch { [weak self] (error) -> Void in
-                self?.generateResponseForPresenter(with: nil)
-                if let httpError = error as? HTTPError {
-                    print(httpError.description)
-                } else {
-                    print(error.localizedDescription)
-                }
             }
     }
 

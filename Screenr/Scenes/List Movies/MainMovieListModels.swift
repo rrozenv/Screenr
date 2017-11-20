@@ -34,4 +34,16 @@ enum MainMovieList {
         }
     }
     
+    struct Seeds {
+        static func genearteTestMovies() -> [Movie_R] {
+            let movieOne = Movie_R()
+            movieOne.movieID = "1"
+            movieOne.year = "1999"
+            let movieTwo = Movie_R()
+            movieTwo.movieID = "2"
+            movieTwo.year = "2000"
+            return [movieOne, movieTwo]
+        }
+    }
+    
 }

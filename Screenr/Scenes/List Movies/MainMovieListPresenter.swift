@@ -8,7 +8,7 @@ protocol MainMovieListPresentationLogic {
 
 class MainMovieListPresenter: MainMovieListPresentationLogic {
     
-    weak var viewController: MainMovieListViewController?
+    weak var viewController: MainMovieListDisplayLogic?
  
     func presentMovieList(response: MainMovieList.Response) {
         guard let movies = response.movies else { displayEmptyMovieList() ; return }

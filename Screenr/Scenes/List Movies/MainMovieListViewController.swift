@@ -7,6 +7,10 @@ import PromiseKit
 
 // MARK: - Initialization
 
+protocol MainMovieListDisplayLogic: class {
+    func displayMoviesFromNetwork(viewModel: MainMovieList.ViewModel)
+}
+
 final class MainMovieListViewController: UIViewController, ChildViewControllerManager {
     
     struct State {
@@ -123,7 +127,7 @@ extension MainMovieListViewController {
     
     func loadMoviesFromNetwork(for location: String) {
         state.isLoading = true
-        interactor?.loadMoviesFromNetwork(for: location)
+        interactor?.fetchMoviesFromNetwork(for: location)
     }
     
     func didSelectMovieSearchButton(_ sender: UIButton) {
@@ -134,7 +138,7 @@ extension MainMovieListViewController {
 
 // MARK: - Presenter Input
 
-extension MainMovieListViewController {
+extension MainMovieListViewController: MainMovieListDisplayLogic {
     
     func displayMoviesFromNetwork(viewModel: MainMovieList.ViewModel) {
         state.isLoading = false
