@@ -21,7 +21,7 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
     func loadCachedMovies(request: MainMovieList.Request) {
         let resource = Movie_R.moviesResource(for: request.location)
         if let cachedMovies = moviesWorker.loadCachedMovies(resource) {
-            self.saveMoviesToDataStore(cachedMovies)
+            self.movies = cachedMovies
             self.generateResponseForPresenter(with: cachedMovies)
         }
     }
@@ -31,7 +31,7 @@ final class MainMovieListInteractor: MainMovieListBusinessLogic, MainMovieListDa
         self.moviesWorker
             .fetchCurrentlyPlayingMovies(resource)
             .then { [weak self] (movies) -> Void in
-                self?.saveMoviesToDataStore(movies)
+                self?.movies = movies
                 self?.generateResponseForPresenter(with: movies)
             }
             .catch { [weak self] (error) -> Void in
@@ -55,10 +55,4 @@ extension MainMovieListInteractor {
     
 }
 
-extension MainMovieListInteractor {
-    
-    fileprivate func saveMoviesToDataStore(_ movies: [Movie_R]) {
-        self.movies = movies
-    }
-    
-}
+

@@ -46,6 +46,11 @@ public enum KingfisherOptionsInfoItem {
     /// the downloaded image to it.
     case targetCache(ImageCache)
     
+    /// Cache for storing and retrieving original image.
+    /// Preferred prior to targetCache for storing and retrieving original images if specified.
+    /// Only used if a non-default image processor is involved.
+    case originalCache(ImageCache)
+    
     /// The associated value of this member should be an ImageDownloader object. Kingfisher will use this
     /// downloader to download the images.
     case downloader(ImageDownloader)
@@ -62,6 +67,11 @@ public enum KingfisherOptionsInfoItem {
     
     /// If set, `Kingfisher` will ignore the cache and try to fire a download task for the resource.
     case forceRefresh
+
+    /// If set, `Kingfisher` will try to retrieve the image from memory cache first. If the image is not in memory
+    /// cache, then it will ignore the disk cache but download the image again from network. This is useful when
+    /// you want to display a changeable image behind the same url, while avoiding download it again and again.
+    case fromMemoryCacheOrRefresh
     
     /// If set, setting the image to an image view will happen with transition even when retrieved from cache.
     /// See `Transition` option for more.
@@ -138,10 +148,12 @@ infix operator <== : ItemComparisonPrecedence
 func <== (lhs: KingfisherOptionsInfoItem, rhs: KingfisherOptionsInfoItem) -> Bool {
     switch (lhs, rhs) {
     case (.targetCache(_), .targetCache(_)): return true
+    case (.originalCache(_), .originalCache(_)): return true
     case (.downloader(_), .downloader(_)): return true
     case (.transition(_), .transition(_)): return true
     case (.downloadPriority(_), .downloadPriority(_)): return true
     case (.forceRefresh, .forceRefresh): return true
+    case (.fromMemoryCacheOrRefresh, .fromMemoryCacheOrRefresh): return true
     case (.forceTransition, .forceTransition): return true
     case (.cacheMemoryOnly, .cacheMemoryOnly): return true
     case (.onlyFromCache, .onlyFromCache): return true
@@ -181,6 +193,16 @@ public extension Collection where Iterator.Element == KingfisherOptionsInfoItem 
         return ImageCache.default
     }
     
+    /// The original `ImageCache` which is used.
+    public var originalCache: ImageCache {
+        if let item = lastMatchIgnoringAssociatedValue(.originalCache(.default)),
+            case .originalCache(let cache) = item
+        {
+            return cache
+        }
+        return targetCache
+    }
+    
     /// The `ImageDownloader` which is specified.
     public var downloader: ImageDownloader {
         if let item = lastMatchIgnoringAssociatedValue(.downloader(.default)),
@@ -215,6 +237,11 @@ public extension Collection where Iterator.Element == KingfisherOptionsInfoItem 
     /// Whether an image will be always downloaded again or not.
     public var forceRefresh: Bool {
         return contains{ $0 <== .forceRefresh }
+    }
+
+    /// Whether an image should be got only from memory cache or download.
+    public var fromMemoryCacheOrRefresh: Bool {
+        return contains{ $0 <== .fromMemoryCacheOrRefresh }
     }
     
     /// Whether the transition should always happen or not.

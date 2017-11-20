@@ -98,16 +98,29 @@
 		98DF9AD11F924E0000DBAD5E /* MainMovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */; };
 		98DF9AF51F927DC500DBAD5E /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF9AF41F927DC500DBAD5E /* Movie.swift */; };
 		98DF9AF71F927E0500DBAD5E /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DF9AF61F927E0500DBAD5E /* DateExtensions.swift */; };
+		98E4A0641FC34AF3008CF7BA /* MainMovieListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E4A0631FC34AF3008CF7BA /* MainMovieListInteractorTests.swift */; };
 		98EA38C11FBD01AE002D7C9C /* CreateContestHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */; };
 		98EA38C31FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA38C21FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift */; };
 		98EA3A681FA02AD10070F459 /* LoginViewControllerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A671FA02AD10070F459 /* LoginViewControllerEngine.swift */; };
 		98EA3A6A1FA02B500070F459 /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A691FA02B500070F459 /* LoginModels.swift */; };
 		98EA3A6C1FA02D800070F459 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A6B1FA02D800070F459 /* LoginRouter.swift */; };
 		98EA3A6E1FA02DB60070F459 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EA3A6D1FA02DB60070F459 /* LoginPresenter.swift */; };
+		C2B2F4C3B7B1152888A3BE5F /* Pods_ScreenrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC0CF8143098E4DA0BEC2C0 /* Pods_ScreenrTests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		98E4A05D1FC3421F008CF7BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98DF9AB11F924CF100DBAD5E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 98DF9AB81F924CF200DBAD5E;
+			remoteInfo = Screenr;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		011B987782B75D26055D7492 /* Pods-Screenr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Screenr/Pods-Screenr.debug.xcconfig"; sourceTree = "<group>"; };
+		67C876135B0DD140D2758CFD /* Pods-ScreenrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenrTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenrTests/Pods-ScreenrTests.release.xcconfig"; sourceTree = "<group>"; };
 		980200241FA8223C001334ED /* RealmStorageContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStorageContext.swift; sourceTree = "<group>"; };
 		9802AFC01FBC9F7C0040474D /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		980346371F93CF46003F2E48 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
@@ -200,6 +213,9 @@
 		98DF9AD01F924E0000DBAD5E /* MainMovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListViewController.swift; sourceTree = "<group>"; };
 		98DF9AF41F927DC500DBAD5E /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		98DF9AF61F927E0500DBAD5E /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		98E4A0581FC3421F008CF7BA /* ScreenrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScreenrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98E4A05C1FC3421F008CF7BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98E4A0631FC34AF3008CF7BA /* MainMovieListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieListInteractorTests.swift; sourceTree = "<group>"; };
 		98EA38C01FBD01AE002D7C9C /* CreateContestHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContestHeaderView.swift; sourceTree = "<group>"; };
 		98EA38C21FBD0F8D002D7C9C /* MovieSearchTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchTableHeaderView.swift; sourceTree = "<group>"; };
 		98EA3A671FA02AD10070F459 /* LoginViewControllerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerEngine.swift; sourceTree = "<group>"; };
@@ -208,6 +224,8 @@
 		98EA3A6D1FA02DB60070F459 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		B7734059D4AE9BA7C3DE07AD /* Pods_Screenr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Screenr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75011FD1DD8811EB88AAF58 /* Pods-Screenr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Screenr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Screenr/Pods-Screenr.release.xcconfig"; sourceTree = "<group>"; };
+		FAC0CF8143098E4DA0BEC2C0 /* Pods_ScreenrTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScreenrTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD257A68EB586B2FDB783ED8 /* Pods-ScreenrTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScreenrTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScreenrTests/Pods-ScreenrTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +237,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		98E4A0551FC3421F008CF7BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2B2F4C3B7B1152888A3BE5F /* Pods_ScreenrTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -226,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				B7734059D4AE9BA7C3DE07AD /* Pods_Screenr.framework */,
+				FAC0CF8143098E4DA0BEC2C0 /* Pods_ScreenrTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -531,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				98DF9ABB1F924CF200DBAD5E /* Screenr */,
+				98E4A0591FC3421F008CF7BA /* ScreenrTests */,
 				98DF9ABA1F924CF200DBAD5E /* Products */,
 				F8AF6FFDAEFE67FAF67E1E74 /* Pods */,
 				041693D513C4F9EF21F82B19 /* Frameworks */,
@@ -541,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				98DF9AB91F924CF200DBAD5E /* Screenr.app */,
+				98E4A0581FC3421F008CF7BA /* ScreenrTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -564,6 +593,23 @@
 			path = Screenr;
 			sourceTree = "<group>";
 		};
+		98E4A0591FC3421F008CF7BA /* ScreenrTests */ = {
+			isa = PBXGroup;
+			children = (
+				98E4A0621FC34A9B008CF7BA /* Scenes */,
+				98E4A05C1FC3421F008CF7BA /* Info.plist */,
+			);
+			path = ScreenrTests;
+			sourceTree = "<group>";
+		};
+		98E4A0621FC34A9B008CF7BA /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				98E4A0631FC34AF3008CF7BA /* MainMovieListInteractorTests.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
 		98EA3A6F1FA03B670070F459 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,6 +627,8 @@
 			children = (
 				011B987782B75D26055D7492 /* Pods-Screenr.debug.xcconfig */,
 				E75011FD1DD8811EB88AAF58 /* Pods-Screenr.release.xcconfig */,
+				FD257A68EB586B2FDB783ED8 /* Pods-ScreenrTests.debug.xcconfig */,
+				67C876135B0DD140D2758CFD /* Pods-ScreenrTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -608,19 +656,46 @@
 			productReference = 98DF9AB91F924CF200DBAD5E /* Screenr.app */;
 			productType = "com.apple.product-type.application";
 		};
+		98E4A0571FC3421F008CF7BA /* ScreenrTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98E4A0611FC3421F008CF7BA /* Build configuration list for PBXNativeTarget "ScreenrTests" */;
+			buildPhases = (
+				AD62727915E2C51A0C206C86 /* [CP] Check Pods Manifest.lock */,
+				98E4A0541FC3421F008CF7BA /* Sources */,
+				98E4A0551FC3421F008CF7BA /* Frameworks */,
+				98E4A0561FC3421F008CF7BA /* Resources */,
+				10148FD9BFF4CE046743FDA7 /* [CP] Embed Pods Frameworks */,
+				19876E8AB24D36296AE1E894 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				98E4A05E1FC3421F008CF7BA /* PBXTargetDependency */,
+			);
+			name = ScreenrTests;
+			productName = ScreenrTests;
+			productReference = 98E4A0581FC3421F008CF7BA /* ScreenrTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		98DF9AB11F924CF100DBAD5E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = GoKid;
 				TargetAttributes = {
 					98DF9AB81F924CF200DBAD5E = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+					};
+					98E4A0571FC3421F008CF7BA = {
+						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 98DF9AB81F924CF200DBAD5E;
 					};
 				};
 			};
@@ -638,6 +713,7 @@
 			projectRoot = "";
 			targets = (
 				98DF9AB81F924CF200DBAD5E /* Screenr */,
+				98E4A0571FC3421F008CF7BA /* ScreenrTests */,
 			);
 		};
 /* End PBXProject section */
@@ -652,9 +728,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		98E4A0561FC3421F008CF7BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		10148FD9BFF4CE046743FDA7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ScreenrTests/Pods-ScreenrTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ScreenrTests/Pods-ScreenrTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		19876E8AB24D36296AE1E894 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ScreenrTests/Pods-ScreenrTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		580122E250079EEA8395E46A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -685,6 +815,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Screenr/Pods-Screenr-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD62727915E2C51A0C206C86 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ScreenrTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D70271865640993AAC627D59 /* [CP] Check Pods Manifest.lock */ = {
@@ -824,7 +972,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		98E4A0541FC3421F008CF7BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98E4A0641FC34AF3008CF7BA /* MainMovieListInteractorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		98E4A05E1FC3421F008CF7BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 98DF9AB81F924CF200DBAD5E /* Screenr */;
+			targetProxy = 98E4A05D1FC3421F008CF7BA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		98DF9AC51F924CF200DBAD5E /* LaunchScreen.storyboard */ = {
@@ -979,6 +1143,46 @@
 			};
 			name = Release;
 		};
+		98E4A05F1FC3421F008CF7BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD257A68EB586B2FDB783ED8 /* Pods-ScreenrTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 26Z24PM6F7;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = ScreenrTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gokid.ScreenrTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Screenr.app/Screenr";
+			};
+			name = Debug;
+		};
+		98E4A0601FC3421F008CF7BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67C876135B0DD140D2758CFD /* Pods-ScreenrTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 26Z24PM6F7;
+				INFOPLIST_FILE = ScreenrTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.gokid.ScreenrTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Screenr.app/Screenr";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -996,6 +1200,15 @@
 			buildConfigurations = (
 				98DF9ACC1F924CF200DBAD5E /* Debug */,
 				98DF9ACD1F924CF200DBAD5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98E4A0611FC3421F008CF7BA /* Build configuration list for PBXNativeTarget "ScreenrTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98E4A05F1FC3421F008CF7BA /* Debug */,
+				98E4A0601FC3421F008CF7BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

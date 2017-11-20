@@ -7,7 +7,7 @@ import RealmSwift
 
 typealias JSONDictionary = [String: Any]
 
-struct MovieWorker {
+class MovieWorker {
     
     private let webservice = WebService.shared
     private let cache = Cache.shared
